@@ -25,212 +25,39 @@
 
     <!-- Cubemap Layers, we toggle these layers to give the illusion of a scene change. We could also nest objects in these layers to really sell it! -->
     <a-entity id="L1" visible="true" defer>
-        <a-entity cubemap="folder: #Mountain-Cube"></a-entity>
+        <a-sky id="sky-1" radius="10" src="#sky1"></a-sky>
     </a-entity>
 
     <a-entity id="L2" visible="true" defer>
-        <a-entity cubemap="folder: #Louvre-Cube"></a-entity>
+        <a-sky id="sky-2" radius="10" src="#sky2"></a-sky>
     </a-entity>
 
     <a-entity id="L3" visible="true" defer>
-        <a-entity cubemap="folder: #Snow-Cube"></a-entity>
+        <a-sky id="sky-3" radius="10" src="#sky3"></a-sky>
     </a-entity>
 
     <a-entity id="L4" visible="true" defer>
-        <a-entity cubemap="folder: #Desert-Cube"></a-entity>
+        <a-sky id="sky-4" radius="10" src="#sky4"></a-sky>
     </a-entity>
 
     <a-entity id="L5" visible="true" defer>
-        <a-entity cubemap="folder: #Sky-Cube"></a-entity>
+        <a-sky id="sky-5" radius="10" src="#sky5"></a-sky>
     </a-entity>
 
     <a-entity id="landingPage" visible="true">
-        <a-entity cubemap="folder: #First-Cube" ></a-entity>
+        <a-sky id="sky-5" radius="10" src="#sky1"></a-sky>
     </a-entity>
 
     <!-- assets  -->
     <a-assets timeout="10000">
 
-        <a-cubemap id="Mountain-Cube">
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/mountain-cube/posx.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/mountain-cube/negx.webp"
+        <img id="sky1" crossorigin="anonymous" src="./assets/equi/cityn.jpg">
+        <img id="sky2" crossorigin="anonymous" src="./assets/equi/landing.jpg">
+        <img id="sky3" crossorigin="anonymous" src="./assets/equi/Sky.jpg">
+        <img id="sky4" crossorigin="anonymous" src="./assets/equi/room.jpg">
+        <img id="sky5" crossorigin="anonymous" src="./assets/equi/snow.jpg">
 
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/mountain-cube/posy.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/mountain-cube/negy.webp"
-
-            />      <img
-                crossorigin="anonymous"
-                src="./assets/cubemaps/mountain-cube/posz.webp"
-        />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/mountain-cube/negz.webp"
-
-            />
-
-        </a-cubemap>
-
-
-        <a-cubemap id="Louvre-Cube">
-            <img
-
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/louvre-cube/posx.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/louvre-cube/negx.webp"
-
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/louvre-cube/posy.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/louvre-cube/negy.webp"
-
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/louvre-cube/posz.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/louvre-cube/negz.webp"
-
-            />
-        </a-cubemap>
-
-        <a-cubemap id="Snow-Cube">
-            <img
-
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/snow-cube/posx.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/snow-cube/negx.webp"
-
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/snow-cube/posy.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/snow-cube/negy.webp"
-
-            />      <img
-                crossorigin="anonymous"
-                src="./assets/cubemaps/snow-cube/posz.webp"
-        />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/snow-cube/negz.webp"
-
-            />
-        </a-cubemap>
-
-        <a-cubemap id="Sky-Cube">
-            <img
-
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/sky-cube/posx.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/sky-cube/negx.webp"
-
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/sky-cube/posy.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/sky-cube/negy.webp"
-
-            />      <img
-                crossorigin="anonymous"
-                src="./assets/cubemaps/sky-cube/posz.webp"
-        />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/sky-cube/negz.webp"
-            />
-
-        </a-cubemap>
-        <a-cubemap id="First-Cube">
-            <img
-
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/firstcube/posx.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/firstcube/negx.webp"
-
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/firstcube/posy.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/firstcube/negy.webp"
-
-            />      <img
-                crossorigin="anonymous"
-                src="./assets/cubemaps/firstcube/posz.webp"
-        />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/firstcube/negz.webp"
-            />
-        </a-cubemap>
-
-        <a-cubemap id="Desert-Cube">
-            <img
-
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/desert-cube/posx.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/desert-cube/negx.webp"
-
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/desert-cube/posy.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/desert-cube/negy.webp"
-
-            />      <img
-                crossorigin="anonymous"
-                src="./assets/cubemaps/desert-cube/posz.webp"
-        />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/desert-cube/negz.webp"
-            />
-        </a-cubemap>
-
-
+    </a-assets>
 
 
     </a-assets>

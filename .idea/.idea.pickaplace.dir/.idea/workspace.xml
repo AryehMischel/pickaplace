@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="307d45c7-537b-4262-baea-afb7bde963b5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/device-check.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gallery.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobile.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vr.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.pickaplace.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.pickaplace.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +53,7 @@
       <updated>1679936729700</updated>
       <workItem from="1679936738136" duration="469000" />
       <workItem from="1679937308716" duration="1599000" />
-      <workItem from="1679957783787" duration="304000" />
+      <workItem from="1679957783787" duration="922000" />
     </task>
     <servers />
   </component>
