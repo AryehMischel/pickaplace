@@ -9,9 +9,9 @@ function delay(time) {
 
 async function delayedSetScene() {
     if(scene.renderStarted){
+        console.log("rendered");
         setscene();
     } else{
-        console.log("not yet rendered");
         await delay(100);
         delayedSetScene()
 
@@ -21,7 +21,10 @@ async function delayedSetScene() {
 
 scene.addEventListener('loaded', delayedSetScene());
 
-let ActiveLayer =  document.getElementById('landingPage'); 
+
+const landingPage =  document.getElementById('landingPage');
+let ActiveLayer = landingPage;
+
 
 const Layer1 = document.getElementById('L1');
 const Layer2 = document.getElementById('L2');
