@@ -1,15 +1,25 @@
 // Based on -> https://github.com/alchemz/aframe_webvr_switch_scenes-->
 
+const scene = document.querySelector('a-scene');
+
+
 function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
 }
 
 async function delayedSetScene() {
-    await delay(2000);
-    setscene();
+    if(scene.renderStarted){
+        setscene();
+    } else{
+        console.log("not yet rendered");
+        await delay(100);
+        delayedSetScene()
+
+    }
+    
 }
 
-document.querySelector('a-scene').addEventListener('loaded', delayedSetScene());
+scene.addEventListener('loaded', delayedSetScene());
 
 let ActiveLayer =  document.getElementById('landingPage'); 
 
