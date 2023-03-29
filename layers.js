@@ -5,7 +5,7 @@ function delay(time) {
 }
 
 async function delayedSetScene() {
-    await delay(1000);
+    await delay(2000);
     setscene();
 }
 
