@@ -2,26 +2,6 @@
 
 const scene = document.querySelector('a-scene');
 
-
-function delay(time) {
-    return new Promise(resolve => setTimeout(resolve, time));
-}
-
-async function delayedSetScene() {
-    if(scene.renderStarted){
-        console.log("rendered");
-        setscene();
-    } else{
-        await delay(100);
-        delayedSetScene()
-
-    }
-    
-}
-
-scene.addEventListener('loaded', delayedSetScene());
-
-
 const landingPage =  document.getElementById('landingPage');
 let ActiveLayer = landingPage;
 
@@ -36,6 +16,15 @@ const Layer5 = document.getElementById('L5');
 
 function setscene(){
     
+    Layer1.setAttribute('visible', 'true');
+    Layer2.setAttribute('visible', 'true');
+    Layer3.setAttribute('visible', 'true');
+    Layer4.setAttribute('visible', 'true');
+    Layer5.setAttribute('visible', 'true');
+}
+
+function unsetscene(){
+
     Layer1.setAttribute('visible', 'false');
     Layer2.setAttribute('visible', 'false');
     Layer3.setAttribute('visible', 'false');
