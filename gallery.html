@@ -36,28 +36,28 @@
 
 
     <!-- Cubemap Layers, we toggle these layers to give the illusion of a scene change. We could also nest objects in these layers to really sell it! -->
-    <a-entity id="L1" visible="false" observe>
-        <a-entity cubemap="folder: #Mountain-Cube"></a-entity>
+    <a-entity id="L1" visible="false" >
+        <a-entity observe cubemap="folder: #Mountain-Cube"></a-entity>
     </a-entity>
 
     <a-entity id="L2" visible="false" observe>
-        <a-entity cubemap="folder: #Louvre-Cube"></a-entity>
+        <a-entity observe cubemap="folder: #Louvre-Cube"></a-entity>
     </a-entity>
 
     <a-entity id="L3" visible="false" observe >
         <a-entity observe cubemap="folder: #Snow-Cube"></a-entity>
     </a-entity>
 
-    <a-entity id="L4" visible="false" observe >
-        <a-entity id="desert" cubemap="folder: #Desert-Cube"></a-entity>
+    <a-entity id="L4" visible="false" >
+        <a-entity observe id="desert" cubemap="folder: #Desert-Cube"></a-entity>
     </a-entity>
 
     <a-entity id="L5" visible="false" observe >
-        <a-entity cubemap="folder: #Sky-Cube"></a-entity>
+        <a-entity observe cubemap="folder: #Sky-Cube"></a-entity>
     </a-entity>
 
-    <a-entity id="landingPage" visible="true" observe>
-        <a-entity cubemap="folder: #First-Cube" ></a-entity>
+    <a-entity id="landingPage" visible="true">
+        <a-entity observe cubemap="folder: #First-Cube" ></a-entity>
     </a-entity>
 
     <!-- assets  -->
