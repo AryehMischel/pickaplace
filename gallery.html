@@ -56,9 +56,20 @@
         <a-entity id="sky" cubemap="folder: #Sky-Cube"></a-entity>
     </a-entity>
 
-    <a-entity id="landingPage" visible="false">
+    <a-entity id="landingPage" visible="true">
         <a-entity id="landing" cubemap="folder: #First-Cube" ></a-entity>
     </a-entity>
+
+
+    <a-sky
+            id="transitionSphere"
+            radius="10"
+            material="opacity: 1; transparent: true" color="#f4f4f4"
+            position="0 1.690 0" rotation="0 90 -2"
+            animation__fadein="property: components.material.material.opacity; type: isRawProperty; from: 0; to: 1; dur: 350; startEvents: transition"
+            animation__fadeback="property: components.material.material.opacity; type: isRawProperty; from: 1; to: 0;delay:100; dur: 350; startEvents: animationcomplete__fadein"
+            animation__landingpagefadein="property: components.material.material.opacity; type: isRawProperty; from: 1; to: 0.0; dur: 1000; startEvents: fadeinscene"
+    ></a-sky>
 
     <!-- assets  -->
     <a-assets timeout="10000">

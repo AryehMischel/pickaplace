@@ -30,6 +30,8 @@ function unsetscene(){
     Layer3.setAttribute('visible', 'false');
     Layer4.setAttribute('visible', 'false');
     Layer5.setAttribute('visible', 'false');
+    document.getElementById("transitionSphere").emit("fadeinscene");
+
 }
 
 function SetLayer1() {
