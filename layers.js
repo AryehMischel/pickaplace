@@ -32,6 +32,46 @@ function unsetscene(){
     Layer5.setAttribute('visible', 'false');
 }
 
+function SetLayer1() {
+
+   // ActiveLayer.setAttribute('visible', 'false');
+    Layer1.setAttribute('visible', 'true');
+    //ActiveLayer = Layer1;
+}
+
+function SetLayer2() {
+
+   // ActiveLayer.setAttribute('visible', 'false');
+    Layer2.setAttribute('visible', 'true');
+  //  ActiveLayer = Layer2;
+}
+
+function SetLayer3() {
+
+   // ActiveLayer.setAttribute('visible', 'false');
+    Layer3.setAttribute('visible', 'true');
+   // ActiveLayer = Layer3;
+}
+
+function SetLayer4() {
+
+    //ActiveLayer.setAttribute('visible', 'false');
+    Layer4.setAttribute('visible', 'true');
+   // ActiveLayer = Layer4;
+
+}
+
+function SetLayer5() {
+
+   //ActiveLayer.setAttribute('visible', 'false');
+    Layer5.setAttribute('visible', 'true');
+   // ActiveLayer = Layer5;
+
+
+}
+
+
+
 function setLayer1() {
 
     ActiveLayer.setAttribute('visible', 'false');
@@ -69,4 +109,5 @@ function setLayer5() {
 
 
 }
+
 

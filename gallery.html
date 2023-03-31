@@ -12,13 +12,13 @@
     <script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script>
 
     <script src="./layers.js" defer></script>
-    <script src="./dumb-loading.js" ></script>
+    <script src="./dumb-loading.js" defer ></script>
     <script src="./observer.js" ></script>
     
 
 </head>
 <body>
-<a-scene dumb-loading
+<a-scene 
          loading-screen="dotsColor: red; backgroundColor: white"
          physics="debug: false"
          fps-counter>
@@ -34,30 +34,30 @@
     <a-plane color="red" id="widget4" position="2 1.5 -4" class="Icons2D"  onclick="setLayer4()" visible="true"></a-plane>
     <a-plane color="red" id="widget5" position="4 1.5 -4" class="Icons2D"  onclick="setLayer5()" visible="true"></a-plane>
 
-
+    <div id="myElement"></div>
     <!-- Cubemap Layers, we toggle these layers to give the illusion of a scene change. We could also nest objects in these layers to really sell it! -->
-    <a-entity id="L1" visible="false" >
-        <a-entity observe cubemap="folder: #Mountain-Cube"></a-entity>
+    <a-entity id="L1" visible="false" observe="mt">
+        <a-entity id="mountain" cubemap="folder: #Mountain-Cube"></a-entity>
     </a-entity>
 
-    <a-entity id="L2" visible="false" observe>
-        <a-entity observe cubemap="folder: #Louvre-Cube"></a-entity>
+    <a-entity id="L2" visible="false" observe="lv">
+        <a-entity id="louvre"  cubemap="folder: #Louvre-Cube"></a-entity>
     </a-entity>
 
-    <a-entity id="L3" visible="false" observe >
-        <a-entity observe cubemap="folder: #Snow-Cube"></a-entity>
+    <a-entity id="L3" visible="false" observe="sn">
+        <a-entity id="snow" cubemap="folder: #Snow-Cube"></a-entity>
     </a-entity>
 
-    <a-entity id="L4" visible="false" >
-        <a-entity observe id="desert" cubemap="folder: #Desert-Cube"></a-entity>
+    <a-entity id="L4" visible="false" observe="desert">
+        <a-entity  id="desert" cubemap="folder: #Desert-Cube"></a-entity>
     </a-entity>
 
-    <a-entity id="L5" visible="false" observe >
-        <a-entity observe cubemap="folder: #Sky-Cube"></a-entity>
+    <a-entity id="L5" visible="false" observe="sky" >
+        <a-entity id="sky" cubemap="folder: #Sky-Cube"></a-entity>
     </a-entity>
 
-    <a-entity id="landingPage" visible="true">
-        <a-entity observe cubemap="folder: #First-Cube" ></a-entity>
+    <a-entity id="landingPage" visible="false">
+        <a-entity id="landing" cubemap="folder: #First-Cube" ></a-entity>
     </a-entity>
 
     <!-- assets  -->

@@ -1,3 +1,18 @@
+const funcs = [SetLayer1, SetLayer2, SetLayer3, SetLayer4, SetLayer5, unsetscene]; //functions are defined in ./scripts/loading.js, 
+let i = 0;
+
+function loadNext(){
+    
+    console.log(" executing " + i)
+    funcs[i]();
+    i++
+}
+
+
+scene.addEventListener("loaded", ()=> loadNext() );
+
+
+/*
 //shhh lets not talk about this...
 //dumb way to cache images...
 AFRAME.registerComponent("dumb-loading", {
@@ -30,6 +45,13 @@ AFRAME.registerComponent("dumb-loading", {
         }
 
 
+      /!*  function cacheCubeMap () {
+             cubemap[i].visible = true;
+             i ++
+            }
+        *!/
+
+        scene.addEventListener('loadnext', ()=> cacheCubeMaps)
         scene.addEventListener('loaded', function () {
 
 
@@ -50,4 +72,4 @@ AFRAME.registerComponent("dumb-loading", {
             
         });
     },
-}); 
+}); */
