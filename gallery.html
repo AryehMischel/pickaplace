@@ -6,7 +6,6 @@
     <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-cubemap-component@3.0.0/index.js" ></script>
     <script src="https://unpkg.com/aframe-fps-counter-component/dist/aframe-fps-counter-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-curve-component/dist/aframe-curve-component.min.js"></script>
     <script src="https://rawgit.com/protyze/aframe-alongpath-component/master/dist/aframe-alongpath-component.min.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component@^4.1.1/dist/aframe-event-set-component.min.js"></script>
     <script src="https://unpkg.com/super-hands@2.0.2/dist/super-hands.min.js"></script>
@@ -24,7 +23,20 @@
     <script src="./toggle-visible.js" ></script>
     <script src="./icon-toggle.js" ></script>
     <script src="./scene-controller.js" ></script>
+    <script  type="text/javascript">
 
+        function sleep(ms)
+        {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        
+        window.onerror = function (errorMsg, url, lineNumber) {
+            console.log("error has occured - refreshing")
+            sleep(1000);
+            location.reload();
+        };
+    </script>
 
 
 </head>
