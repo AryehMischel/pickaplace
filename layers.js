@@ -31,7 +31,7 @@ function setscene(){
 }
 /*when the layers are set & cached*/
 async function onSceneLoaded(){
-    await sleep(500);
+    await sleep(1000);
     spawnIcons();
     CreateIconToggle(); 
 }
