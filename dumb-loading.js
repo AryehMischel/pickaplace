@@ -6,12 +6,12 @@ function loadNext(){
     i++
 }
 
-
+/*
 scene.addEventListener("loaded",function(){
     loadNext();
     console.log("started");
     
-});
+});*/
 
 
 
