@@ -16,29 +16,24 @@ const Layer4 = document.getElementById('L4');
 const Layer5 = document.getElementById('L5');
 
 
-
 function setscene(){
-    
-    Layer1.setAttribute('visible', 'true');
-    Layer2.setAttribute('visible', 'true');
-    Layer3.setAttribute('visible', 'true');
-    Layer4.setAttribute('visible', 'true');
-    Layer5.setAttribute('visible', 'true');
-}
-
-function unsetscene(){
 
     Layer1.setAttribute('visible', 'false');
     Layer2.setAttribute('visible', 'false');
     Layer3.setAttribute('visible', 'false');
     Layer4.setAttribute('visible', 'false');
     Layer5.setAttribute('visible', 'false');
-    spawnIcons();
-    CreateIconToggle();
     document.getElementById("transitionSphere").emit("fadeinscene");
+    onSceneLoaded();
 
 
 
+}
+/*when the layers are set & cached*/
+async function onSceneLoaded(){
+    await sleep(200);
+    spawnIcons();
+    CreateIconToggle(); 
 }
 
 async function fadeSceneIn(){

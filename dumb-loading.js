@@ -1,4 +1,4 @@
-let funcs = [SetLayer1, SetLayer2, SetLayer3, SetLayer4, SetLayer5, unsetscene]; //functions are defined in ./scripts/loading.js, 
+let funcs = [SetLayer1, SetLayer2, SetLayer3, SetLayer4, SetLayer5, setscene]; //functions are defined in ./scripts/loading.js, 
 let i = 0;
 
 function loadNext(){
