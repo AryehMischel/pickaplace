@@ -4,7 +4,7 @@
     <title> Pick-a-place 360 Gallery </title>
     <meta name="description" content="Hello, WebVR! - A-Frame">
     <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-cubemap-component@3.0.0/index.js" ></script>
+    <script src="https://unpkg.com/aframe-cubemap-component@3.0.0/index.js" defer ></script>
     <script src="https://unpkg.com/aframe-fps-counter-component/dist/aframe-fps-counter-component.min.js"></script>
     <script src="https://unpkg.com/aframe-curve-component/dist/aframe-curve-component.min.js"></script>
     <script src="https://rawgit.com/protyze/aframe-alongpath-component/master/dist/aframe-alongpath-component.min.js"></script>
@@ -16,8 +16,9 @@
 
    
 
-    <script src="./layers.js" defer></script>
-    <script src="./dumb-loading.js" defer></script>
+    <script src="./layers.js"></script>
+    <script src="./layers-global.js" defer></script>
+    <script id="loader" src="./dumb-loading.js" defer></script>
     <script src="./observer.js" ></script>
     <script src="./set-text.js" ></script>
     <script src="./toggle-visible.js" ></script>
@@ -29,6 +30,7 @@
 </head>
 <body>
 <a-scene scene-controller
+         layers
          loading-screen="dotsColor: red; backgroundColor: white"
          physics="gravity: -1"
          fps-counter>

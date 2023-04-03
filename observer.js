@@ -2,6 +2,7 @@
 AFRAME.registerComponent("observe", {
     init: function () {
         const el = this.el;
+        const scene = document.querySelector('a-scene');
         el.addEventListener("componentchanged", onchange);
 
         function sleep(ms)
@@ -20,7 +21,8 @@ AFRAME.registerComponent("observe", {
              el.removeEventListener("componentchanged", onchange); 
              console.log(el.id)
              await sleep(500);
-            loadNext();  
+          /*  loadNext();  */
+             scene.emit("next", true);
 
         }
 
