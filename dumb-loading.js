@@ -95,13 +95,13 @@ scene.addEventListener("loaded",function(){
         ip.setAttribute("position", "0 0 -0.34");
 
         ip2.setAttribute("position", "0 0 -0.35");
-        ip2.setAttribute("animation__ico", "property: rotation; to: 0 25 0; dur: 500; delay: 1100; easing: easeOutQuint; autoplay: true");
+        ip2.setAttribute("animation__ico", "property: rotation; to: 0 25 0; dur: 500; delay: 1500; easing: easeOutQuint; autoplay: true");
         ip3.setAttribute("position", "0 0 -0.35");
-        ip3.setAttribute("animation__ico", "property: rotation; to: 0 -25 0; dur: 800; delay: 1200; easing: easeOutQuint; autoplay: true");
+        ip3.setAttribute("animation__ico", "property: rotation; to: 0 -25 0; dur: 800; delay: 1700; easing: easeOutQuint; autoplay: true");
         ip4.setAttribute("position", "0 0 -0.35");
-        ip4.setAttribute("animation__ico", "property: rotation; to: 0 50 0; dur: 500; delay: 1400; easing: easeOutQuint; autoplay: true");
+        ip4.setAttribute("animation__ico", "property: rotation; to: 0 50 0; dur: 500; delay: 1900; easing: easeOutQuint; autoplay: true");
         ip5.setAttribute("position", "0 0 -0.35");
-        ip5.setAttribute("animation__ico", "property: rotation; to: 0 -50 0; dur: 500; delay: 1500; easing: easeOutQuint; autoplay: true");
+        ip5.setAttribute("animation__ico", "property: rotation; to: 0 -50 0; dur: 500; delay: 2000; easing: easeOutQuint; autoplay: true");
         
 
 
