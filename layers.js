@@ -33,6 +33,8 @@ function unsetscene(){
     Layer3.setAttribute('visible', 'false');
     Layer4.setAttribute('visible', 'false');
     Layer5.setAttribute('visible', 'false');
+    spawnIcons();
+    CreateIconToggle();
     document.getElementById("transitionSphere").emit("fadeinscene");
 
 
