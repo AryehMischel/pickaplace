@@ -1,5 +1,8 @@
 // Based on -> https://github.com/alchemz/aframe_webvr_switch_scenes-->
 
+//rewrite this so it's not so messy and redundant. should be like 2 or 3 functions
+
+
 const scene = document.querySelector('a-scene');
 
 const landingPage =  document.getElementById('landingPage');
@@ -31,6 +34,13 @@ function unsetscene(){
     Layer4.setAttribute('visible', 'false');
     Layer5.setAttribute('visible', 'false');
     document.getElementById("transitionSphere").emit("fadeinscene");
+
+
+
+}
+
+async function fadeSceneIn(){
+    await sleep(500);
 
 }
 

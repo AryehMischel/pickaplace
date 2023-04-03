@@ -5,7 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="307d45c7-537b-4262-baea-afb7bde963b5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/icon-toggle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/move-physics-object.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/set-text.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/toggle-visible.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.pickaplace.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.pickaplace.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dumb-loading.js" beforeDir="false" afterPath="$PROJECT_DIR$/dumb-loading.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery.html" beforeDir="false" afterPath="$PROJECT_DIR$/gallery.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/layers.js" beforeDir="false" afterPath="$PROJECT_DIR$/layers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/observer.js" beforeDir="false" afterPath="$PROJECT_DIR$/observer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +67,9 @@
       <workItem from="1680121681504" duration="602000" />
       <workItem from="1680123616281" duration="991000" />
       <workItem from="1680139421602" duration="5585000" />
-      <workItem from="1680287796044" duration="15511000" />
+      <workItem from="1680287796044" duration="15794000" />
+      <workItem from="1680448007938" duration="17344000" />
+      <workItem from="1680534228426" duration="1679000" />
     </task>
     <servers />
   </component>

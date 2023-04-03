@@ -1,11 +1,7 @@
-
+//this component is attached to layer objects. Each will load up the next layer and then remove this component. 
 AFRAME.registerComponent("observe", {
-    //schema: {type: 'string', default: "na"},
     init: function () {
-      //  let data = this.data;
         const el = this.el;
-        //console.log(data);
-        //this.el.addEventListener("loaded", ()=> console.log("loaded"));
         el.addEventListener("componentchanged", onchange);
 
         function sleep(ms)
@@ -21,15 +17,12 @@ AFRAME.registerComponent("observe", {
         }
         
          async function onchange(){
-          //  console.log(data + " has changed");
-             el.removeEventListener("componentchanged", onchange); // S
+             el.removeEventListener("componentchanged", onchange); 
 
-             await sleep(10);
-            loadNext();
+             await sleep(500);
+            loadNext();  
 
         }
-        
-
 
 
     },

@@ -9,70 +9,99 @@
     <script src="https://unpkg.com/aframe-curve-component/dist/aframe-curve-component.min.js"></script>
     <script src="https://rawgit.com/protyze/aframe-alongpath-component/master/dist/aframe-alongpath-component.min.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component@^4.1.1/dist/aframe-event-set-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script>
+    <script src="https://unpkg.com/super-hands@2.0.2/dist/super-hands.min.js"></script>
+    <script src="./assets/scripts/aframe-physics-system.js"></script>
+    <script src="https://unpkg.com/aframe-physics-extras@0.1.2/dist/aframe-physics-extras.min.js"></script>
+    
+
+   
 
     <script src="./layers.js" defer></script>
     <script src="./dumb-loading.js" defer ></script>
     <script src="./observer.js" ></script>
+    <script src="./set-text.js" ></script>
+    <script src="./toggle-visible.js" ></script>
+    <script src="./icon-toggle.js" ></script>
     
 
 </head>
 <body>
 <a-scene 
          loading-screen="dotsColor: red; backgroundColor: white"
-         physics="debug: false"
+         physics="gravity: -1"
          fps-counter>
 
-    <a-camera></a-camera>
-    <a-entity class="raycasting" cursor="rayOrigin:mouse" raycaster="objects: .Icons2D"></a-entity>
-    
-
-    <!-- World Space Buttons to select scene Background  -->
-    <a-plane color="red" id="widget" position="-4 1.5 -4" class="Icons2D"  onclick="setLayer1()" visible="true"></a-plane>
-    <a-plane color="red" id="widget2" position="-2 1.5 -4" class="Icons2D" onclick="setLayer2()" visible="true"></a-plane>
-    <a-plane color="red" id="widget3" position="0 1.5 -4" class="Icons2D"  onclick="setLayer3()" visible="true"></a-plane>
-    <a-plane color="red" id="widget4" position="2 1.5 -4" class="Icons2D"  onclick="setLayer4()" visible="true"></a-plane>
-    <a-plane color="red" id="widget5" position="4 1.5 -4" class="Icons2D"  onclick="setLayer5()" visible="true"></a-plane>
-
-    <div id="myElement"></div>
-    <!-- Cubemap Layers, we toggle these layers to give the illusion of a scene change. We could also nest objects in these layers to really sell it! -->
-    <a-entity id="L1" visible="false" observe="mt">
-        <a-entity id="mountain" cubemap="folder: #Mountain-Cube"></a-entity>
-    </a-entity>
-
-    <a-entity id="L2" visible="false" observe="lv">
-        <a-entity id="louvre"  cubemap="folder: #Louvre-Cube"></a-entity>
-    </a-entity>
-
-    <a-entity id="L3" visible="false" observe="sn">
-        <a-entity id="snow" cubemap="folder: #Snow-Cube"></a-entity>
-    </a-entity>
-
-    <a-entity id="L4" visible="false" observe="desert">
-        <a-entity  id="desert" cubemap="folder: #Desert-Cube"></a-entity>
-    </a-entity>
-
-    <a-entity id="L5" visible="false" observe="sky" >
-        <a-entity id="sky" cubemap="folder: #Sky-Cube"></a-entity>
-    </a-entity>
-
-    <a-entity id="landingPage" visible="true">
-        <a-entity id="landing" cubemap="folder: #First-Cube" ></a-entity>
-    </a-entity>
-
-
-    <a-sky
-            id="transitionSphere"
-            radius="10"
-            material="opacity: 1; transparent: true" color="#f4f4f4"
-            position="0 1.690 0" rotation="0 90 -2"
-            animation__fadein="property: components.material.material.opacity; type: isRawProperty; from: 0; to: 1; dur: 350; startEvents: transition"
-            animation__fadeback="property: components.material.material.opacity; type: isRawProperty; from: 1; to: 0;delay:100; dur: 350; startEvents: animationcomplete__fadein"
-            animation__landingpagefadein="property: components.material.material.opacity; type: isRawProperty; from: 1; to: 0.0; dur: 1000; startEvents: fadeinscene"
-    ></a-sky>
-
-    <!-- assets  -->
     <a-assets timeout="10000">
+
+        <a-mixin  mixin id="shelf-mix" static-body material="transparent: true; opacity: 0" color="#FFFAF0" rotation="0 90 0" scale="0.3 0.1 0.3"></a-mixin>
+
+        <a-mixin id="Box-Collider"
+                 visible="false"
+                 position="0 0 -1"
+                 static-body="shape: box"
+                 material="opacity: 0"
+                 collision-filter="group: box; collidesWith: head"
+                 geometry="primitive: box; width: 0.1; height: 0.1; depth: 0.1"
+        ></a-mixin>
+
+        <!--physics-hands-->
+        <a-mixin
+                id="physics-hands"
+                physics-collider
+                phase-shift
+                collision-filter="collisionForces: false"
+                static-body="shape: sphere; sphereRadius: 0.02"
+                super-hands="colliderEvent: collisions;
+                              colliderEventProperty: els;
+                              colliderEndEvent: collisions;
+                              colliderEndEventProperty: clearedEls;
+                              grabEndButtons: [gripup, trackpadup, triggerup, gripopen, abuttonup, bbuttonup, xbuttonup, ybuttonup, pointdown, thumbdown, pointingend, pistolend, thumbstickup, mouseup, touchend]"
+        ></a-mixin>
+
+
+        <a-entity id="audioClips">
+            <audio
+                    id="clip0"
+                    crossorigin="anonymous"
+                    src="assets/Audio/c.wav"
+            ></audio>
+            <audio
+                    id="clip1"
+                    crossorigin="anonymous"
+                    src="assets/Audio/b.wav"
+            ></audio>
+            <audio
+                    id="clip2"
+                    crossorigin="anonymous"
+                    src="assets/Audio/e.wav"
+            ></audio>
+            <audio
+                    id="clip3"
+                    crossorigin="anonymous"
+                    src="assets/Audio/g.wav"
+            ></audio>
+            <audio
+                    id="clip4"
+                    crossorigin="anonymous"
+                    src="assets/Audio/bh.wav"
+            ></audio>
+            <audio id="click-sound" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
+        </a-entity>
+
+        <img id="SkyThumb" src="assets/Thumbnails/thumbnail_sky.png">
+        <img id="DesertThumb" src="assets/Thumbnails/thumbnail_desert.jpg">
+        <img id="MountainThumb" src="assets/Thumbnails/thumbnail_mountain.png">
+        <img id="SnowThumb" src="assets/Thumbnails/thumbnail_snow.png">
+        <img id="LouvreThumb" src="assets/Thumbnails/thumbnail_Louvre2.png">
+
+        <a-mixin id="PC-Icon" material="color: red"
+                 sound="src: #click-sound; volume: 1; on: click"
+                 event-set__mouseenter="scale: 0.30 0.30 0.30"
+                 event-set__mouseleave="scale: 0.25 0.25 0.25"
+                 scale = "0.25 0.25 0.25"
+                 position = "0 0.8 -.80"
+
+        ></a-mixin>
 
         <a-cubemap id="Mountain-Cube">
             <img
@@ -257,6 +286,228 @@
 
 
     </a-assets>
+
+    <!-- Rig -->
+    <a-entity>
+
+        <!-- Mouse Cursor -->
+        <a-entity id="cursor" class="raycasting" cursor="rayOrigin:mouse" raycaster="objects: .Icons2D, .Icons3D, .UI"></a-entity>
+
+        <a-camera position="0 1.3 0" id="cam" wasd-controls-enabled="false" look-controls-enabled="true">
+
+            <!-- screenspace objects get added to "screenSpaceIcons2D"...-->
+            <a-entity id="screenSpaceIcons2D"></a-entity>
+
+        </a-camera>
+
+        <a-entity id="hands" visible="false">
+
+            <a-entity
+                    id="lhand"
+                    mixin="physics-hands"
+                    hand-controls="hand: left"
+            ></a-entity>
+
+            <a-entity
+                    id="rhand"
+                    mixin="physics-hands"
+                    hand-controls="hand: right"
+            ></a-entity>
+
+        </a-entity>
+
+        <!-- .cubes, .Icons2D, .toggle -->
+        <a-entity id="controllers" visible="true">
+            <a-entity  class="raycasting" controller-toggle laser-controls="hand: right" raycaster="objects: .none " ></a-entity>
+
+            <a-entity laser-controls="hand: left"  raycaster="objects: .none" ></a-entity>
+        </a-entity>
+    </a-entity>
+    
+
+    <!-- World Space 2D Icon-Buttons to select active scene aka which cubemap we are displaying  -->
+    
+    <a-entity id="icons2D"></a-entity>
+
+    <!-- 3D Icons / Small grabbable cubemaps for now -->
+
+    <a-entity id="icons3D" visible="false">
+
+        <a-entity
+                id="mountainCube"
+                event-set__mouseenter="scale: 0.07 0.07 0.07" 
+                event-set__mouseleave="scale: 0.05 0.05 0.05"
+                spawn-position="position: -0.50 1.5 -1.42; rotation: 15"
+                dynamic-body
+                grabbable
+                scale="0.05 0.05 0.05"
+                cubemap="folder: #Mountain-Cube; edgeLength: 5"
+                position="-0.50 1.5 -1.42"
+                animation ="property: rotation;from:0 0 0; to: 30 0 0; loop: false; dur: 1100; startEvents: animate"
+                render-order="0"
+                class="Icons3D"
+                on-grab
+        ></a-entity>
+
+
+        <a-entity
+                id="louvreCube"
+                class="Icons3D"
+                event-set__mouseenter="scale: 0.07 0.07 0.07"
+                event-set__mouseleave="scale: 0.05 0.05 0.05"
+                grabbable
+                dynamic-body
+                spawn-position ="position: 0.50 1.5 -1.42; rotation: -15"
+                cubemap="folder: #Louvre-Cube; edgeLength: 5"
+                position="0.50 1.5 -1.42"
+                scale="0.05 0.05 0.05"
+                animation ="property: rotation; from:0 -15 0; to: 30 0 0; loop: false; dur: 1100; startEvents: animate"
+                render-order="0"
+                on-grab
+        ></a-entity>
+
+        <a-entity
+                id="skyCube"
+                event-set__mouseenter="scale: 0.055 0.055 0.055" 
+                event-set__mouseleave="scale: 0.05 0.05 0.05" 
+                grabbable
+                dynamic-body
+                spawn-position ="position: 0.5  1.15 -0.70; rotation: 55"
+                cubemap="folder: #Sky-Cube; edgeLength: 5"
+                position="0.5  1 -0.70"
+                scale="0.05 0.05 0.05"
+                class="Icons3D"
+                animation ="property: rotation; from:0 55 0; to: -90 0 0; loop: false; dur: 1400;easing:easeInCirc;startEvents: animate"
+                render-order="1"
+                on-grab
+        ><a-entity id="c5" color-sky="layer: 5; delay: false" mixin="Box-Collider"></a-entity>
+        </a-entity>
+
+        <a-entity
+                id="desertCube"
+                event-set__mouseenter="scale: 0.055 0.055 0.055"
+                event-set__mouseleave="scale: 0.05 0.05 0.05"
+                dynamic-body
+                grabbable
+                spawn-position ="position:-0.5 1.15 -0.70; rotation: -55"
+                cubemap="folder: #Desert-Cube; edgeLength: 5"
+                position="-0.5 1 -0.70"
+                scale="0.05 0.05 0.05"
+                class="Icons3D"
+                animation ="property: rotation;from:0 0 0; to: -90 0 0; loop: false; dur: 100; startEvents: animate"
+                animation__2 ="property: rotation;from:0 0 0; to: 0 0 -20; loop: false; dur: 1000; startEvents: animationcomplete"
+                render-order="1"
+                on-grab
+        ><a-entity id="c1" color-sky="layer: 1; delay: false" mixin="Box-Collider"></a-entity> 
+        </a-entity>
+
+        <a-entity
+                material="transparent: true"
+                class="Icons3D"
+                id="snowCube"
+                event-set__mouseenter="scale: 0.065 0.06 0.065"
+                event-set__mouseleave="scale: 0.05 0.05 0.05"
+                dynamic-body
+                grabbable
+                spawn-position = "position: 0 1.15 -1; rotation: 0 "
+                cubemap="folder: #Snow-Cube; edgeLength: 5"
+                position="0 1 -1"
+                scale="0.05 0.05 0.05"
+                animation = "property: rotation;from: 0 0 0; to: 0 20 0; loop: false; dur: 600; startEvents: animate"
+                render-order="1"
+                on-grab
+        ><a-entity id="c2" color-sky="layer: 2; delay: false" mixin="Box-Collider"></a-entity> 
+        </a-entity>
+
+
+    </a-entity>
+    
+  
+
+    <!-- Cubemap Layers, we toggle these layers to give the illusion of a scene change. We could also nest objects in these layers to really sell it! -->
+    <a-entity id="L1" visible="false" observe="mt">
+        <a-entity id="mountain" cubemap="folder: #Mountain-Cube"></a-entity>
+    </a-entity>
+
+    <a-entity id="L2" visible="false" observe="lv">
+        <a-entity id="louvre"  cubemap="folder: #Louvre-Cube"></a-entity>
+    </a-entity>
+
+    <a-entity id="L3" visible="false" observe="sn">
+        <a-entity id="snow" cubemap="folder: #Snow-Cube"></a-entity>
+    </a-entity>
+
+    <a-entity id="L4" visible="false" observe="desert">
+        <a-entity  id="desert" cubemap="folder: #Desert-Cube"></a-entity>
+    </a-entity>
+
+    <a-entity id="L5" visible="false" observe="sky" >
+        <a-entity id="sky" cubemap="folder: #Sky-Cube"></a-entity>
+    </a-entity>
+
+    <a-entity id="landingPage" visible="true">
+        <a-entity id="landing" cubemap="folder: #First-Cube" ></a-entity>
+
+        <a-entity id="text"
+                  text="value:Pick a place.; color: #d64161; shader: msdf; font: https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/exo2/Exo2-Light.json; align: center"
+                  position="0 1.3 -2.7 "
+                  scale="8 8 8"
+                  animation__title="property: position; to: 0 1.3 -2.8; dur: 2000; easing: linear; startEvents: set"
+
+        >
+        </a-entity>
+
+    </a-entity>
+
+
+    
+
+     
+
+      
+      
+
+
+
+  
+    
+
+
+
+   <!-- <a-entity  id="text2"  visible="false" text="value: 360° Gallery; color: #d64161; shader: msdf; 
+                      font: https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/exo2/Exo2-Light.json;
+                      align: center" scale="6 6 6"  position="0 0.8 -5 "></a-entity>-->
+
+
+
+    <!--LIGHTS-->
+    
+    <a-entity light="type: ambient; color: #BBB"></a-entity>
+    <a-entity light="type: directional; color: #FFF; intensity: 0.8" position="-0.213 1 1"></a-entity>
+
+
+    <!-- Invisible shelves for Rigidbody Icons-->
+    <a-entity visible="false" id="shelves">
+        <a-box id="shelf"  mixin="shelf-mix" position="-0.5 1.02 -1.42" ></a-box> <!--  vr position="-0.6 1.1 -0.2" -->
+        <a-box id="shelf2" mixin="shelf-mix" position="-0.5 0.8 -0.70" ></a-box>
+        <a-box id="shelf3" mixin="shelf-mix" position="0 0.7 -1" ></a-box>
+        <a-box id="shelf4" mixin="shelf-mix" position = "0.5 0.8 -0.70"></a-box>
+        <a-box id="shelf5" mixin="shelf-mix" position = "0.5 1.02 -1.42"></a-box> <!--  vr position="0.6 1.1 -0.2" -->
+    </a-entity>
+
+
+<a-sky
+      id="transitionSphere"
+      radius="10"
+      material="opacity: 1; transparent: true" color="#f4f4f4"
+      position="0 1.690 0" rotation="0 90 -2"
+      animation__fadein="property: components.material.material.opacity; type: isRawProperty; from: 0; to: 1; dur: 350; startEvents: transition"
+      animation__fadeback="property: components.material.material.opacity; type: isRawProperty; from: 1; to: 0;delay:100; dur: 350; startEvents: animationcomplete__fadein"
+      animation__landingpagefadein="property: components.material.material.opacity; type: isRawProperty; from: 1; to: 0.0; dur: 1000; startEvents: fadeinscene"
+></a-sky>
+
+    
+    
 
 
 </a-scene>
