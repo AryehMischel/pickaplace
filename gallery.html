@@ -3,8 +3,23 @@
 <head>
     <title> Pick-a-place 360 Gallery </title>
     <meta name="description" content="Hello, WebVR! - A-Frame">
+    <script  type="text/javascript">
+
+        function sleep(ms)
+        {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+     
+
+        window.onerror = function (errorMsg, url, lineNumber) {
+            console.log("error has occured - refreshing")
+            sleep(3000);
+            location.reload();
+        };
+
+    </script>
     <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-cubemap-component@3.0.0/index.js" ></script>
+    <script src="https://unpkg.com/aframe-cubemap-component@2.1.1/index.js"  ></script>
     <script src="https://unpkg.com/aframe-fps-counter-component/dist/aframe-fps-counter-component.min.js"></script>
     <script src="https://rawgit.com/protyze/aframe-alongpath-component/master/dist/aframe-alongpath-component.min.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component@^4.1.1/dist/aframe-event-set-component.min.js"></script>
@@ -23,20 +38,7 @@
     <script src="./toggle-visible.js" ></script>
     <script src="./icon-toggle.js" ></script>
     <script src="./scene-controller.js" ></script>
-    <script  type="text/javascript">
-
-        function sleep(ms)
-        {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
-
-        
-        window.onerror = function (errorMsg, url, lineNumber) {
-            console.log("error has occured - refreshing")
-            sleep(1000);
-            location.reload();
-        };
-    </script>
+  
 
 
 </head>
@@ -149,7 +151,7 @@
         </a-cubemap>
 
 
-        <a-cubemap id="Louvre-Cube">
+        <a-cubemap id="Louvre-Cube" autoplay>
             <img
 
                     crossorigin="anonymous"
@@ -180,7 +182,7 @@
             />
         </a-cubemap>
 
-        <a-cubemap id="Snow-Cube">
+        <a-cubemap id="Snow-Cube" autoplay>
             <img
 
                     crossorigin="anonymous"
@@ -210,7 +212,7 @@
             />
         </a-cubemap>
 
-        <a-cubemap id="Sky-Cube">
+        <a-cubemap id="Sky-Cube" autoplay>
             <img
 
                     crossorigin="anonymous"
@@ -239,7 +241,7 @@
             />
 
         </a-cubemap>
-        <a-cubemap id="First-Cube">
+        <a-cubemap id="First-Cube" autoplay>
             <img
 
                     crossorigin="anonymous"
@@ -262,36 +264,36 @@
                 crossorigin="anonymous"
                 src="./assets/cubemaps/firstcube/posz.webp"
         />
-            <img
+            <img 
                     crossorigin="anonymous"
                     src="./assets/cubemaps/firstcube/negz.webp"
             />
         </a-cubemap>
 
-        <a-cubemap id="Desert-Cube">
-            <img
+        <a-cubemap id="Desert-Cube" autoplay>
+            <img 
 
                     crossorigin="anonymous"
                     src="./assets/cubemaps/desert-cube/posx.webp"
             />
-            <img
+            <img  
                     crossorigin="anonymous"
                     src="./assets/cubemaps/desert-cube/negx.webp"
 
             />
-            <img
+            <img 
                     crossorigin="anonymous"
                     src="./assets/cubemaps/desert-cube/posy.webp"
             />
-            <img
+            <img 
                     crossorigin="anonymous"
                     src="./assets/cubemaps/desert-cube/negy.webp"
 
-            />      <img
+            />      <img 
                 crossorigin="anonymous"
                 src="./assets/cubemaps/desert-cube/posz.webp"
         />
-            <img
+            <img 
                     crossorigin="anonymous"
                     src="./assets/cubemaps/desert-cube/negz.webp"
             />

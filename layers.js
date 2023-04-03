@@ -5,7 +5,6 @@ AFRAME.registerComponent("layers", {
 
 //rewrite this so it's not so messy and redundant. should be like 2 or 3 functions
 
-
         const scene = document.querySelector('a-scene');
         
         scene.addEventListener("loaded", ()=> loadNext())
