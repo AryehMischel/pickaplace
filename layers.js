@@ -80,9 +80,11 @@ AFRAME.registerComponent("layers", {
 
 
         }
+        
+    
 
         
-        let funcs = [SetLayer1, SetLayer2, SetLayer3, SetLayer4, SetLayer5, setscene]; //functions are defined in ./scripts/loading.js, 
+        let funcs = [SetLayer1, SetLayer2, SetLayer3, SetLayer4, SetLayer5, Set3dIcons]; 
         let i = 0;
 
         function loadNext(){
@@ -101,6 +103,7 @@ AFRAME.registerComponent("layers", {
             iconToggleButton.setAttribute("class","UI");
             iconToggleButton.setAttribute("event-set__mousedown","position: 2 1.63 -2");
             iconToggleButton.setAttribute("event-set__mouseup","position: 2 1.7 -2");
+          //  iconToggleButton.setAttribute("id", "iconToggle");
             let text = document.createElement("a-entity")
             text.setAttribute("text", "value: 2D; align: center");
             text.setAttribute("position", "-0.090 -0.2 0.042");
@@ -195,7 +198,14 @@ AFRAME.registerComponent("layers", {
 
         }
 
+        async function Set3dIcons(){
+            let tog = document.getElementById("toggle");
+            tog.emit("click", true);
+            await sleep(200);
+            tog.emit("click", true);
+            setscene();
 
+        }
 
 
 
