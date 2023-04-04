@@ -9,7 +9,7 @@ AFRAME.registerComponent("oncollision-setlayer", {
 
 
 
-        el.addEventListener('sit', function () { //executes scene change and resets it's position -- used when camera collider collides with 3d icons
+        el.addEventListener('set', function () { //executes scene change and resets it's position -- used when camera collider collides with 3d icons
 
             funcs[i]();
             parent.emit("spawn");

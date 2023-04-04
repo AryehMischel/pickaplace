@@ -5,10 +5,12 @@ AFRAME.registerComponent('click-animate-alongpath', {
         let el = this.el;
         let data = this.data;
         let target = document.querySelector("#p" + data);
-        // const audioplayer = document.querySelector("#audioplayer");
+        
+        
         el.addEventListener('click', function (evt) {
             let cursor = evt.detail.cursorEl.getAttribute("class");
             if(cursor != "raycasting") return;
+            playClip(data ) // hmmm
             target.setAttribute("position", "0 1.3 0");
             el.removeAttribute("alongpath");
             el.removeAttribute("dynamic-body");
@@ -22,5 +24,10 @@ AFRAME.registerComponent('click-animate-alongpath', {
             //console.log(data)
 
         });
+
+
+      
     }
+    
 });
+
