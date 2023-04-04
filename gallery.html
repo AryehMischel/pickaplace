@@ -447,10 +447,7 @@
     </a-entity>
 
 
-    <a-box   id="Ground-Collider" visible="true" scale="30 0.5 30" position="0 -3 0"
-             material="transparent: true; opacity: 0"
-             static-body physics-collider
-             out-of-bounds-collision collision-filter="group: head; collidesWith: box"></a-box>
+ 
 
 
     <!-- Cubemap Layers, we toggle these layers to give the illusion of a scene change. We could also nest objects in these layers to really sell it! -->
@@ -621,7 +618,10 @@
 ></a-sky>
 
     <a-entity id="toggle" icon-toggle></a-entity>
-    
+    <a-box   id="Ground-Collider" visible="true" scale="30 0.5 30" position="0 -3 0"
+             material="transparent: true; opacity: 0"
+             static-body physics-collider
+             out-of-bounds-collision collision-filter="group: head; collidesWith: box"></a-box>
     
 
 
