@@ -15,7 +15,7 @@
     <script src="./assets/scripts/super-hands.min.js"></script>
     <script src="./assets/scripts/aframe-physics-system.js"></script>
     <script src="https://unpkg.com/aframe-physics-extras@0.1.2/dist/aframe-physics-extras.min.js"></script>
-    
+    <script src="https://unpkg.com/aframe-aabb-collider-component@3.1.0/dist/aframe-aabb-collider-component.min.js"></script>
 
    
 
@@ -25,7 +25,7 @@
     <script src="./observer.js" ></script>
     <script src="./set-text.js" ></script>
     <script src="./toggle-visible.js" ></script>
-    <script src="./icon-toggle.js" ></script>
+    <script src="./icon-toggle.js"></script>
     <script src="./scene-controller.js" ></script>
     <script src="./respawn-cube.js"></script>
     <script src="./on-collision.js"></script>
@@ -50,7 +50,12 @@
 
 
         <a-mixin  mixin id="shelf-mix" static-body material="transparent: true; opacity: 0" color="#FFFAF0" rotation="0 90 0" scale="0.3 0.1 0.3"></a-mixin>
-
+        <a-mixin  mixin id="trigger" aabb-collider="objects: .Icons3D" material="transparent: true; opacity: 0.5; color: purple"  rotation="0 90 0" scale="0.3 0.1 0.3"
+                  event-set__hitstart="material.opacity: 0.5; material.color: orange"
+                  event-set__hitend="material.opacity: 1; material.color: red" color="#FFFAF0" rotation="0 90 0" scale="0.3 0.1 0.3"></a-mixin>
+        <a-mixin  mixin id="trigger-2" class="coll" aabb-collider="objects: .hand"
+                  toggle-hands scale="1 1 1"></a-mixin>
+      
         <a-mixin id="Box-Collider"
                  visible="false"
                  position="0 0 -1"
@@ -429,9 +434,11 @@
                     id="lhand"
                     mixin="physics-hands"
                     hand-controls="hand: left"
+                    class="hand"
             ></a-entity>
 
             <a-entity
+                    class="hand"
                     id="rhand"
                     mixin="physics-hands"
                     hand-controls="hand: right"
@@ -441,13 +448,13 @@
 
         <!-- .cubes, .Icons2D, .toggle -->
         <a-entity id="controllers" visible="true">
-            <a-entity id="rHand" controller-toggle laser-controls="hand: right" raycaster="objects: .Icons2D, .vr-ui" ></a-entity>
-            <a-entity id="lHand" laser-controls="hand: left"  raycaster="objects: .Icons2D, .vr-ui" ></a-entity>
+            <a-entity  id="rController" hands-manager laser-controls="hand: right" raycaster="objects: .Icons2D, .vr-ui" ></a-entity>
+            <a-entity  id="lController" laser-controls="hand: left"  raycaster="objects: .Icons2D, .vr-ui" ></a-entity>
         </a-entity>
     </a-entity>
 
 
- 
+
 
 
     <!-- Cubemap Layers, we toggle these layers to give the illusion of a scene change. We could also nest objects in these layers to really sell it! -->
@@ -495,6 +502,7 @@
     <a-entity id="icons3D" visible="false">
 
         <a-entity
+                constraint="target: #trigger-test2; distance: 0"
                 id="mountainCube"
                 event-set__mouseenter="scale: 0.07 0.07 0.07"
                 event-set__mouseleave="scale: 0.05 0.05 0.05"
@@ -509,7 +517,16 @@
                 class="Icons3D"
                 on-grab
                 click-animate-alongpath="0"
-        > <a-entity id="coll" oncollision-setlayer="0" mixin="Box-Collider"></a-entity> </a-entity>
+        ><a-box id="trigger-test" scale="1 1 1" color="red" ></a-box>
+            <a-entity id="coll" oncollision-setlayer="0" mixin="Box-Collider"></a-entity>
+            
+            <a-box material="transparent: true; opacity: 0.5; color: purple" scale="1 1 1" 
+            ></a-box>
+
+        </a-entity>
+      
+      
+        <a-box material="transparent: true; opacity: 0.5; color: purple" scale="1 1 1" kinematic-body id="trigger-test2" mixin="trigger"></a-box>
 
 
         <a-entity
@@ -527,6 +544,8 @@
                 render-order="0"
                 on-grab
                 click-animate-alongpath="5"
+         
+
         ><a-entity id="coll1" oncollision-setlayer="1" mixin="Box-Collider"></a-entity> </a-entity>
 
         <a-entity
@@ -591,9 +610,9 @@
 
 
     <!-- Invisible shelves for Rigidbody Icons-->
- 
+    <a-box id="shelf" mixin="shelf-mix" position="-0.5 1.02 -1.42" ></a-box> <!--  vr position="-0.6 1.1 -0.2" -->
+
     <a-entity visible="false" id="shelves">
-        <a-box id="shelf"  mixin="shelf-mix" position="-0.5 1.02 -1.42" ></a-box> <!--  vr position="-0.6 1.1 -0.2" -->
         <a-box id="shelf2" mixin="shelf-mix" position="-0.5 0.8 -0.70" ></a-box>
         <a-box id="shelf3" mixin="shelf-mix" position="0 0.7 -1" ></a-box>
         <a-box id="shelf4" mixin="shelf-mix" position = "0.5 0.8 -0.70"></a-box>

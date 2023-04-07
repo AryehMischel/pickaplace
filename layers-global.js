@@ -43,4 +43,6 @@ function setLayer5() {
 
 }
 
-let funcs = [setLayer1, setLayer2, setLayer3, setLayer4, setLayer5]; 
+let funcs = [setLayer1, setLayer2, setLayer3, setLayer4, setLayer5];
+
+

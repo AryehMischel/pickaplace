@@ -15108,7 +15108,7 @@ var Body = {
    */
   init: function () {
     this.system = this.el.sceneEl.systems.physics;
-
+  
     if (this.el.sceneEl.hasLoaded) {
       this.initBody();
     } else {
@@ -15122,12 +15122,12 @@ var Body = {
    */
   initBody: function () {
     var el = this.el,
+     
         data = this.data;
 
     var obj = this.el.object3D;
     var pos = obj.position;
     var quat = obj.quaternion;
-
     this.body = new CANNON.Body({
       mass: data.type === 'static' ? 0 : data.mass || 0,
       material: this.system.getMaterial('defaultMaterial'),
@@ -15135,6 +15135,7 @@ var Body = {
       quaternion: new CANNON.Quaternion(quat.x, quat.y, quat.z, quat.w),
       linearDamping: data.linearDamping,
       angularDamping: data.angularDamping,
+        
       type: data.type === 'dynamic' ? CANNON.Body.DYNAMIC : CANNON.Body.STATIC,
     });
 
@@ -15797,6 +15798,7 @@ var Shape = {
 
     var scale = new THREE.Vector3();
     this.bodyEl.object3D.getWorldScale(scale);
+   
     var shape, offset, orientation;
 
     if (data.hasOwnProperty('offset')) {

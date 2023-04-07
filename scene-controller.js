@@ -50,4 +50,8 @@ AFRAME.registerComponent("scene-controller", {
          }*/
 
     },
-}); 
+});
+
+
+
+

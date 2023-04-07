@@ -1,3 +1,5 @@
+
+
 AFRAME.registerComponent("icon-toggle", {
     init: function () {
         let el = this.el;
@@ -6,8 +8,8 @@ AFRAME.registerComponent("icon-toggle", {
         const Icons2D = document.getElementById("icons2D");
         const Icons3D = document.getElementById("icons3D");
         const cursor = document.getElementById("cursor");
-        const lHand = document.getElementById("lHand");
-        const rHand = document.getElementById("rHand");
+        const lController = document.getElementById("lController");
+        let rController = document.getElementById("rController");
 
         //this.el.setAttribute(" event-set__mouseenter", "scale: 0.30 0.30 0.30");
 
@@ -23,8 +25,8 @@ AFRAME.registerComponent("icon-toggle", {
             if(on){
                 console.log("switch to 3d");
                 cursor.setAttribute("raycaster", "objects: .Icons3D, .UI");
-                lHand.setAttribute("raycaster", "objects: .vr-ui, .UI");
-                rHand.setAttribute("raycaster", "objects: .vr-ui, .UI");
+                lController.setAttribute("raycaster", "objects: .vr-ui, .UI");
+                rController.setAttribute("raycaster", "objects: .vr-ui, .UI");
                 Icons2D.object3D.visible = false;
                 Icons3D.object3D.visible = true;
                 //  Icons3D.emit('enabled'); //makes 3d icons clickable (2d unclickable) via toggle-raycast-selectable script 
@@ -32,8 +34,8 @@ AFRAME.registerComponent("icon-toggle", {
             } else {
                 console.log("switch to 2d");
                 cursor.setAttribute("raycaster", "objects: .Icons2D, .UI");
-                lHand.setAttribute("raycaster", "objects:  .Icons2D, .vr-ui, .UI");
-                rHand.setAttribute("raycaster", "objects:  .Icons2D, .vr-ui, .UI");
+                lController.setAttribute("raycaster", "objects:  .Icons2D, .vr-ui, .UI");
+                rController.setAttribute("raycaster", "objects:  .Icons2D, .vr-ui, .UI");
                 Icons2D.object3D.visible = true;
                 Icons3D.object3D.visible = false;
                 //Icons3D.emit('disabled'); //makes 3d icons unclickable (2d clickable) via toggle-raycast-selectable script 
@@ -44,4 +46,56 @@ AFRAME.registerComponent("icon-toggle", {
 
     },
 });
+
+AFRAME.registerComponent("hands-manager", {
+    init: function () {
+        let el = this.el;
+        const rController = document.getElementById("rController");
+        const hands = document.getElementById("hands");
+
+        function showHands(){
+            console.log("showing")
+            rController.parentEl.setAttribute("visible", false);
+            rController.setAttribute("raycaster", "objects: .default");
+            hands.setAttribute("visible", true);
+        }
+
+        function hideHands(){
+            console.log("hiding")
+            rController.parentEl.setAttribute("visible", true);
+            rController.setAttribute("raycaster", "objects: .Icons2D, .vr-ui"); //, .Icons3D
+            hands.setAttribute("visible", false);
+
+        }
+        
+        el.addEventListener("ShowHands", ()=>showHands());
+        el.addEventListener("HideHands", ()=>hideHands());
+        
+        
+        
+    },
+});
+
+AFRAME.registerComponent("toggle-hands", {
+    init: function () {
+        const manager = document.getElementById("rController");
+        let el = this.el;
+        /*        const hands = document.getElementById("hands");*/
+        el.addEventListener("hitstart", function () {
+            manager.emit("ShowHands");
+
+        });
+
+        el.addEventListener("hitend", function () {
+            manager.emit("HideHands");
+
+
+
+    });
+
+
+    },
+});
+
+
 
