@@ -9,7 +9,10 @@ AFRAME.registerComponent("icon-toggle", {
         const Icons3D = document.getElementById("icons3D");
         const cursor = document.getElementById("cursor");
         const lController = document.getElementById("lController");
-        let rController = document.getElementById("rController");
+        const rController = document.getElementById("rController");
+        const rHand = document.getElementById("rHand");
+        const lHand = document.getElementById("lHand");
+        let text = document.getElementById("text2d3d");
 
         //this.el.setAttribute(" event-set__mouseenter", "scale: 0.30 0.30 0.30");
 
@@ -27,6 +30,9 @@ AFRAME.registerComponent("icon-toggle", {
                 cursor.setAttribute("raycaster", "objects: .Icons3D, .UI");
                 lController.setAttribute("raycaster", "objects: .vr-ui, .UI");
                 rController.setAttribute("raycaster", "objects: .vr-ui, .UI");
+                text.setAttribute("text", "value:2D" );
+                rHand.setAttribute("class", "hand")
+                lHand.setAttribute("class", "hand")
                 Icons2D.object3D.visible = false;
                 Icons3D.object3D.visible = true;
                 //  Icons3D.emit('enabled'); //makes 3d icons clickable (2d unclickable) via toggle-raycast-selectable script 
@@ -36,6 +42,9 @@ AFRAME.registerComponent("icon-toggle", {
                 cursor.setAttribute("raycaster", "objects: .Icons2D, .UI");
                 lController.setAttribute("raycaster", "objects:  .Icons2D, .vr-ui, .UI");
                 rController.setAttribute("raycaster", "objects:  .Icons2D, .vr-ui, .UI");
+                rHand.setAttribute("class", "default")
+                lHand.setAttribute("class", "default")
+                text.setAttribute("text", "value:3D" );
                 Icons2D.object3D.visible = true;
                 Icons3D.object3D.visible = false;
                 //Icons3D.emit('disabled'); //makes 3d icons unclickable (2d clickable) via toggle-raycast-selectable script 
@@ -76,22 +85,47 @@ AFRAME.registerComponent("hands-manager", {
     },
 });
 
+let handsTouching = 0;
+let doubleHanded = false;
+
 AFRAME.registerComponent("toggle-hands", {
     init: function () {
         const manager = document.getElementById("rController");
         let el = this.el;
+        let handsTouchingMe = 0;
+      
         /*        const hands = document.getElementById("hands");*/
-        el.addEventListener("hitstart", function () {
+        el.addEventListener("hitstart", function (e) {
+           
+            handsTouching++;
+            handsTouchingMe++;
+           /* if(handsTouchingMe === 2){
+                console.log("double handed")
+                doubleHanded = true;
+            }*/
             manager.emit("ShowHands");
-
         });
 
         el.addEventListener("hitend", function () {
-            manager.emit("HideHands");
+            
+            handsTouching--;
+            handsTouchingMe--;
+            if(handsTouching < 1){
+                manager.emit("HideHands")
+            }
 
 
 
-    });
+
+        });
+        
+        el.addEventListener("onDestroy", function(){
+            
+           handsTouching = handsTouching - handsTouchingMe;
+           console.log("hands touching me " + handsTouchingMe);
+            console.log("hands touching now: " + handsTouching);
+            el.parentEl.removeChild(el);
+        })
 
 
     },

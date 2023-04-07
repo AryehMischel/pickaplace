@@ -50,10 +50,7 @@
 
 
         <a-mixin  mixin id="shelf-mix" static-body material="transparent: true; opacity: 0" color="#FFFAF0" rotation="0 90 0" scale="0.3 0.1 0.3"></a-mixin>
-        <a-mixin  mixin id="trigger" aabb-collider="objects: .Icons3D" material="transparent: true; opacity: 0.5; color: purple"  rotation="0 90 0" scale="0.3 0.1 0.3"
-                  event-set__hitstart="material.opacity: 0.5; material.color: orange"
-                  event-set__hitend="material.opacity: 1; material.color: red" color="#FFFAF0" rotation="0 90 0" scale="0.3 0.1 0.3"></a-mixin>
-        <a-mixin  mixin id="trigger-2" class="coll" aabb-collider="objects: .hand"
+        <a-mixin  mixin id="trigger" class="coll" aabb-collider="objects: .hand"
                   toggle-hands scale="1 1 1"></a-mixin>
       
         <a-mixin id="Box-Collider"
@@ -431,7 +428,7 @@
         <a-entity id="hands" visible="false">
 
             <a-entity
-                    id="lhand"
+                    id="lHand"
                     mixin="physics-hands"
                     hand-controls="hand: left"
                     class="hand"
@@ -439,7 +436,7 @@
 
             <a-entity
                     class="hand"
-                    id="rhand"
+                    id="rHand"
                     mixin="physics-hands"
                     hand-controls="hand: right"
             ></a-entity>
@@ -499,7 +496,7 @@
 
     <!-- 3D Icons / Small grabbable cubemaps for now -->
 
-    <a-entity id="icons3D" visible="false">
+    <a-entity id="icons3D" visible="false" >
 
         <a-entity
                 constraint="target: #trigger-test2; distance: 0"
@@ -517,16 +514,16 @@
                 class="Icons3D"
                 on-grab
                 click-animate-alongpath="0"
-        ><a-box id="trigger-test" scale="1 1 1" color="red" ></a-box>
+                generate-trigger
+        >
+          
             <a-entity id="coll" oncollision-setlayer="0" mixin="Box-Collider"></a-entity>
             
-            <a-box material="transparent: true; opacity: 0.5; color: purple" scale="1 1 1" 
-            ></a-box>
+          
 
         </a-entity>
       
       
-        <a-box material="transparent: true; opacity: 0.5; color: purple" scale="1 1 1" kinematic-body id="trigger-test2" mixin="trigger"></a-box>
 
 
         <a-entity
@@ -544,7 +541,7 @@
                 render-order="0"
                 on-grab
                 click-animate-alongpath="5"
-         
+                generate-trigger
 
         ><a-entity id="coll1" oncollision-setlayer="1" mixin="Box-Collider"></a-entity> </a-entity>
 
@@ -563,6 +560,7 @@
                 render-order="1"
                 on-grab
                 click-animate-alongpath="1"
+                generate-trigger
         ><a-entity id="coll2" oncollision-setlayer="4" mixin="Box-Collider"></a-entity> </a-entity>
         <a-entity
             id="desertCube"
@@ -580,6 +578,7 @@
             render-order="1"
             on-grab
             click-animate-alongpath="2"
+            generate-trigger
     ><a-entity id="coll3" oncollision-setlayer="3" mixin="Box-Collider"></a-entity></a-entity>
 
         <a-entity
@@ -598,6 +597,7 @@
                 render-order="1"
                 on-grab
                 click-animate-alongpath="3"
+                generate-trigger
                
         ><a-entity id="coll4" oncollision-setlayer="2" mixin="Box-Collider"></a-entity></a-entity>
 

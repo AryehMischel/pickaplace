@@ -21,8 +21,19 @@ AFRAME.registerComponent("scene-controller", {
 
         }
 
+        this.el.addEventListener("loaded", ()=> setTriggers());
+        
+        function setTriggers(){
+            console.log("setting")
+            let Cubes = document.getElementById("icons3D")
+            for(child in Cubes.children){
+                Cubes.children[child].emit("go");
+
+            }
+        }
 
 
+    
         /* function sleep(ms)
          {
              return new Promise(resolve => setTimeout(resolve, ms));
