@@ -125,190 +125,6 @@
         <!--    animation__col = "property: components.material.material.opacity; type: isRawProperty; from: 0.8; to: 1; delay:2000; dur: 1000; autoplay: true;";-->
      
 
-       <a-cubemap id="Mountain-Cube">
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/mountain-cube/posx.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/mountain-cube/negx.webp"
-
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/mountain-cube/posy.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/mountain-cube/negy.webp"
-
-            />      <img
-                crossorigin="anonymous"
-                src="./assets/cubemaps/mountain-cube/posz.webp"
-        />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/mountain-cube/negz.webp"
-
-            />
-
-        </a-cubemap>
-
-
-        <a-cubemap id="Louvre-Cube" autoplay>
-            <img
-
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/louvre-cube/posx.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/louvre-cube/negx.webp"
-
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/louvre-cube/posy.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/louvre-cube/negy.webp"
-
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/louvre-cube/posz.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/louvre-cube/negz.webp"
-
-            />
-        </a-cubemap>
-
-        <a-cubemap id="Snow-Cube" autoplay>
-            <img
-
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/snow-cube/posx.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/snow-cube/negx.webp"
-
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/snow-cube/posy.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/snow-cube/negy.webp"
-
-            />      <img
-                crossorigin="anonymous"
-                src="./assets/cubemaps/snow-cube/posz.webp"
-        />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/snow-cube/negz.webp"
-
-            />
-        </a-cubemap>
-
-        <a-cubemap id="Sky-Cube" autoplay>
-            <img
-
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/sky-cube/posx.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/sky-cube/negx.webp"
-
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/sky-cube/posy.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/sky-cube/negy.webp"
-
-            />      <img
-                crossorigin="anonymous"
-                src="./assets/cubemaps/sky-cube/posz.webp"
-        />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/sky-cube/negz.webp"
-            />
-
-        </a-cubemap>
-        <a-cubemap id="First-Cube" autoplay>
-            <img
-
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/firstcube/posx.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/firstcube/negx.webp"
-
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/firstcube/posy.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/firstcube/negy.webp"
-
-            />      <img
-                crossorigin="anonymous"
-                src="./assets/cubemaps/firstcube/posz.webp"
-        />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/firstcube/negz.webp"
-            />
-        </a-cubemap>
-
-        <a-cubemap id="Desert-Cube" autoplay>
-            <img
-
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/desert-cube/posx.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/desert-cube/negx.webp"
-
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/desert-cube/posy.webp"
-            />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/desert-cube/negy.webp"
-
-            />      <img
-                crossorigin="anonymous"
-                src="./assets/cubemaps/desert-cube/posz.webp"
-        />
-            <img
-                    crossorigin="anonymous"
-                    src="./assets/cubemaps/desert-cube/negz.webp"
-            />
-        </a-cubemap>
-
-
-
-
-
-
     </a-assets>
 
     <!--Paths-->
@@ -468,27 +284,21 @@
     <!-- Cubemap Layers, we toggle these layers to give the illusion of a scene change. We could also nest objects in these layers to really sell it! -->
    
     <a-entity id="L1" visible="false" observe="mt">
-        <a-entity id="mountain" cubemap="folder: #Mountain-Cube"></a-entity>
     </a-entity>
 
     <a-entity id="L2" visible="false" observe="lv">
-        <a-entity id="louvre"  cubemap="folder: #Louvre-Cube"></a-entity>
     </a-entity>
 
     <a-entity id="L3" visible="false" observe="sn">
-        <a-entity id="snow" cubemap="folder: #Snow-Cube"></a-entity>
     </a-entity>
 
     <a-entity id="L4" visible="false" observe="desert">
-        <a-entity  id="desert" cubemap="folder: #Desert-Cube"></a-entity>
     </a-entity>
 
     <a-entity id="L5" visible="false" observe="sky" >
-        <a-entity id="sky" cubemap="folder: #Sky-Cube"></a-entity>
     </a-entity>
 
     <a-entity id="landingPage" visible="true">
-        <a-entity id="landing" cubemap="folder: #First-Cube" ></a-entity>
 
         <a-entity id="text"
                   text="value:Pick a place.; color: #d64161; shader: msdf; font: https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/exo2/Exo2-Light.json; align: center"
@@ -518,7 +328,6 @@
                 event-set__mouseleave="scale: 0.05 0.05 0.05"
                 respawn-cube="position: -0.50 1.5 -1.42; rotation: 15"
                 scale="0.05 0.05 0.05"
-                cubemap="folder: #Mountain-Cube; edgeLength: 5"
                 position="-0.50 1.5 -1.42"
                 animation ="property: rotation;from:0 0 0; to: 30 0 0; loop: false; dur: 1100; startEvents: animate"
                 render-order="0"
@@ -545,7 +354,6 @@
                 event-set__mouseenter="scale: 0.07 0.07 0.07"
                 event-set__mouseleave="scale: 0.05 0.05 0.05"
                 respawn-cube="position: 0.50 1.5 -1.42; rotation: -15"
-                cubemap="folder: #Louvre-Cube; edgeLength: 5"
                 position="0.50 1.15 -1.42"
                 scale="0.05 0.05 0.05"
                 animation ="property: rotation; from:0 -15 0; to: 30 0 0; loop: false; dur: 1100; startEvents: animate"
@@ -563,7 +371,6 @@
                 event-set__mouseenter="scale: 0.055 0.055 0.055"
                 event-set__mouseleave="scale: 0.05 0.05 0.05"
                 respawn-cube="position: 0.5  1.15 -0.70; rotation: 55"
-                cubemap="folder: #Sky-Cube; edgeLength: 5"
                 position="0.5  1 -0.70"
                 scale="0.05 0.05 0.05"
                 class="Icons3D"
@@ -580,7 +387,6 @@
             event-set__mouseenter="scale: 0.055 0.055 0.055"
             event-set__mouseleave="scale: 0.05 0.05 0.05"
             respawn-cube="position:-0.5 1.15 -0.70; rotation: -55"
-            cubemap="folder: #Desert-Cube; edgeLength: 5"
             position="-0.5 1 -0.70"
             scale="0.05 0.05 0.05"
             class="Icons3D"
@@ -600,7 +406,6 @@
                 event-set__mouseenter="scale: 0.065 0.06 0.065"
                 event-set__mouseleave="scale: 0.05 0.05 0.05"
                 respawn-cube="position: 0 1.15 -1; rotation: 0 "
-                cubemap="folder: #Snow-Cube; edgeLength: 5"
                 position="0 1 -1"
                 scale="0.05 0.05 0.05"
                 animation = "property: rotation;from: 0 0 0; to: 0 20 0; loop: false; dur: 600; startEvents: animate"
