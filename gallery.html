@@ -7,6 +7,18 @@
     <script>
         delete AFRAME.components["grabbable"];
     </script>
+    <script>
+        AFRAME.registerComponent('create-ktx2-loader', {
+            schema: { type: 'string' },
+            init: function () {
+                ktx2Loader = AFRAME.scenes[0].systems['gltf-model'].getKTX2Loader()
+                ktx2Loader.setWorkerLimit(8);
+
+                loadCompressedTextures();
+    
+            }
+        });
+    </script>
     <script src="myCubeMapComponent.js"  ></script>
 <!--
     <script src="https://unpkg.com/aframe-fps-counter-component/dist/aframe-fps-counter-component.min.js"></script>
@@ -45,6 +57,8 @@
 </head>
 <body>
 <a-scene scene-controller
+         create-ktx2-loader
+         gltf-model="basisTranscoderPath:https://cdn.jsdelivr.net/npm/three@0.154.0/examples/jsm/libs/basis/"
          layers
          loading-screen="dotsColor: red; backgroundColor: white"
          physics="gravity: -9.8">
@@ -462,3 +476,12 @@
 </a-scene>
 </body>
 </html>
+
+<script>
+    let ktx2Loader;
+
+    function loadCompressedTextures(){
+        console.log("Loading compressed textures");
+    }
+
+</script>
