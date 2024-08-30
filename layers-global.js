@@ -6,13 +6,14 @@ const Layer5 = document.getElementById('L5');
 const landingPage = document.getElementById('landingPage');
 let ActiveLayer = landingPage;
 function setLayer1() {
-
+    console.log("setting layer old fashioned way");
     ActiveLayer.setAttribute('visible', 'false');
     Layer1.setAttribute('visible', 'true');
     ActiveLayer = Layer1;
 }
 
 function setLayer2() {
+    console.log("setting layer old fashioned way");
 
     ActiveLayer.setAttribute('visible', 'false');
     Layer2.setAttribute('visible', 'true');
@@ -20,6 +21,7 @@ function setLayer2() {
 }
 
 function setLayer3() {
+    console.log("setting layer old fashioned way");
 
     ActiveLayer.setAttribute('visible', 'false');
     Layer3.setAttribute('visible', 'true');
@@ -27,6 +29,7 @@ function setLayer3() {
 }
 
 function setLayer4() {
+    console.log("setting layer old fashioned way");
 
     ActiveLayer.setAttribute('visible', 'false');
     Layer4.setAttribute('visible', 'true');
@@ -35,6 +38,7 @@ function setLayer4() {
 }
 
 function setLayer5() {
+    console.log("setting layer old fashioned way");
 
     ActiveLayer.setAttribute('visible', 'false');
     Layer5.setAttribute('visible', 'true');

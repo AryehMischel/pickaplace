@@ -59,7 +59,10 @@
 </head>
 
 <body>
-    <a-scene scene-controller create-ktx2-loader
+    <a-scene
+     
+    scene-controller
+     create-ktx2-loader
     renderer="
     colorManagement: false;
     antialias: true;
@@ -472,7 +475,7 @@
     });
 
 
-    function changeBackgroundByName(name = "first") {
+    function setSceneBackgroundTexture(name = "first") {
     scene.object3D.background = cubemapTextures[name];
 }
 

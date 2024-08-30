@@ -13,7 +13,7 @@ AFRAME.registerComponent("oncollision-setlayer", {
 
             //funcs[i]();
             console.log("name is " + i);
-            changeBackgroundByName(i)
+            setSceneBackgroundTexture(i)
             parent.emit("spawn");
 
 

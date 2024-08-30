@@ -4,7 +4,7 @@ AFRAME.registerComponent("layers", {
         // Based on -> https://github.com/alchemz/aframe_webvr_switch_scenes-->
 
 //rewrite this so it's not so messy and redundant. should be like 2 or 3 functions
-
+      
         const scene = document.querySelector('a-scene');
         
         scene.addEventListener("loaded", ()=> loadNext())
@@ -147,11 +147,12 @@ console.log("setting layer 1")
         let ip4 = document.createElement('a-entity');
         let ip5 = document.createElement('a-entity');
 
-        PCIcon.setAttribute("onclick", "setLayer1()");
-        PCIcon2.setAttribute("onclick", "setLayer2()");
-        PCIcon3.setAttribute("onclick", "setLayer3()");
-        PCIcon4.setAttribute("onclick", "setLayer4()");
-        PCIcon5.setAttribute("onclick", "setLayer5()");
+
+        PCIcon.addEventListener("click",  () => { setSceneBackgroundTexture("desert") });
+        PCIcon2.addEventListener("click", () => { setSceneBackgroundTexture("snow") });
+        PCIcon3.addEventListener("click", () => { setSceneBackgroundTexture("mountain") });
+        PCIcon4.addEventListener("click", () => { setSceneBackgroundTexture("first") });
+        PCIcon5.addEventListener("click", () => { setSceneBackgroundTexture("sky") });
 
 //add's PC-Icon mixin (contains - position, rotation, scale, onhover event, onexithover event data) 
         PCIcon.setAttribute("mixin", "PC-Icon");
