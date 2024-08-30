@@ -21,44 +21,7 @@ AFRAME.registerComponent("scene-controller", {
 
         }
 
-        this.el.addEventListener("loaded", ()=> setTriggers());
-        
-        function setTriggers(){
-            console.log("setting")
-            let Cubes = document.getElementById("icons3D")
-            for(child in Cubes.children){
-                Cubes.children[child].emit("go");
 
-            }
-        }
-
-
-    
-        /* function sleep(ms)
-         {
-             return new Promise(resolve => setTimeout(resolve, ms));
-         }
- 
-         
-         this.el.addEventListener("loaded",function(){
-            trySetScene();
-             
- 
-         });
-         
-         async function trySetScene(){
-             if (typeof   loadNext == 'undefined'){
-                 
-                 sleep(500)
-                 trySetScene();
-                 console.log("coming for yuh")
-                 /!*document.getElementById("loader").addEventListener("loaded", ()=> loadNext());*!/
-             } else(
- 
-                 loadNext()
- 
-             )
-         }*/
 
     },
 });

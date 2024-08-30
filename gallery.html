@@ -283,20 +283,6 @@
 
         <!-- Cubemap Layers, we toggle these layers to give the illusion of a scene change. We could also nest objects in these layers to really sell it! -->
 
-        <a-entity id="L1" visible="false" observe="mt">
-        </a-entity>
-
-        <a-entity id="L2" visible="false" observe="lv">
-        </a-entity>
-
-        <a-entity id="L3" visible="false" observe="sn">
-        </a-entity>
-
-        <a-entity id="L4" visible="false" observe="desert">
-        </a-entity>
-
-        <a-entity id="L5" visible="false" observe="sky">
-        </a-entity>
 
         <a-entity id="landingPage" visible="true">
 
@@ -310,7 +296,45 @@
 
 
         <!-- World Space 2D Icon-Buttons to select active scene aka which cubemap we are displaying  -->
-        <a-entity id="icons2D"></a-entity>
+        <a-entity id="icons2D" >
+            
+            <a-entity position="0 0 -0.34" >
+                <a-plane mixin="PC-Icon" class="Icons2D" material="src: #DesertThumb; color: #FFF" onclick='setSceneBackgroundTexture("desert")'></a-plane>
+
+
+            </a-entity>
+
+            <a-entity position="0 0 -0.35" animation__ico="property: rotation; to: 0 25 0; dur: 500; delay: 1500; easing: easeOutQuint; autoplay: true">
+                <a-plane mixin="PC-Icon" class="Icons2D" material="src: #SnowThumb; color: #FFF" onclick='setSceneBackgroundTexture("snow")'></a-plane>
+
+
+            </a-entity>
+
+            <a-entity position="0 0 -0.35" animation__ico="property: rotation; to: 0 -25 0; dur: 800; delay: 1700; easing: easeOutQuint; autoplay: true">
+                <a-plane mixin="PC-Icon" class="Icons2D" material="src: #MountainThumb; color: #FFF" onclick='setSceneBackgroundTexture("mountain")'></a-plane>
+
+
+            </a-entity>
+
+            <a-entity position="0 0 -0.35" animation__ico="property: rotation; to: 0 50 0; dur: 500; delay: 1900; easing: easeOutQuint; autoplay: true">
+                <a-plane mixin="PC-Icon" class="Icons2D" material="src: #LouvreThumb; color: #FFF" onclick='setSceneBackgroundTexture("first")'></a-plane>
+
+
+            </a-entity>
+
+            <a-entity position="0 0 -0.35" animation__ico="property:  rotation; to: 0 -50 0; dur: 500; delay: 2000; easing: easeOutQuint; autoplay: true">
+                <a-plane mixin="PC-Icon" class="Icons2D" material="src: #SkyThumb; color: #FFF" onclick='setSceneBackgroundTexture("sky")'></a-plane>
+
+
+            </a-entity>
+    
+    
+    
+            
+
+
+
+        </a-entity>
 
         <!-- 3D Icons / Small grabbable cubemaps for now -->
 
