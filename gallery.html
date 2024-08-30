@@ -58,7 +58,7 @@
 
 <body>
     <a-scene
-     
+    xr-mode-ui="enabled: false"
     scene-controller
     landing-animation
     create-ktx2-loader
@@ -522,6 +522,7 @@
 
         await Promise.all(loadPromises);
         console.log("All images loaded");
+        scene.setAttribute("xr-mode-ui", "enabled: true");
         console.log(performance.now());
     });
 
