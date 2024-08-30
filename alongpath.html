@@ -1,0 +1,19 @@
+<head>
+    <title>My A-Frame Scene</title>
+    <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+    <script src="./curve.js" defer></script> 
+    <script src="alongpath.js"></script> 
+  </head>
+   
+  <body>
+    <a-scene>
+        <a-sky color="blue"></a-sky>
+      <a-curve id="track1">
+        <a-curve-point position="-2 2 -3"></a-curve-point>
+        <a-curve-point position="0 1 -3"></a-curve-point>
+        <a-curve-point position="2 2 -3"></a-curve-point>
+      </a-curve>
+      <a-entity draw-curve="curve: #tack1"></a-entity>
+      <a-box alongpath="curve: #track1; dur: 1500; loop: true; easing: easeInCir" ></a-box>
+    </a-scene>
+  </body>

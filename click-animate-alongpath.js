@@ -18,10 +18,10 @@ AFRAME.registerComponent('click-animate-alongpath', {
             let string = "curve: #path" + data + "; dur: 1500; loop: false; easing: easeInCirc"
             el.setAttribute("alongpath", string);
             el.removeAttribute("class", "Icons3D");
-            // audioplayer.components.sound.stopSound();
-            //audioplayer.setAttribute("sound", "src: #clip" + data);
-            //audioplayer.emit("play");
-            //console.log(data)
+            audioplayer.components.sound.stopSound();
+            audioplayer.setAttribute("sound", "src: #clip" + data);
+            audioplayer.emit("play");
+            console.log(data)
 
         });
 
