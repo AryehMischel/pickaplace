@@ -44,13 +44,14 @@ AFRAME.registerComponent("layers", {
 
 
         function SetLayer1() {
-
+console.log("setting layer 1")
             // ActiveLayer.setAttribute('visible', 'false');
             Layer1.setAttribute('visible', 'true');
             //ActiveLayer = Layer1;
         }
 
         function SetLayer2() {
+            console.log("setting layer 1")
 
             // ActiveLayer.setAttribute('visible', 'false');
             Layer2.setAttribute('visible', 'true');
@@ -58,6 +59,7 @@ AFRAME.registerComponent("layers", {
         }
 
         function SetLayer3() {
+            console.log("setting layer 1")
 
             // ActiveLayer.setAttribute('visible', 'false');
             Layer3.setAttribute('visible', 'true');
@@ -65,6 +67,7 @@ AFRAME.registerComponent("layers", {
         }
 
         function SetLayer4() {
+            console.log("setting layer 1")
 
             //ActiveLayer.setAttribute('visible', 'false');
             Layer4.setAttribute('visible', 'true');
@@ -73,6 +76,7 @@ AFRAME.registerComponent("layers", {
         }
 
         function SetLayer5() {
+            console.log("setting layer 1")
 
             //ActiveLayer.setAttribute('visible', 'false');
             Layer5.setAttribute('visible', 'true');

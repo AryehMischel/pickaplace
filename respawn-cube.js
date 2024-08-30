@@ -18,7 +18,7 @@ AFRAME.registerComponent("respawn-cube", {
 
         el.addEventListener('spawn', function () {
             
-            el.emit("destroy") //removing the trigger collider (there must be a better way)
+            // el.emit("destroy") //removing the trigger collider (there must be a better way)
             el.removeAttribute("dynamic-body");
             el.setAttribute("visible", "false")
             

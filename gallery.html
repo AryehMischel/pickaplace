@@ -60,6 +60,12 @@
 
 <body>
     <a-scene scene-controller create-ktx2-loader
+    renderer="
+    colorManagement: false;
+    antialias: true;
+    highRefreshRate: true;
+    anisotropy: 1;
+    foveationLevel: 0;" 
         gltf-model="basisTranscoderPath:https://cdn.jsdelivr.net/npm/three@0.154.0/examples/jsm/libs/basis/" layers
         loading-screen="dotsColor: red; backgroundColor: white" physics="gravity: -9.8">
 
@@ -170,13 +176,7 @@
 
             </a-curve>
 
-            <a-entity draw-curve="curve: #longpath"></a-entity>
-            <a-entity draw-curve="curve: #path0"></a-entity>
-            <a-entity draw-curve="curve: #path1"></a-entity>
-            <a-entity draw-curve="curve: #path2"></a-entity>
-            <a-entity draw-curve="curve: #path3"></a-entity>
-            <a-entity draw-curve="curve: #path4"></a-entity>
-            <a-entity draw-curve="curve: #path5"></a-entity>
+   
         </a-entity>
 
         <!-- misc -->
@@ -295,7 +295,7 @@
                 on-grab
                 click-animate-alongpath="0"
            >
-                <a-entity id="coll" oncollision-setlayer="0" mixin="Box-Collider"></a-entity>
+                <a-entity id="coll" oncollision-setlayer="mountain" mixin="Box-Collider"></a-entity>
             </a-entity>
 
             <a-entity id="louvreCube" class="Icons3D" 
@@ -308,8 +308,8 @@
                 render-order="0"
                 on-grab
                 click-animate-alongpath="5"
-                generate-trigger>
-                <a-entity id="coll1" oncollision-setlayer="1" mixin="Box-Collider"></a-entity>
+           >
+                <a-entity id="coll1" oncollision-setlayer="first" mixin="Box-Collider"></a-entity>
             </a-entity>
 
             <a-entity id="skyCube" 
@@ -323,8 +323,8 @@
                 render-order="1"
                 on-grab
                 click-animate-alongpath="1"
-                generate-trigger>
-                <a-entity id="coll2" oncollision-setlayer="4" mixin="Box-Collider"></a-entity>
+           >
+                <a-entity id="coll2" oncollision-setlayer="sky" mixin="Box-Collider"></a-entity>
             </a-entity>
 
             <a-entity id="desertCube" 
@@ -339,8 +339,8 @@
                 render-order="1"
                 on-grab
                 click-animate-alongpath="2"
-                generate-trigger>
-                <a-entity id="coll3" oncollision-setlayer="3" mixin="Box-Collider"></a-entity>
+                >
+                <a-entity   id="coll3" oncollision-setlayer="desert" mixin="Box-Collider"></a-entity>
             </a-entity>
 
             <a-entity dynamic-body grabbable
@@ -356,8 +356,8 @@
                 render-order="1"
                 on-grab
                 click-animate-alongpath="3"
-                generate-trigger>
-                <a-entity id="coll4" oncollision-setlayer="2" mixin="Box-Collider"></a-entity>
+              >
+                <a-entity id="coll4" oncollision-setlayer="snow" mixin="Box-Collider"></a-entity>
             </a-entity>
         </a-entity>
 
@@ -420,7 +420,17 @@
     let desertCube = document.querySelector("#desertCube")
     let snowCube = document.querySelector("#snowCube")
     let louvreCube = document.querySelector("#louvreCube")
-    let skyboxes = [mountainCube, skyCube, desertCube, snowCube, louvreCube]
+
+    let skyboxes = {
+        "mountain": mountainCube,
+        "sky": skyCube,
+        "desert": desertCube,
+        "snow": snowCube,
+        "first": louvreCube}
+
+
+        
+    //  [mountainCube, skyCube, desertCube, snowCube, louvreCube]
 
     let cubemapTextures = new Object()
 
@@ -433,17 +443,23 @@
                 .then((texture) => {
                     //store our textures in an object
                     cubemapTextures[textureInfo.name] = texture;
+                  
                    
                     //Giving each texture a global variable so we can access it in our cubemap component. I do not know the best way to pass a texture to an A-Frame component so this was a quick and dirty solution.
                     window[textureInfo.name] = texture;
 
-                    console.log("Texture loaded: ", textureInfo.name, texture);
+                    console.log("Texture loaded: ", textureInfo.name, index);
                     //add the cubemap component to our interactive skybox ui
-                    skyboxes[index].setAttribute("cubemap", "edgeLength: 5; textureGlobalVariable: " + textureInfo.name);
+                    skyboxes[textureInfo.name].setAttribute("cubemap", "edgeLength: 5; textureGlobalVariable: " + textureInfo.name);
                     //give it a rigidbody
-                    skyboxes[index].setAttribute("dynamic-body", "shape: box; mass: 0.5");
+                    skyboxes[textureInfo.name].setAttribute("dynamic-body", "shape: box; mass: 0.5");
                     //make it grabbable for the super hands component
-                    skyboxes[index].setAttribute("grabbable", "");
+                    skyboxes[textureInfo.name].setAttribute("grabbable", "");
+
+                    skyboxes[textureInfo.name].setAttribute("aabb-collider", "objects: .hand");
+
+                    skyboxes[textureInfo.name].setAttribute("toggle-hands", "")
+
                 })
                 .catch((error) => {
                     console.error('An error happened', error);
@@ -454,6 +470,11 @@
         console.log("All images loaded");
         console.log(performance.now());
     });
+
+
+    function changeBackgroundByName(name = "first") {
+    scene.object3D.background = cubemapTextures[name];
+}
 
 
 </script>
