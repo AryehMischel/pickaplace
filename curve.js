@@ -8,7 +8,7 @@ if (typeof AFRAME === 'undefined') {
  * Curve component for A-Frame to deal with spline curves
  */
 var zAxis = new THREE.Vector3(0, 0, 1);
-var degToRad = THREE.Math.degToRad;
+var degToRad = THREE.MathUtils.degToRad;
 
 AFRAME.registerComponent('curve-point', {
 
@@ -142,7 +142,7 @@ function normalFromTangent(tangent) {
 
 AFRAME.registerShader('line', {
     schema: {
-        color: {default: '#ff0000'},
+        color: { default: '#ff0000' },
     },
 
     init: function (data) {
@@ -159,7 +159,7 @@ AFRAME.registerComponent('draw-curve', {
     //dependencies: ['curve', 'material'],
 
     schema: {
-        curve: {type: 'selector'}
+        curve: { type: 'selector' }
     },
 
     init: function () {
@@ -172,14 +172,20 @@ AFRAME.registerComponent('draw-curve', {
         }
 
         if (this.curve && this.curve.curve) {
-            var mesh = this.el.getOrCreateObject3D('mesh', THREE.Line);
+            // var mesh = this.el.getOrCreateObject3D('mesh', THREE.Line);
+
+            var mesh = this.el.getObject3D('mesh');
+            if (!mesh) {
+                mesh = new THREE.Line();
+                this.el.setObject3D('mesh', mesh);
+            }
 
             lineMaterial = mesh.material ? mesh.material : new THREE.LineBasicMaterial({
                 color: "#ff0000"
             });
 
-            var lineGeometry = new THREE.Geometry();
-            lineGeometry.vertices = this.curve.curve.getPoints(this.curve.curve.points.length * 10);
+            var points = this.curve.curve.getPoints(this.curve.curve.points.length * 10);
+            var lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
 
             this.el.setObject3D('mesh', new THREE.Line(lineGeometry, lineMaterial));
         }
@@ -197,8 +203,8 @@ AFRAME.registerComponent('clone-along-curve', {
     //dependencies: ['curve'],
 
     schema: {
-        curve: {type: 'selector'},
-        spacing: {default: 1},
+        curve: { type: 'selector' },
+        spacing: { default: 1 },
         rotation: {
             type: 'vec3',
             default: { x: 1, y: 1, z: 1 }
