@@ -7,15 +7,13 @@ AFRAME.registerComponent("scene-controller", {
         document.querySelector('a-scene').renderer.xr.addEventListener( 'sessionend', ()=> onExitVR());
         
         
-        function onEnterVR(){
-            // toggleVRScene();
+       async function onEnterVR(){
            document.getElementById("screenSpaceIcons2D").setAttribute("visible", "false");
             document.getElementById("vrui").setAttribute("visible", "true");
-            
+
         }
 
         function onExitVR(){
-            // toggleVRScene();
             document.getElementById("screenSpaceIcons2D").setAttribute("visible", "true");
             document.getElementById("vrui").setAttribute("visible", "false");
 

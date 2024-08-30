@@ -109,19 +109,17 @@ AFRAME.registerComponent("cubemap", {
       },
     });
 
-    // Log the material to check if envMap is defined
-    console.log("Material after defining envMap:", this.material);
-
-    // Assume a valid cube texture is provided as `cubeTexture`
-
-    console.log(this.material.uniforms["tCube"]); // This should not be undefined
-
     if (this.material.uniforms["envMap"]) {
       this.material.uniforms["envMap"].value = this.cubeTexture;
-    } else {
-      console.error("envMap uniform is undefined.");
-      // return;
-    }
+    } 
+
+    // Log the material to check if envMap is defined
+    // console.log("Material after defining envMap:", this.material);
+
+    // Assume a valid cube texture is provided as `cubeTexture`
+    // console.log(this.material.uniforms["tCube"]); // This should not be undefined
+
+  
 
     // We can create the mesh now
     this.mesh = new THREE.Mesh(this.geometry, this.material);

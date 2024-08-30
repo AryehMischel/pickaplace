@@ -18,18 +18,75 @@
 
             }
         });
+
+        AFRAME.registerComponent('example-component', {
+            init: function () {
+                const el = this.el;
+
+                // Add event listener for grab start
+                el.addEventListener('grabstart', function (e) {
+                    console.log('is it this??')
+                    // Prevent event propagation to avoid recursive firing
+                    e.stopPropagation();
+
+                    // Handle the grab start event
+                    console.log('Grab start detected:', e.detail);
+                });
+
+                // Add event listener for grab end
+                el.addEventListener('grabend', function (e) {
+                    console.log('is it this??')
+
+                    // Prevent event propagation to avoid recursive firing
+                    e.stopPropagation();
+
+                    // Handle the grab end event
+                    console.log('Grab end detected:', e.detail);
+                });
+
+                el.addEventListener('hitstart', function (e) {
+                    console.log('is it this??')
+
+                    // Prevent event propagation to avoid recursive firing
+                    e.stopPropagation();
+
+                    // Handle the grab end event
+                    console.log('Grab end detected:', e.detail);
+                });
+
+                el.addEventListener('hitend', function (e) {
+                    console.log('is it this??')
+
+                    // Prevent event propagation to avoid recursive firing
+                    e.stopPropagation();
+
+                    // Handle the grab end event
+                    console.log('Grab end detected:', e.detail);
+                });
+
+                el.addEventListener('dispatchMouseEvent', function (e) {
+                    console.log('is it this??')
+
+                    // Prevent event propagation to avoid recursive firing
+                    e.stopPropagation();
+
+                    // Handle the grab end event
+                    console.log('Grab end detected:', e.detail);
+                });
+            }
+        });
     </script>
-    <script src="myCubeMapComponent.js"></script>
+    <script src="./assets/scripts/aframe-physics-system.min.js"></script>
+    <script src="./myCubeMapComponent.js"></script>
     <!--
     <script src="https://unpkg.com/aframe-fps-counter-component/dist/aframe-fps-counter-component.min.js"></script>
 -->
     <script src="./curve.js" defer></script>
-    <script src="alongpath.js"></script>
-
-
+    <script src="./alongpath.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component@^4.1.1/dist/aframe-event-set-component.min.js"></script>
+
     <script src="./assets/scripts/super-hands.min.js"></script>
-    <script src="./assets/scripts/aframe-physics-system.min.js"></script>
+
     <script src="https://unpkg.com/aframe-physics-extras@0.1.2/dist/aframe-physics-extras.min.js"></script>
     <script
         src="https://unpkg.com/aframe-aabb-collider-component@3.1.0/dist/aframe-aabb-collider-component.min.js"></script>
@@ -38,7 +95,6 @@
 
     <script src="./landing-animation.js"></script>
     <script src="./observer.js"></script>
-    <!-- <script src="./set-text.js"></script> -->
     <script src="./toggle-visible.js"></script>
     <script src="./icon-toggle.js"></script>
     <script src="./scene-controller.js"></script>
@@ -47,7 +103,6 @@
     <script src="./oncollision-setlayer.js"></script>
     <script src="./follow-camera.js"></script>
     <script src="./audio.js" defer></script>
-
     <script src="./click-animate-alongpath.js"></script>
 
 
@@ -57,17 +112,12 @@
 </head>
 
 <body>
-    <a-scene
-    xr-mode-ui="enabled: false"
-    scene-controller
-    landing-animation
-    create-ktx2-loader
-    renderer="
+    <a-scene xr-mode-ui="enabled: true" scene-controller landing-animation create-ktx2-loader renderer="
     colorManagement: false;
     antialias: true;
     highRefreshRate: true;
     anisotropy: 1;
-    foveationLevel: 0;" 
+    foveationLevel: 0;"
         gltf-model="basisTranscoderPath:https://cdn.jsdelivr.net/npm/three@0.154.0/examples/jsm/libs/basis/"
         loading-screen="dotsColor: red; backgroundColor: white" physics="gravity: -9.8">
 
@@ -79,10 +129,10 @@
             <a-mixin mixin id="trigger" class="coll" aabb-collider="objects: .hand" toggle-hands
                 scale="1 1 1"></a-mixin>
 
-            <a-mixin id="Box-Collider" visible="false" position="0 0 -1" static-body="shape: box" material="opacity: 0"
+            <a-mixin id="box-collider" visible="false" position="0 0 -1" static-body="shape: box" material="opacity: 0"
                 collision-filter="group: box; collidesWith: head"
                 geometry="primitive: box; width: 0.1; height: 0.1; depth: 0.1"></a-mixin>
-
+            <!-- gripup, trackpadup, triggerup, gripopen, abuttonup, bbuttonup, xbuttonup, ybuttonup, pointdown, thumbdown, pointingend, pistolend, thumbstickup, mouseup, touchend -->
             <!--physics-hands-->
             <a-mixin id="physics-hands" physics-collider phase-shift collision-filter="collisionForces: false"
                 static-body="shape: sphere; sphereRadius: 0.02"
@@ -92,6 +142,9 @@
                               colliderEndEventProperty: clearedEls;
                               grabEndButtons: [gripup, trackpadup, triggerup, gripopen, abuttonup, bbuttonup, xbuttonup, ybuttonup, pointdown, thumbdown, pointingend, pistolend, thumbstickup, mouseup, touchend]"></a-mixin>
 
+            <a-mixin id="pc-icon" material="color: red" sound="src: #click-sound; volume: 1; on: click"
+                event-set__mouseenter="scale: 0.30 0.30 0.30" event-set__mouseleave="scale: 0.25 0.25 0.25"
+                scale="0.25 0.25 0.25" position="0 0.8 -.80"></a-mixin>
 
             <a-entity id="audioClips">
                 <audio id="clip0" crossorigin="anonymous" src="assets/Audio/c.wav"></audio>
@@ -103,21 +156,19 @@
                     src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
             </a-entity>
 
-            <img id="SkyThumb" src="assets/Thumbnails/thumbnail_sky.png">
-            <img id="DesertThumb" src="assets/Thumbnails/thumbnail_desert.jpg">
-            <img id="MountainThumb" src="assets/Thumbnails/thumbnail_mountain.png">
-            <img id="SnowThumb" src="assets/Thumbnails/thumbnail_snow.png">
-            <img id="LouvreThumb" src="assets/Thumbnails/thumbnail_Louvre2.png">
+            <img id="skyThumb" src="assets/Thumbnails/thumbnail_sky.png">
+            <img id="desertThumb" src="assets/Thumbnails/thumbnail_desert.jpg">
+            <img id="mountainThumb" src="assets/Thumbnails/thumbnail_mountain.png">
+            <img id="snowThumb" src="assets/Thumbnails/thumbnail_snow.png">
+            <img id="louvreThumb" src="assets/Thumbnails/thumbnail_Louvre2.png">
 
-            <a-mixin id="PC-Icon" material="color: red" sound="src: #click-sound; volume: 1; on: click"
-                event-set__mouseenter="scale: 0.30 0.30 0.30" event-set__mouseleave="scale: 0.25 0.25 0.25"
-                scale="0.25 0.25 0.25" position="0 0.8 -.80"></a-mixin>
-            <!--    animation__col = "property: components.material.material.opacity; type: isRawProperty; from: 0.8; to: 1; delay:2000; dur: 1000; autoplay: true;";-->
+
+
 
 
         </a-assets>
 
-        <!--Paths-->
+        <!--Paths for animating skybox ui elements-->
         <a-entity id="paths">
 
             <a-curve id="longpath" curve="closed: false; type: CatmullRom; resetonplay: false">
@@ -178,7 +229,7 @@
 
             </a-curve>
 
-   
+
         </a-entity>
 
         <!-- misc -->
@@ -224,52 +275,34 @@
 
                 <!-- screenspace objects get added to "screenSpaceIcons2D"...-->
                 <a-entity id="screenSpaceIcons2D">
-                <!--Toggles between 2d ui and 3d ui elements-->
-                <a-entity id="iconToggle" icon-toggle="" 
-                geometry="primitive: plane; height: 1; width: 0.5"
-                position="2 1.7 -2"
-                material="color: blue"
-                rotation="0 -25 0"
-                class="UI"
-                event-set__mousedown="position: 2, 1.63 -2"
-                event-set__mouseup="position: 2, 1.7 -2"
-                >
-                <a-entity
-                text="value: 2D; align: center"
-                position="-0.09 -0.2 0.042"
-                scale="4 4 4"
-                rotation="0 25 0"
-                ></a-entity>
-                <a-entity
-                text="value: 3D; align: center"
-                position="0.090 -0.4 0.042"
-                scale="4 4 4"
-                rotation="0 25 0"
-                ></a-entity>
-                <a-entity
-                text="value: /; align: center"
-                position="-0.009 -0.325 0.078"
-                scale="4 8 4"
-                rotation="0 25 -30"
-                ></a-entity>
-                </a-entity>
+                    <!--Toggles between 2d ui and 3d ui elements-->
+                    <a-entity id="iconToggle" icon-toggle="" geometry="primitive: plane; height: 1; width: 0.5"
+                        position="2 1.7 -2" material="color: blue" rotation="0 -25 0" class="UI"
+                        event-set__mousedown="position: 2, 1.63 -2" event-set__mouseup="position: 2, 1.7 -2">
+                        <a-entity text="value: 2D; align: center" position="-0.09 -0.2 0.042" scale="4 4 4"
+                            rotation="0 25 0"></a-entity>
+                        <a-entity text="value: 3D; align: center" position="0.090 -0.4 0.042" scale="4 4 4"
+                            rotation="0 25 0"></a-entity>
+                        <a-entity text="value: /; align: center" position="-0.009 -0.325 0.078" scale="4 8 4"
+                            rotation="0 25 -30"></a-entity>
+                    </a-entity>
                 </a-entity>
 
             </a-camera>
 
-            <a-entity id="hands" visible="false">
+            <a-entity id="hands" hands-manager visible="false">
+                <!-- mixin="physics-hands" -->
+                <a-entity example-component class="default" id="leftHand" mixin="physics-hands" hand-controls="hand: left"></a-entity>
 
-                <a-entity id="lHand" mixin="physics-hands" hand-controls="hand: left" class="hand"></a-entity>
-
-                <a-entity class="hand" id="rHand" mixin="physics-hands" hand-controls="hand: right"></a-entity>
+                <a-entity example-component class="default" id="rightHand" mixin="physics-hands" hand-controls="hand: right"></a-entity>
 
             </a-entity>
 
-            <!-- .cubes, .Icons2D, .toggle -->
             <a-entity id="controllers" visible="true">
-                <a-entity id="rController" hands-manager laser-controls="hand: right"
+                <a-entity id="rightController" laser-controls="hand: right"
                     raycaster="objects: .Icons2D, .vr-ui"></a-entity>
-                <a-entity id="lController" laser-controls="hand: left" raycaster="objects: .Icons2D, .vr-ui"></a-entity>
+                <a-entity id="leftController" laser-controls="hand: left"
+                    raycaster="objects: .Icons2D, .vr-ui"></a-entity>
             </a-entity>
         </a-entity>
 
@@ -292,41 +325,46 @@
 
 
         <!-- World Space 2D Icon-Buttons to select active scene aka which cubemap we are displaying  -->
-        <a-entity id="icons2D" >
-            
-            <a-entity position="0 0 -0.34" >
-                <a-plane mixin="PC-Icon" class="Icons2D" material="src: #DesertThumb; color: #FFF" onclick='setSceneBackgroundTexture("desert")'></a-plane>
+        <a-entity id="icons2D">
+
+            <a-entity position="0 0 -0.34">
+                <a-plane mixin="pc-icon" class="Icons2D" material="src: #desertThumb; color: #FFF"
+                    onclick='setSceneBackgroundTexture("desert")'></a-plane>
 
 
             </a-entity>
 
-            <a-entity position="0 0 -0.35" animation__ico="property: rotation; to: 0 25 0; dur: 500; delay: 1500; easing: easeOutQuint; autoplay: true">
-                <a-plane mixin="PC-Icon" class="Icons2D" material="src: #SnowThumb; color: #FFF" onclick='setSceneBackgroundTexture("snow")'></a-plane>
+            <a-entity position="0 0 -0.35"
+                animation__ico="property: rotation; to: 0 25 0; dur: 500; delay: 1500; easing: easeOutQuint; autoplay: true">
+                <a-plane mixin="pc-icon" class="Icons2D" material="src: #snowThumb; color: #FFF"
+                    onclick='setSceneBackgroundTexture("snow")'></a-plane>
 
 
             </a-entity>
 
-            <a-entity position="0 0 -0.35" animation__ico="property: rotation; to: 0 -25 0; dur: 800; delay: 1700; easing: easeOutQuint; autoplay: true">
-                <a-plane mixin="PC-Icon" class="Icons2D" material="src: #MountainThumb; color: #FFF" onclick='setSceneBackgroundTexture("mountain")'></a-plane>
+            <a-entity position="0 0 -0.35"
+                animation__ico="property: rotation; to: 0 -25 0; dur: 800; delay: 1700; easing: easeOutQuint; autoplay: true">
+                <a-plane mixin="pc-icon" class="Icons2D" material="src: #mountainThumb; color: #FFF"
+                    onclick='setSceneBackgroundTexture("mountain")'></a-plane>
 
 
             </a-entity>
 
-            <a-entity position="0 0 -0.35" animation__ico="property: rotation; to: 0 50 0; dur: 500; delay: 1900; easing: easeOutQuint; autoplay: true">
-                <a-plane mixin="PC-Icon" class="Icons2D" material="src: #LouvreThumb; color: #FFF" onclick='setSceneBackgroundTexture("first")'></a-plane>
+            <a-entity position="0 0 -0.35"
+                animation__ico="property: rotation; to: 0 50 0; dur: 500; delay: 1900; easing: easeOutQuint; autoplay: true">
+                <a-plane mixin="pc-icon" class="Icons2D" material="src: #louvreThumb; color: #FFF"
+                    onclick='setSceneBackgroundTexture("first")'></a-plane>
 
 
             </a-entity>
 
-            <a-entity position="0 0 -0.35" animation__ico="property:  rotation; to: 0 -50 0; dur: 500; delay: 2000; easing: easeOutQuint; autoplay: true">
-                <a-plane mixin="PC-Icon" class="Icons2D" material="src: #SkyThumb; color: #FFF" onclick='setSceneBackgroundTexture("sky")'></a-plane>
+            <a-entity position="0 0 -0.35"
+                animation__ico="property:  rotation; to: 0 -50 0; dur: 500; delay: 2000; easing: easeOutQuint; autoplay: true">
+                <a-plane mixin="pc-icon" class="Icons2D" material="src: #skyThumb; color: #FFF"
+                    onclick='setSceneBackgroundTexture("sky")'></a-plane>
 
 
             </a-entity>
-    
-    
-    
-            
 
 
 
@@ -335,82 +373,45 @@
         <!-- 3D Icons / Small grabbable cubemaps for now -->
 
         <a-entity id="icons3D" visible="false">
-            <a-entity 
-                constraint="target: #trigger-test2; distance: 0" id="mountainCube"
-                event-set__mouseenter="scale: 0.07 0.07 0.07"
-                event-set__mouseleave="scale: 0.05 0.05 0.05"
-                respawn-cube="position: -0.50 1.5 -1.42; rotation: 15"
-                scale="0.05 0.05 0.05"
-                position="-0.50 1.5 -1.42"
+            <a-entity constraint="target: #trigger-test2; distance: 0" id="mountainCube"
+                event-set__mouseenter="scale: 0.07 0.07 0.07" event-set__mouseleave="scale: 0.05 0.05 0.05"
+                respawn-cube="position: -0.50 1.5 -1.42; rotation: 15" scale="0.05 0.05 0.05" position="-0.50 1.5 -1.42"
                 animation="property: rotation;from:0 0 0; to: 30 0 0; loop: false; dur: 1100; startEvents: animate"
-                render-order="0"
-                class="Icons3D"
-                on-grab
-                click-animate-alongpath="0"
-           >
-                <a-entity id="coll" oncollision-setlayer="mountain" mixin="Box-Collider"></a-entity>
+                render-order="0" class="Icons3D" on-grab click-animate-alongpath="0">
+                <a-entity id="coll" oncollision-setlayer="mountain" mixin="box-collider"></a-entity>
             </a-entity>
 
-            <a-entity id="louvreCube" class="Icons3D" 
-                event-set__mouseenter="scale: 0.07 0.07 0.07"
-                event-set__mouseleave="scale: 0.05 0.05 0.05"
-                respawn-cube="position: 0.50 1.5 -1.42; rotation: -15"
-                position="0.50 1.15 -1.42"
-                scale="0.05 0.05 0.05"
+            <a-entity id="louvreCube" class="Icons3D" event-set__mouseenter="scale: 0.07 0.07 0.07"
+                event-set__mouseleave="scale: 0.05 0.05 0.05" respawn-cube="position: 0.50 1.5 -1.42; rotation: -15"
+                position="0.50 1.15 -1.42" scale="0.05 0.05 0.05"
                 animation="property: rotation; from:0 -15 0; to: 30 0 0; loop: false; dur: 1100; startEvents: animate"
-                render-order="0"
-                on-grab
-                click-animate-alongpath="5"
-           >
-                <a-entity id="coll1" oncollision-setlayer="first" mixin="Box-Collider"></a-entity>
+                render-order="0" on-grab click-animate-alongpath="5">
+                <a-entity id="coll1" oncollision-setlayer="first" mixin="box-collider"></a-entity>
             </a-entity>
 
-            <a-entity id="skyCube" 
-                event-set__mouseenter="scale: 0.055 0.055 0.055"
-                event-set__mouseleave="scale: 0.05 0.05 0.05"
-                respawn-cube="position: 0.5  1.15 -0.70; rotation: 55"
-                position="0.5  1 -0.70"
-                scale="0.05 0.05 0.05"
-                class="Icons3D"
+            <a-entity id="skyCube" event-set__mouseenter="scale: 0.055 0.055 0.055"
+                event-set__mouseleave="scale: 0.05 0.05 0.05" respawn-cube="position: 0.5  1.15 -0.70; rotation: 55"
+                position="0.5  1 -0.70" scale="0.05 0.05 0.05" class="Icons3D"
                 animation="property: rotation; from:0 55 0; to: -90 0 0; loop: false; dur: 1400;easing:easeInCirc;startEvents: animate"
-                render-order="1"
-                on-grab
-                click-animate-alongpath="1"
-           >
-                <a-entity id="coll2" oncollision-setlayer="sky" mixin="Box-Collider"></a-entity>
+                render-order="1" on-grab click-animate-alongpath="1">
+                <a-entity id="coll2" oncollision-setlayer="sky" mixin="box-collider"></a-entity>
             </a-entity>
 
-            <a-entity id="desertCube" 
-                event-set__mouseenter="scale: 0.055 0.055 0.055"
-                event-set__mouseleave="scale: 0.05 0.05 0.05"
-                respawn-cube="position:-0.5 1.15 -0.70; rotation: -55"
-                position="-0.5 1 -0.70"
-                scale="0.05 0.05 0.05"
-                class="Icons3D"
+            <a-entity id="desertCube" event-set__mouseenter="scale: 0.055 0.055 0.055"
+                event-set__mouseleave="scale: 0.05 0.05 0.05" respawn-cube="position:-0.5 1.15 -0.70; rotation: -55"
+                position="-0.5 1 -0.70" scale="0.05 0.05 0.05" class="Icons3D"
                 animation="property: rotation;from:0 0 0; to: -90 0 0; loop: false; dur: 100; startEvents: animate"
                 animation__2="property: rotation;from:0 0 0; to: 0 0 -20; loop: false; dur: 1000; startEvents: animationcomplete"
-                render-order="1"
-                on-grab
-                click-animate-alongpath="2"
-                >
-                <a-entity   id="coll3" oncollision-setlayer="desert" mixin="Box-Collider"></a-entity>
+                render-order="1" on-grab click-animate-alongpath="2">
+                <a-entity id="coll3" oncollision-setlayer="desert" mixin="box-collider"></a-entity>
             </a-entity>
 
-            <a-entity dynamic-body grabbable
-                id="snowCube"
-                material="transparent: true"
-                class="Icons3D"
-                event-set__mouseenter="scale: 0.065 0.06 0.065"
-                event-set__mouseleave="scale: 0.05 0.05 0.05"
-                respawn-cube="position: 0 1.15 -1; rotation: 0 "
-                position="0 1 -1"
-                scale="0.05 0.05 0.05"
+            <a-entity dynamic-body grabbable id="snowCube" material="transparent: true" class="Icons3D"
+                event-set__mouseenter="scale: 0.065 0.06 0.065" event-set__mouseleave="scale: 0.05 0.05 0.05"
+                respawn-cube="position: 0 1.15 -1; rotation: 0 " position="0 1 -1" scale="0.05 0.05 0.05"
                 animation="property: rotation;from: 0 0 0; to: 0 20 0; loop: false; dur: 600; startEvents: animate"
-                render-order="1"
-                on-grab
-                click-animate-alongpath="3"
-              >
-                <a-entity id="coll4" oncollision-setlayer="snow" mixin="Box-Collider"></a-entity>
+                render-order="1" on-grab click-animate-alongpath="3">
+                <a-entity id="coll4" oncollision-setlayer="snow" mixin="box-collider"></a-entity>
             </a-entity>
         </a-entity>
 
@@ -420,11 +421,10 @@
         <a-entity light="type: directional; color: #FFF; intensity: 0.8" position="-0.213 1 1"></a-entity>
 
 
-        <!-- Invisible shelves for Rigidbody Icons-->
-        
-
+        <!-- Invisible shelves for holding our Rigidbody 3D Skybox Interactive UI-->
         <a-entity visible="false" id="shelves">
-            <a-box id="shelf" mixin="shelf-mix" position="-0.5 1.02 -1.42"></a-box> <!--  vr position="-0.6 1.1 -0.2" -->
+            <a-box id="shelf" mixin="shelf-mix" position="-0.5 1.02 -1.42"></a-box>
+            <!--  vr position="-0.6 1.1 -0.2" -->
             <a-box id="shelf2" mixin="shelf-mix" position="-0.5 0.8 -0.70"></a-box>
             <a-box id="shelf3" mixin="shelf-mix" position="0 0.7 -1"></a-box>
             <a-box id="shelf4" mixin="shelf-mix" position="0.5 0.8 -0.70"></a-box>
@@ -456,6 +456,15 @@
 </html>
 
 <script>
+    //global variables
+    const rightController = document.querySelector("#rightController");
+    const leftController = document.querySelector("#leftController");
+    const rightHand = document.querySelector("#rightHand");
+    const leftHand = document.querySelector("#leftHand");
+    const hands = document.querySelector("#hands");
+    const controllers = document.querySelector("#controllers");
+
+
     let ktx2Loader;
     let scene = document.querySelector('a-scene');
     let compressedCubeTextureURLs = [
@@ -480,11 +489,9 @@
         "sky": skyCube,
         "desert": desertCube,
         "snow": snowCube,
-        "first": louvreCube}
+        "first": louvreCube
+    }
 
-
-        
-    //  [mountainCube, skyCube, desertCube, snowCube, louvreCube]
 
     let cubemapTextures = new Object()
 
@@ -492,13 +499,12 @@
     scene.addEventListener('loaded', async function () {
         console.log(performance.now());
         const loadPromises = compressedCubeTextureURLs.map((textureInfo, index) => {
-            console.log(textureInfo.name);
             return ktx2Loader.loadAsync(textureInfo.url)
                 .then((texture) => {
                     //store our textures in an object
+                    scene.renderer.initTexture(texture)
                     cubemapTextures[textureInfo.name] = texture;
-                  
-                   
+
                     //Giving each texture a global variable so we can access it in our cubemap component. I do not know the best way to pass a texture to an A-Frame component so this was a quick and dirty solution.
                     window[textureInfo.name] = texture;
 
@@ -528,8 +534,18 @@
 
 
     function setSceneBackgroundTexture(name = "first") {
-    scene.object3D.background = cubemapTextures[name];
-}
+        scene.object3D.background = cubemapTextures[name];
+    }
+
+    function addPhysicsHands() {
+        rightHand.setAttribute("mixin", "physics-hands");
+        leftHand.setAttribute("mixin", "physics-hands");
+    }
+
+    function removePhysicsHands() {
+        rightHand.removeAttribute("mixin", "physics-hands");
+        leftHand.removeAttribute("mixin", "physics-hands");
+    }
 
 
 </script>
