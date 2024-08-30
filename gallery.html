@@ -227,7 +227,37 @@
                 look-controls-enabled="true">
 
                 <!-- screenspace objects get added to "screenSpaceIcons2D"...-->
-                <a-entity id="screenSpaceIcons2D"></a-entity>
+                <a-entity id="screenSpaceIcons2D">
+                <!--Toggles between 2d ui and 3d ui elements-->
+                <a-entity id="iconToggle" icon-toggle="" 
+                geometry="primitive: plane; height: 1; width: 0.5"
+                position="2 1.7 -2"
+                material="color: blue"
+                rotation="0 -25 0"
+                class="UI"
+                event-set__mousedown="position: 2, 1.63 -2"
+                event-set__mouseup="position: 2, 1.7 -2"
+                >
+                <a-entity
+                text="value: 2D; align: center"
+                position="-0.09 -0.2 0.042"
+                scale="4 4 4"
+                rotation="0 25 0"
+                ></a-entity>
+                <a-entity
+                text="value: 3D; align: center"
+                position="0.090 -0.4 0.042"
+                scale="4 4 4"
+                rotation="0 25 0"
+                ></a-entity>
+                <a-entity
+                text="value: /; align: center"
+                position="-0.009 -0.325 0.078"
+                scale="4 8 4"
+                rotation="0 25 -30"
+                ></a-entity>
+                </a-entity>
+                </a-entity>
 
             </a-camera>
 

@@ -1,101 +1,21 @@
 //this component is attached to layer objects. Each will load up the next layer and then remove this component. 
 AFRAME.registerComponent("layers", {
     init: function () {
-        // Based on -> https://github.com/alchemz/aframe_webvr_switch_scenes-->
-
-//rewrite this so it's not so messy and redundant. should be like 2 or 3 functions
-      
-        const scene = document.querySelector('a-scene');
         
-        scene.addEventListener("loaded", ()=> loadNext())
+        //make a single landing page animation script that will trigger our icons to animate.
+        let parent = document.getElementById("icons2D");
+        let transitionSphere = document.getElementById("transitionSphere");
+        let screenSpaceIcons2D = document.getElementById("screenSpaceIcons2D");
 
-        scene.addEventListener("next", ()=> loadNext())
-
-  /*      const landingPage = document.getElementById('landingPage');
-        let ActiveLayer = landingPage;
-*/
-
-        const Layer1 = document.getElementById('L1');
-        const Layer2 = document.getElementById('L2');
-        const Layer3 = document.getElementById('L3');
-        const Layer4 = document.getElementById('L4');
-        const Layer5 = document.getElementById('L5');
-
+        scene.addEventListener("loaded", ()=> setscene())
 
         function setscene(){
-
-            Layer1.setAttribute('visible', 'false');
-            Layer2.setAttribute('visible', 'false');
-            Layer3.setAttribute('visible', 'false');
-            Layer4.setAttribute('visible', 'false');
-            Layer5.setAttribute('visible', 'false');
-            document.getElementById("transitionSphere").emit("fadeinscene");
-            onSceneLoaded();
-
-
-
-        }
-        /*when the layers are set & cached*/
-        async function onSceneLoaded(){
-            //await sleep(500);
+            transitionSphere.emit("fadeinscene");
             spawnIcons();
-            CreateIconToggle();
-        }
-
-
-        function SetLayer1() {
-console.log("setting layer 1")
-            // ActiveLayer.setAttribute('visible', 'false');
-            Layer1.setAttribute('visible', 'true');
-            //ActiveLayer = Layer1;
-        }
-
-        function SetLayer2() {
-            console.log("setting layer 1")
-
-            // ActiveLayer.setAttribute('visible', 'false');
-            Layer2.setAttribute('visible', 'true');
-            //  ActiveLayer = Layer2;
-        }
-
-        function SetLayer3() {
-            console.log("setting layer 1")
-
-            // ActiveLayer.setAttribute('visible', 'false');
-            Layer3.setAttribute('visible', 'true');
-            // ActiveLayer = Layer3;
-        }
-
-        function SetLayer4() {
-            console.log("setting layer 1")
-
-            //ActiveLayer.setAttribute('visible', 'false');
-            Layer4.setAttribute('visible', 'true');
-            // ActiveLayer = Layer4;
+            // CreateIconToggle();
 
         }
 
-        function SetLayer5() {
-            console.log("setting layer 1")
-
-            //ActiveLayer.setAttribute('visible', 'false');
-            Layer5.setAttribute('visible', 'true');
-            // ActiveLayer = Layer5;
-
-
-        }
-        
-    
-
-        
-        let funcs = [SetLayer1, SetLayer2, SetLayer3, SetLayer4, SetLayer5, Set3dIcons]; 
-        let i = 0;
-
-        function loadNext(){
-            funcs[i]();
-            i++
-        }
-        
 
         let CreateIconToggle = function(){ //creates icon toggle 2d widget and then adds it as a child to the camera object
             let iconToggleButton = document.createElement("a-entity")
@@ -127,11 +47,10 @@ console.log("setting layer 1")
             iconToggleButton.appendChild(text2);
             iconToggleButton.appendChild(text3);
 
-            document.querySelector("#screenSpaceIcons2D").appendChild(iconToggleButton);
+            screenSpaceIcons2D.appendChild(iconToggleButton);
         }
 
 
-        let parent = document.getElementById("icons2D");
 
         var PCIcon = document.createElement('a-plane');
         var PCIcon2 = document.createElement('a-plane');
@@ -203,14 +122,7 @@ console.log("setting layer 1")
 
         }
 
-        async function Set3dIcons(){
-            let tog = document.getElementById("toggle");
-            tog.emit("click", true);
-            await sleep(200);
-            tog.emit("click", true);
-            setscene();
 
-        }
 
 
 
