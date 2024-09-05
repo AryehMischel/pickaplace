@@ -10,12 +10,16 @@ AFRAME.registerComponent("oncollision-setlayer", {
 
         el.addEventListener('set', function () { //executes scene change and resets it's position -- used when camera collider collides with 3d icons
 
-         
+           
+            console.log("sending event to try and respawn cube")
+            parent.emit("spawn");
+
+            el.setAttribute("geometry", "box; width: 0.1; height: 0.1; depth: 0.1" )
             // console.log("name is " + i);
             //set the background texture
             setSceneBackgroundTexture(i)
             //respawn the cube
-            parent.emit("spawn");
+           
 
 
         });

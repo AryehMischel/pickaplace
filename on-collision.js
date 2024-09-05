@@ -9,14 +9,10 @@ AFRAME.registerComponent("on-collision", {
 
 
         el.addEventListener('collisions',  (e)=> {
-            console.log("is it this?")
-
-            //change background cube texture
-            //respawn cube
             console.log("collision detected");
-            let box = e.detail.els[0];
-            console.log(box);
-             box.emit("set", true);
+            e.detail.els[0].emit("set", true);
+          
+            // console.log(box);
         });
     },
 });

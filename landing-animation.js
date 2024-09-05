@@ -6,20 +6,32 @@ AFRAME.registerComponent("landing-animation", {
         let parent = document.getElementById("icons2D");
         let transitionSphere = document.getElementById("transitionSphere");
         let screenSpaceIcons2D = document.getElementById("screenSpaceIcons2D");
-
+        let text = document.getElementById("text")
+        let text2 = document.getElementById("text2")
         scene.addEventListener("loaded", () => setscene())
 
         async function setscene() {
-            
-            let text = document.getElementById("text")
+            console.log(parent.children.length)
+        
+          
             text.setAttribute("text", "value:pick a place")
-            await sleep(1000)
+            await sleep(600)
             text.setAttribute("text", "value:...anyplace.")
-            await sleep(1000)
+            await sleep(600)
             text.setAttribute("text", "value: Pick-A-Place.")
+            text2.setAttribute("visible", "true")  
             text.emit("set") //ugly 
-            transitionSphere.emit("fadeinscene");
+            text2.emit("set") //ugly 
 
+            transitionSphere.emit("fadeinscene");
+          
+            parent.setAttribute("visible", "true")
+            for(child of parent.children){
+                child.emit("go", "")
+            }
+            await sleep(2000)
+            text.setAttribute("visible", "false")   
+            text2.setAttribute("visible", "false")   
 
         }
 

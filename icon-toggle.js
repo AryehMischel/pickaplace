@@ -62,11 +62,15 @@ AFRAME.registerComponent("hands-manager", {
         let el = this.el;
         console.log("awake hands manager")
         function showHands() {
+            console.log("showing hands")
             //hide controllers
             controllers.setAttribute("visible", false);
             //stop raycasting
             rightController.setAttribute("raycaster", "objects: .default");
             leftController.setAttribute("raycaster", "objects: .default");
+
+
+
             //set hands visible
             hands.setAttribute("visible", true);
         }
@@ -75,8 +79,8 @@ AFRAME.registerComponent("hands-manager", {
             //show controllers
             controllers.setAttribute("visible", true);
             //start raycasting
-            rightController.setAttribute("raycaster", "objects: .Icons2D, .vr-ui"); //, .Icons3D
-            leftController.setAttribute("raycaster", "objects: .Icons2D, .vr-ui"); //, .Icons3D
+            leftController.setAttribute("raycaster", "objects: .vr-ui, .UI");
+            rightController.setAttribute("raycaster", "objects: .vr-ui, .UI");
             //hide hands
             hands.setAttribute("visible", false);
 
@@ -93,44 +97,58 @@ AFRAME.registerComponent("hands-manager", {
 let handsTouching = 0;
 
 AFRAME.registerComponent("toggle-hands", {
+    schema: {
+        handsTouchingMe: { type: "number", default: 0 }
+    },
     init: function () {
-        const manager = document.getElementById("rightController");
+        console.log("is this re inited?, if so that dum,b")
         let el = this.el;
-        this.handsTouchingMe = 0;
+        let handsTouchingMe = this.data.handsTouchingMe;
+        console.log(this.data.handsTouchingMe);
+
         /*        const hands = document.getElementById("hands");*/
         el.addEventListener("hitstart", function (e) {
             // console.log("hands touching me " + this.handsTouchingMe);
             // console.log("hands touching me " + handsTouching);
-            console.log("is it this?")
-            this.handsTouchingMe++;
+
+            handsTouchingMe++;
             handsTouching++;
+            el.setAttribute("toggle-hands", "handsTouchingMe", handsTouchingMe);
+            // console.log(skyCube.getAttribute("toggle-hands").handsTouchingMe);
+
+            console.log("hands touching cubes", handsTouching);
+            console.log("hands touching this cube", handsTouchingMe, el);
             hands.emit("showHands");
         });
 
         el.addEventListener("hitend", function () {
             handsTouching--;
-            this.handsTouchingMe--;
+            handsTouchingMe--;
+            el.setAttribute("toggle-hands", "handsTouchingMe", handsTouchingMe);
+            console.log("hands touching cubes", handsTouching);
+            console.log("hands touching this cube", handsTouchingMe);
+
             if (handsTouching < 1) {
                 hands.emit("hideHands")
             }
             // console.log("hands touching me " + this.handsTouchingMe);
 
             // console.log("hands touching me " + handsTouching);
-
-
-
         });
 
         el.addEventListener("onDestroy", function () {
+            console.log("does ever even happen?")
 
-            handsTouching = handsTouching - this.handsTouchingMe;
-            console.log("hands touching me " + this.handsTouchingMe);
-            console.log("hands touching now: " + handsTouching);
+            handsTouching = handsTouching - this.data.handsTouchingMe;
+            console.log("hands touching cubes", handsTouching);
+            console.log("hands touching this cube", this.data.handsTouchingMe, el);
             el.parentEl.removeChild(el);
-        })
-
-
+        });
     },
+    update: function () {
+        console.log("handsTouchingMe updated");
+        // Add your code here to handle the update
+    }
 });
 
 

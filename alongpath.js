@@ -29,6 +29,8 @@ AFRAME.registerComponent('alongpath', {
     },
 
     update: function (oldData) {
+        
+
 
         this.curve = document.querySelector(this.data.curve);
         this.triggers = this.curve.querySelectorAll(this.data.triggers);
@@ -59,6 +61,7 @@ AFRAME.registerComponent('alongpath', {
         var curve = this.curve.components['curve'] ? this.curve.components['curve'].curve : null;
 
         if (curve) {
+
             // Only update position if we didn't reach
             // the end of the path
             if (!this.el.is("endofpath")) {
