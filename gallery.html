@@ -494,13 +494,13 @@
 
     let ktx2Loader;
     let scene = document.querySelector('a-scene');
+    let cdnPath = "https://d1ty73zrqoktft.cloudfront.net";
     let compressedCubeTextureURLs = [
-        { name: "mountain", url: 'assets/cubemaps/mountain-cubemap.ktx2' }, // right
-        { name: "desert", url: 'assets/cubemaps/desert-cubemap.ktx2' }, // right
-        { name: "snow", url: 'assets/cubemaps/snow-cubemap.ktx2' }, // right
-        { name: "first", url: 'assets/cubemaps/first-cubemap.ktx2' }, // right
-        { name: "sky", url: 'assets/cubemaps/sky-cubemap.ktx2' }, // right
-        // { name: "louvre", url: 'Assets/Textures/Cubemaps/louvre-cube/jpgs/cubemap.ktx2' }, // right
+        { name: "mountain", url: `${cdnPath}/mountain-cubemap.ktx2` },
+        { name: "desert", url: `${cdnPath}/desert-cubemap.ktx2` },
+        { name: "snow", url: `${cdnPath}/snow-cubemap.ktx2` }, 
+        { name: "first", url: `${cdnPath}/first-cubemap.ktx2` }, 
+        { name: "sky", url: `${cdnPath}/sky-cubemap.ktx2` },
 
     ];
 
