@@ -143,13 +143,12 @@
    
 
             <a-entity id="audioClips">
-                <audio id="clip0" crossorigin="anonymous" src="assets/Audio/c.wav"></audio>
-                <audio id="clip1" crossorigin="anonymous" src="assets/Audio/b.wav"></audio>
-                <audio id="clip2" crossorigin="anonymous" src="assets/Audio/e.wav"></audio>
-                <audio id="clip3" crossorigin="anonymous" src="assets/Audio/g.wav"></audio>
-                <audio id="clip4" crossorigin="anonymous" src="assets/Audio/bh.wav"></audio>
-                <audio id="click-sound" crossorigin="anonymous"
-                    src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
+                <audio id="clip0" crossorigin="anonymous" src="Audio/c.wav"></audio>
+                <audio id="clip1" crossorigin="anonymous" src="Audio/b.wav"></audio>
+                <audio id="clip2" crossorigin="anonymous" src="Audio/e.wav"></audio>
+                <audio id="clip3" crossorigin="anonymous" src="Audio/g.wav"></audio>
+                <audio id="clip4" crossorigin="anonymous" src="Audio/bh.wav"></audio>
+                <audio id="click-sound" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
             </a-entity>
 
             <img id="skyThumb" src="assets/Thumbnails/thumbnail_sky.png">
@@ -495,6 +494,7 @@
     let ktx2Loader;
     let scene = document.querySelector('a-scene');
     let cdnPath = "https://d1ty73zrqoktft.cloudfront.net";
+
     let compressedCubeTextureURLs = [
         { name: "mountain", url: `${cdnPath}/mountain-cubemap.ktx2` },
         { name: "desert", url: `${cdnPath}/desert-cubemap.ktx2` },
@@ -590,7 +590,7 @@
 
     const textureLoader = new THREE.TextureLoader();
     console.log("loading texture", textureLoader)
-    textureLoader.load('assets/equirectangular/first.jpg', (texture) => {
+    textureLoader.load(`${cdnPath}/first.jpg`, (texture) => {
         console.log("360 texture loaded", texture)
         texture.mapping = THREE.EquirectangularReflectionMapping;
 
