@@ -55,11 +55,11 @@ vr.html
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/pickaplace-360-gallery.git
+    git clone https://github.com/AryehMischel/pickaplace.git
     ```
 2. Navigate to the project directory:
     ```sh
-    cd pickaplace-360-gallery
+    cd pickaplace
     ```
 
 ### Usage
