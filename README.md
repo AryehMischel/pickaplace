@@ -1,8 +1,8 @@
-# Pick-a-place 360 Gallery
+# Pick-a-place
 
 ## Overview
 
-Pick-a-place 360 Gallery is a simple demo project showcasing a 360-degree interactive photo gallery built with A-Frame and Three.js. The gallery is accessible across all platforms, including mobile, desktop, and VR.
+Pick-a-place is a demo project showcasing a 360-degree interactive photo gallery built with A-Frame and Three.js. The gallery is accessible across all platforms, including mobile, desktop, and VR.
 
 **[Live Demo](https://pickaplace.onrender.com/)**
 ## Features
