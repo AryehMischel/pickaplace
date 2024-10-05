@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>A-Frame Scene with Flexbox</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script>
+    <style>
+        body {
+            font-family: 'Exo 2', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        #dom-overlay {
+            /* position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            pointer-events: none; */
+
+        }
+
+        section {
+
+            display: inline-block;
+            background: #ffffff00;
+            /* color: #33333300; */
+            border-radius: 1em;
+            padding: 1em;
+            margin: 0;
+            /* accent-color: #F5A623; */
+            width: 20vw;
+            max-width: 544px;
+            min-width: 400px;
+            box-sizing: border-box;
+            /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+        }
+
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            background-color: #c9101000;
+            margin: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
+        }
+
+        .flex-container div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+            padding: 20px;
+            font-size: 14px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
+        }
+
+        .flex-container button {
+            width: 100px;
+            height: 100px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            border-radius: 10px;
+            /* Match the border-radius of the button */
+            color: white;
+            font-family: 'Arial', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border 0.3s ease;
+            margin: 10px;
+            /* Add margin to ensure spacing between buttons */
+            position: relative;
+            /* Required for pseudo-element positioning */
+            overflow: hidden;
+            /* Ensure pseudo-element stays within button */
+            box-sizing: border-box;
+            /* Include padding and border in the element's total width and height */
+        }
+
+        .flex-container button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid transparent;
+            /* Initial transparent border */
+            border-radius: 10px;
+            /* Match button's border-radius */
+            transition: border-color 0.3s ease;
+            z-index: 2;
+            /* Ensure it overlays the background image */
+            pointer-events: none;
+            /* Ensure it doesn't interfere with button clicks */
+            box-sizing: border-box;
+            /* Include padding and border in the element's total width and height */
+        }
+
+        .flex-container button:hover::before {
+            border-color: rgba(255, 157, 0, 0.7);
+            /* Highlighted border color */
+        }
+
+        .flex-container button[style] {
+            color: transparent;
+            /* Hide text for buttons with background images */
+            position: relative;
+            /* Ensure background image is positioned correctly */
+            z-index: 1;
+            /* Ensure background image is below the border */
+        }
+    </style>
+</head>
+
+<body>
+
+    <a-scene webxr="overlayElement:#dom-overlay">
+        <a-box position="0 1.5 -5" rotation="0 45 0" color="#4CC3D9"></a-box>
+        <a-sphere position="2 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+        <a-cylinder position="-1 0.75 -5" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+        <a-plane position="0 0 -5" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+        <a-sky color="#ECECEC"></a-sky>
+    </a-scene>
+
+    <div id="dom-overlay">
+
+        <section id="my-interface">
+
+            <div id="buttonContainer" class="flex-container">
+
+                <div class="toggle-slider"></div>
+
+                <button onclick="console.log('clicked')">Button 1</button>
+                <button
+                    style="background-image: url(./assets/Thumbnails/thumbnail_desert.jpg); background-size: cover; background-position: center; background-repeat: no-repeat;"></button>
+                <button
+                    style="background-image: url(./assets/Thumbnails/thumbnail_desert.jpg); background-size: cover; background-position: center; background-repeat: no-repeat;"></button>
+                <button
+                    style="background-image: url(./assets/Thumbnails/thumbnail_desert.jpg); background-size: cover; background-position: center; background-repeat: no-repeat;"></button>
+                <button
+                    style="background-image: url(./assets/Thumbnails/thumbnail_desert.jpg); background-size: cover; background-position: center; background-repeat: no-repeat;"></button>
+            </div>
+        </section>
+    </div>
+
+</body>
+
+</html>
+<script>
+    $(function () {
+        $("#dom-overlay").draggable().resizable();
+    });
+</script>

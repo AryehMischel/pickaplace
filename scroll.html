@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>A-Frame Scene with Boxes</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script
+        src="https://unpkg.com/aframe-environment-component@1.3.3/dist/aframe-environment-component.min.js"></script>
+    <style>
+        body {
+            font-family: 'Exo 2', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f000;
+        }
+
+        #dom-overlay {
+            position: absolute;
+            bottom: 0;
+            width: 80%;
+            height: 100px;
+            background-color: rgba(255, 255, 255, 0);
+            -webkit-overflow-scrolling: touch;
+            overflow-x: auto;
+            /* Enable horizontal scrolling */
+            overflow-y: hidden;
+            /* Prevent vertical scrolling */
+            white-space: nowrap;
+            /* Prevent wrapping of child elements */
+        }
+
+        #buttonContainer {
+            display: flex;
+            flex-wrap: nowrap;
+            /* Prevent buttons from wrapping */
+            align-items: center;
+            /* Center align items vertically */
+            height: 100%;
+            /* Match the height of the container */
+            padding: 10px;
+            /* Optional: Add padding for spacing */
+            box-sizing: border-box;
+
+            opacity: 0.0;
+            /* Include padding and border in the element's total width and height */
+        }
+
+        #buttonContainer button {
+            flex: 0 0 auto;
+            /* Prevent buttons from stretching or shrinking */
+            height: 80px;
+            /* Ensure buttons maintain their natural height */
+            width: 80px;
+            /* Ensure buttons maintain their natural width */
+            margin: 5px;
+            /* Optional: Add margin for spacing between buttons */
+            color: #f0f0f000
+        }
+
+
+        .content {
+            padding: 20px;
+        }
+
+        #dom-overlay::-webkit-scrollbar {
+            width: 8px;
+            /* Width of the scrollbar */
+        }
+
+        #dom-overlay::-webkit-scrollbar-thumb {
+            background-color: #888;
+            /* Color of the scrollbar */
+            border-radius: 10px;
+            /* Rounded edges */
+        }
+
+        #dom-overlay::-webkit-scrollbar-thumb:hover {
+            background-color: #555;
+            /* Darker on hover */
+        }
+
+        #dom-overlay::-webkit-scrollbar-track {
+            background: #f0f0f0;
+            /* Background of the scrollbar track */
+        }
+    </style>
+</head>
+
+<body>
+    <a-scene webxr="overlayElement:#dom-overlay">
+        <a-entity environment></a-entity>
+        <a-camera position="0 1.6 0">
+            <!-- Create 10 boxes lined up horizontally with a one meter gap -->
+            <a-entity id="iconParent" position="-4.5 1 -5">
+                <a-box position="0 0 0" color="#4CC3D9"></a-box>
+                <a-box position="2 0 0" color="#4CC3D9"></a-box>
+                <a-box position="4 0 0" color="#4CC3D9"></a-box>
+                <a-box position="6 0 0" color="#4CC3D9"></a-box>
+                <a-box position="8 0 0" color="#4CC3D9"></a-box>
+                <a-box position="10 0 0" color="#4CC3D9"></a-box>
+                <a-box position="12 0 0" color="#4CC3D9"></a-box>
+                <a-box position="14 0 0" color="#4CC3D9"></a-box>
+                <a-box position="16 0 0" color="#4CC3D9"></a-box>
+                <a-box position="18 0 0" color="#4CC3D9"></a-box>
+            </a-entity>
+
+        </a-camera>
+    </a-scene>
+
+    <div id="dom-overlay">
+
+        <section id="my-interface">
+
+            <div id="buttonContainer" class="scrollingButtonContainer">
+                <button onclick="console.log('clicked')">Button 1</button>
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+
+            </div>
+        </section>
+    </div>
+
+</body>
+
+</html>
+
+
+<script>
+    const iconParent = document.getElementById('iconParent');
+    const scrollContainer = document.getElementById('dom-overlay');
+    scrollContainer.addEventListener('scroll', (event) => {
+        const scrollTop = event.target.scrollTop;
+        const scrollLeft = event.target.scrollLeft;
+        console.log('Scroll Top:', scrollTop);
+        console.log('Scroll Left:', scrollLeft);
+        iconParent.object3D.position.x = -4.5 + scrollLeft * 0.01;
+
+        // Adjust the camera's Z position based on the scroll position
+        // camera.position.z = 5 - scrollTop * 0.01; // Modify the multiplier for your needs
+    });
+
+</script>
