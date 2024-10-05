@@ -40,7 +40,6 @@
             /* Prevent vertical scrolling */
             white-space: nowrap;
             /* Prevent wrapping of child elements */
-            pointer-events: none; /* Ignore pointer events */
         }
 
         #buttonContainer {
@@ -54,8 +53,9 @@
             padding: 10px;
             /* Optional: Add padding for spacing */
             box-sizing: border-box;
+            pointer-events: none; /* Ignore pointer events */
 
-            opacity: 0.0;
+            opacity: 0.4;
             /* Include padding and border in the element's total width and height */
         }
 
@@ -108,7 +108,7 @@
             raycaster=""></a-entity>
             <!-- Create 10 boxes lined up horizontally with a one meter gap -->
             <a-entity id="iconParent" position="0 -2.5 -5">
-                <a-box position="-9 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
+                <a-box id="targetBox" position="-9 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
                 <a-box position="-7 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
                 <a-box position="-5 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
                 <a-box position="-3 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
@@ -128,30 +128,22 @@
         <section id="my-interface">
 
             <div id="buttonContainer" class="scrollingButtonContainer">
-                <button onclick="console.log('clicked')">Button 1</button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
+                <button onclick="selectBox(0)"></button>
+                <button onclick="selectBox(1)"></button>
+                <button onclick="selectBox(2)"></button>
+                <button onclick="selectBox(3)"></button>
+                <button onclick="selectBox(4)"></button>
+                <button onclick="selectBox(5)"></button>
+                <button onclick="selectBox(6)"></button>
+                <button onclick="selectBox(7)"></button>
+                <button onclick="selectBox(8)"></button>
+                <button onclick="selectBox(9)"></button>
+                <button onclick="selectBox(10)"></button>
+                <button onclick="selectBox(11)"></button>
+                <button onclick="selectBox(12)"></button>
+                <button onclick="selectBox(13)"></button>
+                <button onclick="selectBox(14)"></button>
+                <button onclick="selectBox(15)"></button>
 
             </div>
         </section>
@@ -170,10 +162,71 @@
         const scrollLeft = event.target.scrollLeft;
         console.log('Scroll Top:', scrollTop);
         console.log('Scroll Left:', scrollLeft);
-        iconParent.object3D.position.x = -4.5 + scrollLeft * 0.01;
+        iconParent.object3D.position.x = -4.5 - scrollLeft * 0.01;
 
         // Adjust the camera's Z position based on the scroll position
         // camera.position.z = 5 - scrollTop * 0.01; // Modify the multiplier for your needs
     });
+
+
+    function selectBox(box){
+       
+        console.log(iconParent.object3D.children[box].el.object3D.children[0].material);
+        iconParent.object3D.children[box].el.object3D.children[0].material = new THREE.MeshBasicMaterial({color: 0x0000ff});
+        // .setAttribute('color', getRandomColor());
+        // box.setAttribute('color', getRandomColor());
+
+    }
+
+    document.addEventListener('click', function(event) {
+        console.log('Mouse X:', event.clientX, 'Mouse Y:', event.clientY);
+        const scene = document.querySelector('a-scene');
+        const camera = document.querySelector('a-camera');
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+        // Convert the mouse position to normalized device coordinates (-1 to +1)
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        // Update the raycaster with the camera and mouse position
+        raycaster.setFromCamera(mouse, camera.getObject3D('camera'));
+
+        // Get the list of objects to test for intersections
+        const objects = Array.from(scene.querySelectorAll('a-box')).map(box => box.object3D);
+        console.log('Objects:', objects);
+
+        // Check if objects are correctly selected
+        if (objects.length === 0) {
+            console.error('No objects found');
+            return;
+        }
+
+        // Perform the intersection test
+        const intersects = raycaster.intersectObjects(objects, true);
+
+        if (intersects.length > 0) {
+            console.log('Hit:', intersects[0].object.el);
+            // Change the color of the intersected object
+            intersects[0].object.el.setAttribute('color', getRandomColor());
+        } else {
+            console.log('No hits');
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        const scene = document.querySelector('a-scene');
+        const camera = document.querySelector('a-camera');
+
+        // Update the camera aspect ratio and projection matrix
+        camera.getObject3D('camera').aspect = window.innerWidth / window.innerHeight;
+        camera.getObject3D('camera').updateProjectionMatrix();
+
+        // Optionally, you can also adjust the renderer size if needed
+        if (scene.renderer) {
+            scene.renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+    });
+
 
 </script>
