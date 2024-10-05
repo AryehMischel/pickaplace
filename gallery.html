@@ -5,7 +5,7 @@
     <title> Pick-a-place 360 Gallery </title>
     <meta name="description" content="Hello, WebVR! - A-Frame">
     <!-- <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script> -->
-    <script src="./scripts/aframe-master.min.js"></script>
+    <script src="./assets/scripts/aframe-master.min.js"></script>
     <script>
         delete AFRAME.components["grabbable"];
     </script>
@@ -137,10 +137,10 @@
                               colliderEndEventProperty: clearedEls;
                               grabEndButtons: [gripup, trackpadup, triggerup, gripopen, abuttonup, bbuttonup, xbuttonup, ybuttonup, pointdown, thumbdown, pointingend, pistolend, thumbstickup, mouseup, touchend]"></a-mixin>
 
-            <a-mixin id="pc-icon"  sound="src: #click-sound; volume: 1; on: click"
-                scale="0.25 0.25 0.25" position="0 0.8 -.80"  event-set__mouseenter="scale: 0.30 0.30 0.30" event-set__mouseleave="scale: 0.25 0.25 0.25"
-                ></a-mixin>
-   
+            <a-mixin id="pc-icon" sound="src: #click-sound; volume: 1; on: click" scale="0.25 0.25 0.25"
+                position="0 0.8 -.80" event-set__mouseenter="scale: 0.30 0.30 0.30"
+                event-set__mouseleave="scale: 0.25 0.25 0.25"></a-mixin>
+
 
             <a-entity id="audioClips">
                 <audio id="clip0" crossorigin="anonymous" src="Audio/c.wav"></audio>
@@ -148,7 +148,8 @@
                 <audio id="clip2" crossorigin="anonymous" src="Audio/e.wav"></audio>
                 <audio id="clip3" crossorigin="anonymous" src="Audio/g.wav"></audio>
                 <audio id="clip4" crossorigin="anonymous" src="Audio/bh.wav"></audio>
-                <audio id="click-sound" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
+                <audio id="click-sound" crossorigin="anonymous"
+                    src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
             </a-entity>
 
             <img id="skyThumb" src="assets/Thumbnails/thumbnail_sky.png">
@@ -346,8 +347,7 @@
         <a-entity id="icons2D" visible="false">
 
             <a-entity position="0 0 -0.34">
-                <a-plane id="desertWidget" mixin="pc-icon" class="Icons2D"
-                material="src: #skyThumb; color: #FFF"
+                <a-plane id="desertWidget" mixin="pc-icon" class="Icons2D" material="src: #skyThumb; color: #FFF"
                     onclick='setSceneBackgroundTexture("desert")'></a-plane>
 
 
@@ -355,8 +355,7 @@
 
             <a-entity position="0 0 -0.35"
                 animation__ico="property: rotation; to: 0 25 0; dur: 500; delay: 00; easing: easeOutQuint; startEvents: go">
-                <a-plane id="snowWidget" mixin="pc-icon" class="Icons2D"
-                material="src: #skyThumb; color: #FFF"
+                <a-plane id="snowWidget" mixin="pc-icon" class="Icons2D" material="src: #skyThumb; color: #FFF"
                     onclick='setSceneBackgroundTexture("snow")'></a-plane>
 
 
@@ -364,8 +363,7 @@
 
             <a-entity position="0 0 -0.35"
                 animation__ico="property: rotation; to: 0 -25 0; dur: 800; delay: 200; easing: easeOutQuint; startEvents: go">
-                <a-plane id="mountainWidget" mixin="pc-icon" class="Icons2D"
-                material="src: #skyThumb; color: #FFF"
+                <a-plane id="mountainWidget" mixin="pc-icon" class="Icons2D" material="src: #skyThumb; color: #FFF"
                     onclick='setSceneBackgroundTexture("mountain")'></a-plane>
 
 
@@ -373,8 +371,7 @@
 
             <a-entity position="0 0 -0.35"
                 animation__ico="property: rotation; to: 0 50 0; dur: 500; delay: 400; easing: easeOutQuint; startEvents: go">
-                <a-plane id="louvreWidget" mixin="pc-icon" class="Icons2D"
-                material="src: #skyThumb; color: #FFF"
+                <a-plane id="louvreWidget" mixin="pc-icon" class="Icons2D" material="src: #skyThumb; color: #FFF"
                     onclick='setSceneBackgroundTexture("first")'></a-plane>
 
 
@@ -382,8 +379,7 @@
 
             <a-entity position="0 0 -0.35"
                 animation__ico="property:  rotation; to: 0 -50 0; dur: 500; delay: 800; easing: easeOutQuint; startEvents: go">
-                <a-plane id="skyWidget" mixin="pc-icon" class="Icons2D"
-                material="src: #skyThumb; color: #FFF"
+                <a-plane id="skyWidget" mixin="pc-icon" class="Icons2D" material="src: #skyThumb; color: #FFF"
                     onclick='setSceneBackgroundTexture("sky")'></a-plane>
 
 
@@ -498,8 +494,8 @@
     let compressedCubeTextureURLs = [
         { name: "mountain", url: `${cdnPath}/mountain-cubemap.ktx2` },
         { name: "desert", url: `${cdnPath}/desert-cubemap.ktx2` },
-        { name: "snow", url: `${cdnPath}/snow-cubemap.ktx2` }, 
-        { name: "first", url: `${cdnPath}/first-cubemap.ktx2` }, 
+        { name: "snow", url: `${cdnPath}/snow-cubemap.ktx2` },
+        { name: "first", url: `${cdnPath}/first-cubemap.ktx2` },
         { name: "sky", url: `${cdnPath}/sky-cubemap.ktx2` },
 
     ];
@@ -614,7 +610,7 @@
     let skyTexture = textureLoader.load("assets/Thumbnails/thumbnail_desert.jpg")
     let desertTexture = textureLoader.load("assets/Thumbnails/thumbnail_desert.jpg")
 
-  let widgetTextures = [snowTexture, mountainTexture, louvreTexture, skyTexture, desertTexture]
+    let widgetTextures = [snowTexture, mountainTexture, louvreTexture, skyTexture, desertTexture]
     // "assets/Thumbnails/thumbnail_sky.png"
     // "assets/Thumbnails/thumbnail_desert.jpg"
     // "assets/Thumbnails/thumbnail_mountain.png"
@@ -627,7 +623,7 @@
         let thumbTextureLink = "assets/Thumbnails/thumbnail_Louvre2.png"
         const texture = textureLoader.load(thumbTextureLink)
         let widgets = [snowWidget, mountainWidget, louvreWidget, skyWidget, desertWidget]
-       
+
         // [snowWidget, mountainWidget, louvreWidget, skyWidget, desertWidget]
         const uniforms = {
             resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
