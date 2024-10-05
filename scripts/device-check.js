@@ -9,11 +9,13 @@ AFRAME.registerComponent('device-check', {
 
         if(window.mobileCheck() == true){
 
-            window.location = 'mobile.html'
+            // window.location = 'mobile.html'
+            window.location = 'gallery.html'
 
         } else if(vr){
 
-            window.location = 'vr.html'
+            window.location = 'gallery.html'
+            //window.location = 'vr.html'
 
         }
 
