@@ -30,11 +30,11 @@
                         return;
                     }
 
-                    if(updateCubePosition == undefined){
+                    if (typeof updateCubePosition == 'undefined') {
                         console.error('updateCubePosition not found');
                         return;
                     }
-                    if(centerScrollbar == undefined){
+                    if (typeof centerScrollbar == 'undefined') {
                         console.error('centerScrollbar not found');
                         return;
                     }
@@ -48,11 +48,9 @@
                 }
 
                 window.addEventListener('resize', onWindowResize, false);
-                if(updateCubePosition == undefined){
-                        console.error('updateCubePosition not found');
-                        return;
-                    }
-                updateCubePosition()
+                if (typeof updateCubePosition !== 'undefined') {
+                    updateCubePosition();
+                }
 
 
             }
