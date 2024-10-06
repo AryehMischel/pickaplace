@@ -30,6 +30,15 @@
                         return;
                     }
 
+                    if(!updateCubePosition){
+                        console.error('updateCubePosition not found');
+                        return;
+                    }
+                    if(!centerScrollbar){
+                        console.error('centerScrollbar not found');
+                        return;
+                    }
+
                     renderer.setSize(window.innerWidth, window.innerHeight);
                     camera.aspect = window.innerWidth / window.innerHeight;
                     camera.updateProjectionMatrix();
