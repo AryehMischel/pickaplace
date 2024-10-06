@@ -21,6 +21,23 @@
                 camera.position.z = 5
                 scene = document.querySelector('a-scene')
                 renderer = scene.renderer
+                function onWindowResize() {
+
+                    console.log("updating")
+
+                    if (!camera) {
+                        console.error('Camera not found');
+                        return;
+                    }
+
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+
+                    updateCubePosition();
+                    centerScrollbar()
+                }
+
                 window.addEventListener('resize', onWindowResize, false);
                 updateCubePosition()
 
@@ -67,7 +84,7 @@
         #buttonContainer {
             display: flex;
             flex-wrap: nowrap;
-            
+
             /* Prevent buttons from wrapping */
             align-items: center;
             justify-content: center;
@@ -144,7 +161,7 @@
 
         </a-camera>
 
-        
+
 
 
 
@@ -182,25 +199,25 @@
 
 
 <script>
+    const iconParent = document.getElementById('iconParent');
+
+    function scroll3D() {
+        console.log("scrolling cubes")
+        const scrollTop = event.target.scrollTop;
+        const scrollLeft = event.target.scrollLeft;
+        console.log('Scroll Top:', scrollTop);
+        console.log('Scroll Left:', scrollLeft);
+        iconParent.object3D.position.x = -scrollLeft * 0.01;
+    }
 
     let cameraEL = document.querySelector('a-camera')
     let camera
     let scene
 
     let renderer
-    const iconParent = document.getElementById('iconParent');
     const scrollContainer = document.getElementById('dom-overlay');
-    scrollContainer.addEventListener('scroll', (event) => {
-        const scrollTop = event.target.scrollTop;
-        const scrollLeft = event.target.scrollLeft;
-        console.log('Scroll Top:', scrollTop);
-        console.log('Scroll Left:', scrollLeft);
-        iconParent.object3D.position.x = -scrollLeft * 0.01;
 
-        // Adjust the camera's Z position based on the scroll position
-        // camera.position.z = 5 - scrollTop * 0.01; // Modify the multiplier for your needs
-    });
-
+    scrollContainer.addEventListener('scroll', scroll3D);
 
     function selectBox(box) {
 
@@ -296,7 +313,7 @@
         console.log('Resulting pos:', pos);
         // cube.setAttribute('position', `${pos.x} ${pos.y} ${pos.z}`);
         // console.log("cube position", cube.getAttribute('position'))
-cube.position.copy(pos);
+        cube.position.copy(pos);
         // Debugging: Log resulting vector
 
     }
@@ -309,7 +326,7 @@ cube.position.copy(pos);
             console.error('Camera not found');
             return;
         }
-     
+
         renderer.setSize(window.innerWidth, window.innerHeight);
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
@@ -321,16 +338,21 @@ cube.position.copy(pos);
 
 
     function centerScrollbar() {
-        console.log("centering")
-      const container = document.getElementById('dom-overlay');
-        console.log(container)
-      const contentWidth = container.scrollWidth;
-      const containerWidth = container.clientWidth;
+        scrollContainer.removeEventListener('scroll', scroll3D);
 
-      // Calculate the scroll position to center the content
-      const scrollPosition = (contentWidth - containerWidth) / 2;
-      // Set the scroll position
-      container.scrollLeft = scrollPosition;
-    
+        console.log("centering")
+        const container = document.getElementById('dom-overlay');
+        console.log(container)
+        const contentWidth = container.scrollWidth;
+        const containerWidth = container.clientWidth;
+
+        // Calculate the scroll position to center the content
+        const scrollPosition = (contentWidth - containerWidth) / 2;
+        // Set the scroll position
+        container.scrollLeft = scrollPosition;
+        scrollContainer.addEventListener('scroll', scroll3D);
+
+
+
     }
 </script>
