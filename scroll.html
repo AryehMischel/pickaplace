@@ -162,12 +162,12 @@
         <a-camera position="0 0 0">
             <a-entity id="cursor" class="raycasting" cursor="rayOrigin:mouse" raycaster=""></a-entity>
             <!-- Create 10 boxes lined up horizontally with a one meter gap -->
-            <a-box id="iconParent" position="0 0 -5" color="#4CC3D9" onclick="onWindowResize()">
-                <a-box position="-4 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
-                <a-box position="-2 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
-                <a-box position="0 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
-                <a-box position="2 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
-                <a-box position="4 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
+            <a-box id="iconParent" position="0 0 -5" color="#4CC3D9">
+                <a-box position="-4 0 0" color="#4CC3D9" onclick="onWindowResize()"></a-box>
+                <a-box position="-2 0 0" color="#4CC3D9" onclick="onWindowResize()"></a-box>
+                <a-box position="0 0 0" color="#4CC3D9" onclick="onWindowResize()"></a-box>
+                <a-box position="2 0 0" color="#4CC3D9" onclick="onWindowResize()"></a-box>
+                <a-box position="4 0 0" color="#4CC3D9" onclick="onWindowResize()"></a-box>
             </a-box>
 
         </a-camera>
@@ -329,16 +329,27 @@
 
     }
 
+
+
     function onWindowResize() {
         renderer = scene.renderer
-        console.log("updating")
         cameraEL = document.querySelector('a-camera')
-        console.log(cameraEL)
-        // cameraEL.removeAttribute('look-controls')
         camera = cameraEL.components.camera.camera
+
+
+        console.log("updating")
 
         if (!camera) {
             console.error('Camera not found');
+            return;
+        }
+
+        if (typeof updateCubePosition == 'undefined') {
+            console.error('updateCubePosition not found');
+            return;
+        }
+        if (typeof centerScrollbar == 'undefined') {
+            console.error('centerScrollbar not found');
             return;
         }
 
