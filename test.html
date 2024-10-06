@@ -34,9 +34,9 @@
 
         // Function to handle window resize
         function onWindowResize() {
-            // camera.aspect = window.innerWidth / window.innerHeight;
-            // camera.updateProjectionMatrix();
-            // renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
             updateCubePosition();
         }
 
@@ -49,8 +49,9 @@
             console.log('Window inner width:', window.innerWidth);
             const vh = window.innerHeight / 100;
             const vw = window.innerWidth / 100;
-            const targetY = 20 * vh; // 20vh in pixels
-            const targetX = 20 * vw; // 50vw in pixels
+            const targetY = 40 * vh; // 20vh in pixels
+            const targetX = 60 * vw; // 50vw in pixels
+
             console.log(vh, vw);
             const ndcY = (targetY / window.innerHeight) * 2 - 1; // Convert to NDC
             const ndcX = (targetX / window.innerWidth) * 2 - 1; // Convert to NDC

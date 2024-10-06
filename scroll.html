@@ -12,25 +12,17 @@
             init: function () {
                 console.log('Component has been loaded');
                 cameraEL = document.querySelector('a-camera')
+                console.log(cameraEL)
                 // cameraEL.removeAttribute('look-controls')
                 camera = cameraEL.components.camera.camera
                 camera.fov = 75
                 camera.far = 1000
                 camera.near = 1
                 camera.position.z = 5
-
-                function onWindowResize() {
-                    camera.aspect = window.innerWidth / window.innerHeight;
-                    camera.updateProjectionMatrix();
-                    renderer.setSize(window.innerWidth, window.innerHeight);
-                    updateCubePosition();
-                }
-                window.addEventListener('resize', onWindowResize, false);
                 scene = document.querySelector('a-scene')
                 renderer = scene.renderer
-                setTimeout(() => {
-                    updateCubePosition()
-                }, 100);
+                window.addEventListener('resize', onWindowResize, false);
+                updateCubePosition()
 
 
             }
@@ -60,7 +52,7 @@
         #dom-overlay {
             position: absolute;
             bottom: 0;
-            width: 100%;
+            width: 80%;
             height: 29vh;
             background-color: rgba(255, 255, 255, 0);
             -webkit-overflow-scrolling: touch;
@@ -75,9 +67,12 @@
         #buttonContainer {
             display: flex;
             flex-wrap: nowrap;
+            
             /* Prevent buttons from wrapping */
             align-items: center;
             justify-content: center;
+            /* justify-content: space-around; */
+            /* gap: 0px; */
             /* Center align items vertically */
             height: 20vh;
             /* Match the height of the container */
@@ -97,7 +92,7 @@
             height: 20vh;
             /* Ensure buttons maintain their natural height */
             width: 20vh;
-            max-width: 100px;
+            max-width: 200px;
             /* Ensure buttons maintain their natural width */
             margin: 3vh;
             /* Optional: Add margin for spacing between buttons */
@@ -136,27 +131,34 @@
 <body>
     <a-scene log-when-loaded webxr="overlayElement:#dom-overlay">
         <a-sky src="./assets/equirectangular/first.jpg"></a-sky>
-        <a-camera position="0 1.6 0">
+        <a-camera position="0 0 0">
             <a-entity id="cursor" class="raycasting" cursor="rayOrigin:mouse" raycaster=""></a-entity>
             <!-- Create 10 boxes lined up horizontally with a one meter gap -->
-            <a-entity id="iconParent" position="0 -2.5 -5">
-
-                <!-- <a-box position="3 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
-                <a-box position="5 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
-                <a-box position="7 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
-                <a-box position="9 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
-                <a-box position="11 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box> -->
-
+            <a-box id="iconParent" position="0 0 -5" color="#4CC3D9" onclick="onWindowResize()">
                 <a-box position="-4 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
                 <a-box position="-2 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
                 <a-box position="0 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
                 <a-box position="2 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
                 <a-box position="4 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
-
-
-            </a-entity>
+            </a-box>
 
         </a-camera>
+
+        
+
+
+
+        <a-entity id="iconParent" position="0 0 -5">
+
+            <!-- <a-box position="3 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
+            <a-box position="5 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
+            <a-box position="7 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
+            <a-box position="9 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
+            <a-box position="11 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box> -->
+
+
+
+        </a-entity>
     </a-scene>
 
     <div id="dom-overlay">
@@ -250,50 +252,85 @@
 
 
 
-    const cube = iconParent
+    const cube = document.querySelector('#iconParent').object3D;
 
 
     function updateCubePosition() {
+        console.log(cube)
 
         console.log('Window inner height:', window.innerHeight);
         console.log('Window inner width:', window.innerWidth);
         const vh = window.innerHeight / 100;
         const vw = window.innerWidth / 100;
 
-        const targetY = 10 * vh; // 20vh in pixels
         const targetX = 50 * vw; // 50vw in pixels
+        const targetY = 10 * vh; // 20vh in pixels
         console.log(vh, vw);
-
-
         const ndcY = (targetY / window.innerHeight) * 2 - 1; // Convert to NDC
         const ndcX = (targetX / window.innerWidth) * 2 - 1; // Convert to NDC
 
-        const vec = new THREE.Vector3(ndcX, ndcY, 0.5); // NDC coordinates
-        console.log("vec", vec);
-        const pos = new THREE.Vector3();
+        console.log(camera)
+        // let cameraEL = document.querySelector('a-camera')
+        // const camera = cameraEl.getObject3D('camera');
+        if (!camera) {
+            console.error('Camera not found');
+            return;
+        }
 
-        console.log("camera position", camera.position);
+        const vec = new THREE.Vector3(ndcX, ndcY, 0.5); // NDC coordinates
+
         vec.unproject(camera);
         console.log("unprojected vec", vec);
+
         vec.sub(camera.position).normalize();
         console.log("subbed", vec);
-        console.log("camera", camera.position)
-        const distance = -camera.position.z / vec.z;
 
+        const distance = -camera.position.z / vec.z;
         console.log('Camera position:', camera.position);
-        console.log('Initial vec:', vec);
         console.log('Distance:', distance);
 
+        const pos = new THREE.Vector3();
         // Perform the operation
         pos.copy(camera.position).add(vec.multiplyScalar(distance));
 
-        // Debugging: Log resulting vector
         console.log('Resulting pos:', pos);
-
-        // cube.position.copy(pos);
-        cube.setAttribute('position', pos);
+        // cube.setAttribute('position', `${pos.x} ${pos.y} ${pos.z}`);
+        // console.log("cube position", cube.getAttribute('position'))
+cube.position.copy(pos);
+        // Debugging: Log resulting vector
 
     }
 
+    function onWindowResize() {
 
+        console.log("updating")
+
+        if (!camera) {
+            console.error('Camera not found');
+            return;
+        }
+     
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+
+        updateCubePosition();
+        centerScrollbar()
+    }
+
+
+
+    function centerScrollbar() {
+        console.log("centering")
+      const container = document.getElementById('dom-overlay');
+        console.log(container)
+      const contentWidth = container.scrollWidth;
+      const containerWidth = container.clientWidth;
+
+      // Calculate the scroll position to center the content
+      const scrollPosition = (contentWidth - containerWidth) / 2;
+      // Set the scroll position
+      container.scrollLeft = scrollPosition;
+    
+    }
 </script>
