@@ -48,6 +48,10 @@
                 }
 
                 window.addEventListener('resize', onWindowResize, false);
+                if(updateCubePosition == undefined){
+                        console.error('updateCubePosition not found');
+                        return;
+                    }
                 updateCubePosition()
 
 
