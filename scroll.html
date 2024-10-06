@@ -291,9 +291,10 @@
         const vh = window.innerHeight / 100;
         const vw = window.innerWidth / 100;
 
-        const targetX = 10 * vw; // 50vw in pixels
+        const targetX = 50 * vw; // 50vw in pixels
         const targetY = 10 * vh; // 20vh in pixels
         console.log(vh, vw);
+        
         const ndcY = (targetY / window.innerHeight) * 2 - 1; // Convert to NDC
         const ndcX = (targetX / window.innerWidth) * 2 - 1; // Convert to NDC
 
@@ -329,10 +330,18 @@
 
     }
 
+    document.querySelector('a-scene').addEventListener('camera-set-active', function (evt) {
+  // 1. Remove active class from all cameras.
+  // ...
 
+  // 2. Add active class to camera.
+  camera = evt.detail.cameraEl
+    console.log("active camera", camera)
+});
 
     function onWindowResize() {
         renderer = scene.renderer
+
         cameraEL = document.querySelector('a-camera')
         camera = cameraEL.components.camera.camera
 
