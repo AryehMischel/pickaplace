@@ -19,7 +19,12 @@
                 camera.near = 1
                 camera.position.z = 5
 
-
+                function onWindowResize() {
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                    updateCubePosition();
+                }
                 window.addEventListener('resize', onWindowResize, false);
                 scene = document.querySelector('a-scene')
                 renderer = scene.renderer
@@ -242,12 +247,7 @@
 
 
 
- function onWindowResize() {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        updateCubePosition();
-    }
+
 
 
     const cube = iconParent
