@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Three.js Example</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.138.3/three.min.js"></script>
+    <script>
+        // Set up the scene, camera, and renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        console.log(camera)
+
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+        
+        console.log("renderer", renderer);
+
+        // Add a box to the scene
+        const geometry = new THREE.BoxGeometry();
+        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+        // Position the camera
+        camera.position.z = 5;
+
+        // Function to handle window resize
+        function onWindowResize() {
+            // camera.aspect = window.innerWidth / window.innerHeight;
+            // camera.updateProjectionMatrix();
+            // renderer.setSize(window.innerWidth, window.innerHeight);
+            updateCubePosition();
+        }
+
+        // Add event listener for window resize
+        window.addEventListener('resize', onWindowResize, false);
+
+        // Function to update the cube's position to the center of the viewport
+        function updateCubePosition() {
+            console.log('Window inner height:', window.innerHeight);
+            console.log('Window inner width:', window.innerWidth);
+            const vh = window.innerHeight / 100;
+            const vw = window.innerWidth / 100;
+            const targetY = 20 * vh; // 20vh in pixels
+            const targetX = 20 * vw; // 50vw in pixels
+            console.log(vh, vw);
+            const ndcY = (targetY / window.innerHeight) * 2 - 1; // Convert to NDC
+            const ndcX = (targetX / window.innerWidth) * 2 - 1; // Convert to NDC
+            const vec = new THREE.Vector3(ndcX, ndcY, 0.5); // NDC coordinates
+            console.log("vec", vec);
+
+            const pos = new THREE.Vector3();
+
+            console.log("camera position", camera.position);
+            vec.unproject(camera);
+            console.log("unprojected vec", vec);
+            vec.sub(camera.position).normalize();
+            console.log("subbed", vec);
+
+
+            const distance = -camera.position.z / vec.z;
+            console.log('Camera position:', camera.position);
+            console.log('Initial vec:', vec);
+            console.log('Distance:', distance);
+
+            // Perform the operation
+            pos.copy(camera.position).add(vec.multiplyScalar(distance));
+
+            // Debugging: Log resulting vector
+            console.log('Resulting pos:', pos);
+            cube.position.copy(pos);
+            console.log("new position", pos);
+        }
+
+
+        // Initial update of the cube's position
+        updateCubePosition();
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+</body>
+
+</html>

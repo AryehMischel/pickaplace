@@ -5,8 +5,6 @@
     <title>A-Frame Scene with Boxes</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component@^4.1.1/dist/aframe-event-set-component.min.js"></script>
-
-
     <script>
         AFRAME.registerComponent('log-when-loaded', {
             init: function () {
@@ -18,16 +16,16 @@
                 camera.far = 1000
                 camera.near = 1
                 camera.position.z = 5
-
-
+         
+                
                 window.addEventListener('resize', onWindowResize, false);
                 scene = document.querySelector('a-scene')
                 renderer = scene.renderer
                 setTimeout(() => {
                     updateCubePosition()
                 }, 1);
-
-
+               
+            
             }
         });
     </script>
@@ -178,9 +176,16 @@
 
     let cameraEL = document.querySelector('a-camera')
     let camera
+    // const camera = cameraEL.el.components.camera.camera 
+    // console.log(camera)
+    // camera.far = 1000
+    // camera.fov = 75
+
+    // console.log(camera)
     let scene
 
     let renderer
+
     const iconParent = document.getElementById('iconParent');
     const scrollContainer = document.getElementById('dom-overlay');
     scrollContainer.addEventListener('scroll', (event) => {
@@ -188,61 +193,107 @@
         const scrollLeft = event.target.scrollLeft;
         console.log('Scroll Top:', scrollTop);
         console.log('Scroll Left:', scrollLeft);
-        iconParent.object3D.position.x = -scrollLeft * 0.01;
+        console.log('iconParent', iconParent.object3D.position.x);
+        iconParent.object3D.position.x =  -scrollLeft * 0.01;
+        console.log('iconParent', iconParent.object3D.position.x);
 
         // Adjust the camera's Z position based on the scroll position
         // camera.position.z = 5 - scrollTop * 0.01; // Modify the multiplier for your needs
     });
 
 
-    function selectBox(box) {
+    // function selectBox(box) {
 
-        // console.log(iconParent.object3D.children[box].el.object3D.children[0].material);
-        // iconParent.object3D.children[box].el.object3D.children[0].material = new THREE.MeshBasicMaterial({color: 0x0000ff});
-        // .setAttribute('color', getRandomColor());
-        // box.setAttribute('color', getRandomColor());
+    //     // console.log(iconParent.object3D.children[box].el.object3D.children[0].material);
+    //     // iconParent.object3D.children[box].el.object3D.children[0].material = new THREE.MeshBasicMaterial({color: 0x0000ff});
+    //     // .setAttribute('color', getRandomColor());
+    //     // box.setAttribute('color', getRandomColor());
 
-    }
+    // }
 
-    document.addEventListener('click', function (event) {
-        console.log('Mouse X:', event.clientX, 'Mouse Y:', event.clientY);
-        const scene = document.querySelector('a-scene');
-        const camera = document.querySelector('a-camera');
-        const raycaster = new THREE.Raycaster();
-        const mouse = new THREE.Vector2();
+    // document.addEventListener('click', function (event) {
+    //     console.log('Mouse X:', event.clientX, 'Mouse Y:', event.clientY);
+    //     const scene = document.querySelector('a-scene');
+    //     const camera = document.querySelector('a-camera');
+    //     const raycaster = new THREE.Raycaster();
+    //     const mouse = new THREE.Vector2();
 
-        // Convert the mouse position to normalized device coordinates (-1 to +1)
-        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    //     // Convert the mouse position to normalized device coordinates (-1 to +1)
+    //     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    //     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-        // Update the raycaster with the camera and mouse position
-        raycaster.setFromCamera(mouse, camera.getObject3D('camera'));
+    //     // Update the raycaster with the camera and mouse position
+    //     raycaster.setFromCamera(mouse, camera.getObject3D('camera'));
 
-        // Get the list of objects to test for intersections
-        const objects = Array.from(scene.querySelectorAll('a-box')).map(box => box.object3D);
-        console.log('Objects:', objects);
+    //     // Get the list of objects to test for intersections
+    //     const objects = Array.from(scene.querySelectorAll('a-box')).map(box => box.object3D);
+    //     console.log('Objects:', objects);
 
-        // Check if objects are correctly selected
-        if (objects.length === 0) {
-            console.error('No objects found');
-            return;
-        }
+    //     // Check if objects are correctly selected
+    //     if (objects.length === 0) {
+    //         console.error('No objects found');
+    //         return;
+    //     }
 
-        // Perform the intersection test
-        const intersects = raycaster.intersectObjects(objects, true);
+    //     // Perform the intersection test
+    //     const intersects = raycaster.intersectObjects(objects, true);
 
-        if (intersects.length > 0) {
-            console.log('Hit:', intersects[0].object.el);
-            // Change the color of the intersected object
-            intersects[0].object.el.setAttribute('color', getRandomColor());
-        } else {
-            console.log('No hits');
-        }
-    });
+    //     if (intersects.length > 0) {
+    //         console.log('Hit:', intersects[0].object.el);
+    //         // Change the color of the intersected object
+    //         intersects[0].object.el.setAttribute('color', getRandomColor());
+    //     } else {
+    //         console.log('No hits');
+    //     }
+    // });
+
+    // window.addEventListener('resize', () => {
+    //     console.log('Window resized');
+    //     const scene = document.querySelector('a-scene');
+    //     const camera = document.querySelector('a-camera');
 
 
 
- function onWindowResize() {
+    //     // Update the camera aspect ratio and projection matrix
+    //     camera.getObject3D('camera').aspect = window.innerWidth / window.innerHeight;
+    //     camera.getObject3D('camera').updateProjectionMatrix();
+
+    //     // Optionally, you can also adjust the renderer size if needed
+    //     if (scene.renderer) {
+    //         scene.renderer.setSize(window.innerWidth, window.innerHeight);
+    //     }
+    // });
+
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     const camera = document.querySelector('a-camera');
+    //     const iconParent = document.getElementById('iconParent');
+    //     const boxes = iconParent.querySelectorAll('a-box');
+
+    //     function updateBoxPositions() {
+    //         const cameraWidth = window.innerWidth;
+    //         console.log('cameraWidth', cameraWidth);
+    //         const cameraHeight = window.innerHeight;
+
+    //         // Calculate the new positions based on the camera's dimensions
+    //         const basePositionX = cameraWidth / 1000; // Adjust this factor as needed
+    //         const basePositionY = cameraHeight / 100; // Adjust this factor as needed
+
+    //         boxes.forEach((box, index) => {
+    //             const offsetX = (index - (boxes.length / 2)) * 2; // Adjust the spacing as needed
+    //             console.log('basePositionX', basePositionX);
+    //             box.setAttribute('position', `${0 + index + offsetX} 0 0`);
+    //         });
+    //     }
+
+    //     // Initial update
+    //     updateBoxPositions();
+
+    //     // Update positions on window resize
+    //     window.addEventListener('resize', updateBoxPositions);
+    // });
+
+
+    function onWindowResize() {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -294,6 +345,5 @@
         cube.setAttribute('position', pos);
 
     }
-
 
 </script>
