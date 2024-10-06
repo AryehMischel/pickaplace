@@ -163,11 +163,11 @@
             <a-entity id="cursor" class="raycasting" cursor="rayOrigin:mouse" raycaster=""></a-entity>
             <!-- Create 10 boxes lined up horizontally with a one meter gap -->
             <a-box id="iconParent" position="0 0 -5" color="#4CC3D9">
-                <a-box position="-4 0 0" color="#4CC3D9" onclick="onWindowResize()"></a-box>
-                <a-box position="-2 0 0" color="#4CC3D9" onclick="onWindowResize()"></a-box>
                 <a-box position="0 0 0" color="#4CC3D9" onclick="onWindowResize()"></a-box>
                 <a-box position="2 0 0" color="#4CC3D9" onclick="onWindowResize()"></a-box>
                 <a-box position="4 0 0" color="#4CC3D9" onclick="onWindowResize()"></a-box>
+                <a-box position="6 0 0" color="#4CC3D9" onclick="onWindowResize()"></a-box>
+                <a-box position="8 0 0" color="#4CC3D9" onclick="onWindowResize()"></a-box>
             </a-box>
 
         </a-camera>
@@ -291,7 +291,7 @@
         const vh = window.innerHeight / 100;
         const vw = window.innerWidth / 100;
 
-        const targetX = 50 * vw; // 50vw in pixels
+        const targetX = 10 * vw; // 50vw in pixels
         const targetY = 10 * vh; // 20vh in pixels
         console.log(vh, vw);
         const ndcY = (targetY / window.innerHeight) * 2 - 1; // Convert to NDC
