@@ -223,7 +223,7 @@
 
     let cameraEL = document.querySelector('a-camera')
     let camera
-    let scene
+    let scene = document.querySelector('a-scene')
 
     let renderer
     const scrollContainer = document.getElementById('dom-overlay');
@@ -330,13 +330,13 @@
     }
 
     function onWindowResize() {
-
+        renderer = scene.renderer
         console.log("updating")
         cameraEL = document.querySelector('a-camera')
         console.log(cameraEL)
         // cameraEL.removeAttribute('look-controls')
         camera = cameraEL.components.camera.camera
-        
+
         if (!camera) {
             console.error('Camera not found');
             return;
