@@ -15,15 +15,15 @@
                 console.log(cameraEL)
                 // cameraEL.removeAttribute('look-controls')
                 camera = cameraEL.components.camera.camera
-                camera.fov = 75
+                // camera.fov = 75
                 camera.far = 1000
-                camera.near = 1
+                camera.near = 0.5
                 camera.position.z = 5
                 scene = document.querySelector('a-scene')
                 renderer = scene.renderer
-                function onWindowResize() {
 
-                    console.log("updating")
+                function onWindowResize() {
+                    const camera = cameraEl.getObject3D('camera');
 
                     if (!camera) {
                         console.error('Camera not found');
@@ -40,14 +40,19 @@
                     }
 
                     renderer.setSize(window.innerWidth, window.innerHeight);
+
                     camera.aspect = window.innerWidth / window.innerHeight;
                     camera.updateProjectionMatrix();
 
+                    // camera.aspect = window.innerWidth / window.innerHeight;
+                    // camera.updateProjectionMatrix();
+
                     updateCubePosition();
-                    centerScrollbar()
+                    // centerScrollbar()
                 }
 
                 window.addEventListener('resize', onWindowResize, false);
+
                 if (typeof updateCubePosition !== 'undefined') {
                     updateCubePosition();
                 }
@@ -158,27 +163,32 @@
 
 <body>
     <a-scene log-when-loaded webxr="overlayElement:#dom-overlay">
-        <a-sky src="./assets/equirectangular/first.jpg"></a-sky>
-        <a-camera position="0 0 0">
+        <!-- <a-sky src="./assets/equirectangular/first.jpg"></a-sky> -->
+        <a-camera id="camera" position="0 1.6 0" rotation="0 0 0" near="0.1" far="1000">
+           
+            <a-box id="iconParent" position="0 1.5 -5"  color="#4CC3D9"> </a-box>
+
             <a-entity id="cursor" class="raycasting" cursor="rayOrigin:mouse" raycaster=""></a-entity>
-            <!-- Create 10 boxes lined up horizontally with a one meter gap -->
-            <a-box id="iconParent" position="0 0 -5" color="#4CC3D9">
-                <a-box position="0 0 0" color="#4CC3D9" onclick="onWindowResize()"></a-box>
-                <a-box position="2 0 0" color="#4CC3D9" onclick="onWindowResize()"></a-box>
-                <a-box position="4 0 0" color="#4CC3D9" onclick="onWindowResize()"></a-box>
-                <a-box position="6 0 0" color="#4CC3D9" onclick="onWindowResize()"></a-box>
-                <a-box position="8 0 0" color="#4CC3D9" onclick="onWindowResize()"></a-box>
-            </a-box>
-
+                <!-- <a-entity position="-4 0 0">
+                    <a-box position="0 0 0" color="#4CC3D9" onclick="testCameraRotations()"></a-box>
+                    <a-box position="2 0 0" color="#4CC3D9" onclick="testCameraRotations()"></a-box>
+                    <a-box position="4 0 0" color="#4CC3D9" onclick="testCameraRotations()"></a-box>
+                    <a-box position="6 0 0" color="#4CC3D9" onclick=""></a-box>
+                    <a-box position="8 0 0" color="#4CC3D9" onclick=""></a-box>
+                </a-entity> -->
         </a-camera>
+        <!-- <a-camera look-controls="enabled: true" position="0 0 0" rotation="0 0 0"> -->
+
+        <!-- Create 10 boxes lined up horizontally with a one meter gap -->
 
 
 
+        <!-- </a-camera> -->
+     
 
 
-        <a-entity id="iconParent" position="0 0 -5">
 
-            <!-- <a-box position="3 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
+        <!-- <a-box position="3 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
             <a-box position="5 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
             <a-box position="7 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
             <a-box position="9 0 0" color="#4CC3D9" onclick="this.setAttribute('color', getRandomColor())"></a-box>
@@ -186,7 +196,6 @@
 
 
 
-        </a-entity>
     </a-scene>
 
     <div id="dom-overlay">
@@ -240,7 +249,7 @@
     }
 
     document.addEventListener('click', function (event) {
-        console.log('Mouse X:', event.clientX, 'Mouse Y:', event.clientY);
+        // console.log('Mouse X:', event.clientX, 'Mouse Y:', event.clientY);
         const scene = document.querySelector('a-scene');
         const camera = document.querySelector('a-camera');
         const raycaster = new THREE.Raycaster();
@@ -255,11 +264,11 @@
 
         // Get the list of objects to test for intersections
         const objects = Array.from(scene.querySelectorAll('a-box')).map(box => box.object3D);
-        console.log('Objects:', objects);
+        // console.log('Objects:', objects);
 
         // Check if objects are correctly selected
         if (objects.length === 0) {
-            console.error('No objects found');
+            // console.error('No objects found');
             return;
         }
 
@@ -271,7 +280,7 @@
             // Change the color of the intersected object
             intersects[0].object.el.setAttribute('color', getRandomColor());
         } else {
-            console.log('No hits');
+            // console.log('No hits');
         }
     });
 
@@ -283,101 +292,202 @@
     const cube = document.querySelector('#iconParent').object3D;
 
 
+    // function updateCubePosition() {
+    //     console.log(cube)
+
+    //     console.log('Window inner height:', window.innerHeight, 'Window inner width:', window.innerWidth);
+
+    //     let vh = window.innerHeight / 100;
+    //     let vw = window.innerWidth / 100;
+
+    //     let targetX = 50 * vw; // 50vw in pixels
+    //     let targetY = 50 * vh; // 20vh in pixels
+    //     // console.log(vh, vw);
+
+    //     let ndcY = (targetY / window.innerHeight) * 2 - 1; // Convert to NDC
+    //     let ndcX = (targetX / window.innerWidth) * 2 - 1; // Convert to 
+    //     console.log('NDC X:', ndcX, 'NDC Y:', ndcY);
+
+    //     console.log(camera)
+    //     // let cameraEL = document.querySelector('a-camera')
+    //     // const camera = cameraEl.getObject3D('camera');
+    //     if (!camera) {
+    //         console.error('Camera not found');
+    //         return;
+    //     }
+
+    //     const vec = new THREE.Vector3(ndcX, ndcY, 0.5); // NDC coordinates
+
+    //     vec.unproject(camera);
+    //     console.log("unprojected vec", vec);
+
+    //     vec.sub(camera.position).normalize();
+    //     console.log("subbed", vec);
+
+    //     const distance = -camera.position.z / vec.z;
+    //     console.log('Camera position:', camera.position);
+    //     console.log('Distance:', distance);
+
+    //     const pos = new THREE.Vector3();
+    //     // Perform the operation
+    //     pos.copy(camera.position).add(vec.multiplyScalar(distance));
+
+    //     console.log('Resulting pos:', pos);
+    //     // cube.setAttribute('position', `${pos.x} ${pos.y} ${pos.z}`);
+    //     // console.log("cube position", cube.getAttribute('position'))
+    //     cube.position.copy(pos);
+    //     // cube.lookAt(camera.getWorldPosition(new THREE.Vector3()));
+    //     // Debugging: Log resulting vector
+
+    // }
+    const boxEl = document.querySelector('#iconParent');
+    const box = boxEl;
+    const cameraEl = document.querySelector('a-camera');
+
     function updateCubePosition() {
-        console.log(cube)
+      console.log('Window inner height:', window.innerHeight);
+      console.log('Window inner width:', window.innerWidth);
+      let vh = window.innerHeight / 100;
+      let vw = window.innerWidth / 100;
 
-        console.log('Window inner height:', window.innerHeight);
-        console.log('Window inner width:', window.innerWidth);
-        const vh = window.innerHeight / 100;
-        const vw = window.innerWidth / 100;
+      let targetX = 50 * vw; // 50vw in pixels
+      let targetY = 50 * vh; // 50vh in pixels
 
-        const targetX = 50 * vw; // 50vw in pixels
-        const targetY = 10 * vh; // 20vh in pixels
-        console.log(vh, vw);
-        
-        const ndcY = (targetY / window.innerHeight) * 2 - 1; // Convert to NDC
-        const ndcX = (targetX / window.innerWidth) * 2 - 1; // Convert to NDC
+      let ndcY = (targetY / window.innerHeight) * 2 - 1; // Convert to NDC
+      let ndcX = (targetX / window.innerWidth) * 2 - 1; // Convert to NDC
 
-        console.log(camera)
-        // let cameraEL = document.querySelector('a-camera')
-        // const camera = cameraEl.getObject3D('camera');
-        if (!camera) {
-            console.error('Camera not found');
-            return;
-        }
+      console.log("screen space destination in uv", ndcX, ndcY);
+      console.log("screen space destination in pixels", targetX, targetY);
 
-        const vec = new THREE.Vector3(ndcX, ndcY, 0.5); // NDC coordinates
+      console.log(cameraEl);
+      const camera = cameraEl.getObject3D('camera');
+      if (!camera) {
+        console.error('Camera not found');
+        return;
+      }
 
-        vec.unproject(camera);
-        console.log("unprojected vec", vec);
+      // Create a vector at a fixed distance from the camera
+      const fixedDistance = 5; // Fixed distance in meters
+      const vec = new THREE.Vector3(ndcX, ndcY, 0.5); // NDC coordinates
+      vec.unproject(camera);
 
-        vec.sub(camera.position).normalize();
-        console.log("subbed", vec);
+      // Calculate the direction vector from the camera to the unprojected point
+      vec.sub(camera.position).normalize();
 
-        const distance = -camera.position.z / vec.z;
-        console.log('Camera position:', camera.position);
-        console.log('Distance:', distance);
+      // Calculate the world position at the fixed distance
+      const worldPosition = new THREE.Vector3();
+      worldPosition.copy(camera.position).add(vec.multiplyScalar(fixedDistance));
 
-        const pos = new THREE.Vector3();
-        // Perform the operation
-        pos.copy(camera.position).add(vec.multiplyScalar(distance));
+      console.log('World position at fixed distance:', worldPosition);
 
-        console.log('Resulting pos:', pos);
-        // cube.setAttribute('position', `${pos.x} ${pos.y} ${pos.z}`);
-        // console.log("cube position", cube.getAttribute('position'))
-        cube.position.copy(pos);
-        // Debugging: Log resulting vector
+      // Convert the world coordinates to the camera's local coordinates
+      const localPosition = camera.worldToLocal(worldPosition.clone());
+      console.log('Intersection point (local coordinates):', localPosition);
 
+      // Set the box's position using the local coordinates
+      boxEl.setAttribute('position', `${localPosition.x} ${localPosition.y} ${localPosition.z}`);
+
+      // Align the box's rotation to match the camera's rotation
+      const cameraRotation = cameraEl.getAttribute('rotation');
+      boxEl.setAttribute('rotation', `${cameraRotation.x} ${cameraRotation.y} ${cameraRotation.z}`);
     }
 
-    document.querySelector('a-scene').addEventListener('camera-set-active', function (evt) {
-  // 1. Remove active class from all cameras.
-  // ...
-
-  // 2. Add active class to camera.
-  camera = evt.detail.cameraEl
-    console.log("active camera", camera)
-});
-
-    function onWindowResize() {
-        renderer = scene.renderer
-
-        cameraEL = document.querySelector('a-camera')
-        camera = cameraEL.components.camera.camera
+    // function updateCubePosition() {
 
 
-        console.log("updating")
+    //     console.log('Window inner height:', window.innerHeight);
+    //     console.log('Window inner width:', window.innerWidth);
+    //     let vh = window.innerHeight / 100;
+    //     let vw = window.innerWidth / 100;
 
-        if (!camera) {
-            console.error('Camera not found');
-            return;
-        }
+    //     let targetX = 50 * vw; // 50vw in pixels
+    //     let targetY = 50 * vh; // 50vh in pixels
 
-        if (typeof updateCubePosition == 'undefined') {
-            console.error('updateCubePosition not found');
-            return;
-        }
-        if (typeof centerScrollbar == 'undefined') {
-            console.error('centerScrollbar not found');
-            return;
-        }
+    //     let ndcY = (targetY / window.innerHeight) * 2 - 1; // Convert to NDC
+    //     let ndcX = (targetX / window.innerWidth) * 2 - 1; // Convert to NDC
 
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
+    //     console.log("screen space destination in uv", ndcX, ndcY);
+    //     console.log("screen space destination in pixels", targetX, targetY);
 
-        updateCubePosition();
-        centerScrollbar()
-    }
+    //     console.log(cameraEl);
+    //     const camera = cameraEl.getObject3D('camera');
+    //     if (!camera) {
+    //         console.error('Camera not found');
+    //         return;
+    //     }
+
+    //     // Create a ray from the camera through the NDC point
+    //     const raycaster = new THREE.Raycaster();
+    //     const mouse = new THREE.Vector2(ndcX, ndcY);
+    //     raycaster.setFromCamera(mouse, camera);
+
+    //     // Define a plane at a specific distance from the camera
+    //     const planeZ = new THREE.Plane(new THREE.Vector3(0, 0, 1), -camera.position.z);
+
+    //     // Find the intersection point of the ray with the plane
+    //     const intersection = new THREE.Vector3();
+    //     raycaster.ray.intersectPlane(planeZ, intersection);
+
+    //     const localPosition = camera.worldToLocal(intersection.clone());
+    //     console.log('Intersection point (local coordinates):', localPosition);
+
+    //     // Set the box's position using the local coordinates
+    //     boxEl.setAttribute('position', `${localPosition.x} ${localPosition.y} ${localPosition.z}`);
+
+    //     // Align the box's rotation to match the camera's rotation
+    //     // Calculate the desired world rotation for the box
+    //     // const desiredWorldRotation = new THREE.Euler(0, 0, 0); // Example: no rotation
+
+    //     // // Convert the world rotation to the camera's local rotation
+    //     // const desiredQuaternion = new THREE.Quaternion().setFromEuler(desiredWorldRotation);
+    //     // const cameraQuaternion = camera.quaternion.clone();
+    //     // cameraQuaternion.invert();
+    //     // const localQuaternion = desiredQuaternion.multiply(cameraQuaternion);
+    //     // const localRotation = new THREE.Euler().setFromQuaternion(localQuaternion);
+
+    //     // Set the box's rotation using the local rotation
+    //     // boxEl.setAttribute('rotation', `${THREE.Math.radToDeg(localRotation.x)} ${THREE.Math.radToDeg(localRotation.y)} ${THREE.Math.radToDeg(localRotation.z)}`);
+    // }
+
+    // function onWindowResize() {
+    //     renderer = scene.renderer
+
+    //     cameraEL = document.querySelector('a-camera')
+    //     camera = cameraEL.components.camera.camera
+
+
+    //     console.log("updating")
+
+    //     if (!camera) {
+    //         console.error('Camera not found');
+    //         return;
+    //     }
+
+    //     if (typeof updateCubePosition == 'undefined') {
+    //         console.error('updateCubePosition not found');
+    //         return;
+    //     }
+    //     if (typeof centerScrollbar == 'undefined') {
+    //         console.error('centerScrollbar not found');
+    //         return;
+    //     }
+
+    //     renderer.setSize(window.innerWidth, window.innerHeight);
+    //     camera.aspect = window.innerWidth / window.innerHeight;
+    //     camera.updateProjectionMatrix();
+
+    //     updateCubePosition();
+    //     // centerScrollbar()
+    // }
 
 
 
     function centerScrollbar() {
         scrollContainer.removeEventListener('scroll', scroll3D);
 
-        console.log("centering")
+        // console.log("centering")
         const container = document.getElementById('dom-overlay');
-        console.log(container)
+        // console.log(container)
         const contentWidth = container.scrollWidth;
         const containerWidth = container.clientWidth;
 
@@ -390,4 +500,57 @@
 
 
     }
+
+
+    function testCameraRotations() {
+        const cameraEl = document.querySelector('a-camera');
+        // No rotation
+        //   console.log("camera", cameraEl)
+        console.log("rotation 1 ", cameraEL.getAttribute('rotation'))
+        console.log("position 1 ", cameraEL.getAttribute('position'))
+
+        //   cameraEl.setAttribute('rotation', {x: 15, y: 30, z: 90});
+        //AFRAME.scenes[0].camera.rotation.set(0, 90, 0)
+
+        //components.camera.camera.rotation.set(0, 0, 0)
+        //   camera.rotation = THREE.Vector3(180, 90, 0);
+        //   updateCubePosition();
+
+        // Rotation 90 degrees on X axis
+        setTimeout(() => {
+            console.log("rotation 2 ", cameraEL.getAttribute('rotation'))
+            console.log("position 2 ", cameraEL.getAttribute('position'))
+            // AFRAME.scenes[0].camera.rotation.set(0, 0, 0)
+            //   updateCubePosition();
+        }, 2000);
+    }
+
+
+    function setbox2(mouseX, mouseY) {
+            var mouse = new THREE.Vector2();
+            var raycaster = new THREE.Raycaster();
+            var camera = cameraEl.getObject3D('camera');
+            // mouse.x = (mouseX / window.innerWidth) * 2 - 1;
+            // mouse.y = - (mouseY / window.innerHeight) * 2 + 1;
+            mouse.x = mouseX;
+            mouse.y = mouseY;
+            console.log(`Normalized mouse position: X=${mouse.x}, Y=${mouse.y}`);
+
+            raycaster.setFromCamera(mouse, camera);
+            var direction = raycaster.ray.direction.clone().normalize();
+            var distance = 5; // Fixed distance in meters
+
+            // Calculate the world position of the box
+            var worldPosition = raycaster.ray.origin.clone().add(direction.multiplyScalar(distance));
+            console.log(`World position: X=${worldPosition.x}, Y=${worldPosition.y}, Z=${worldPosition.z}`);
+
+            // Convert the world coordinates to the camera's local coordinates
+            var localPosition = camera.worldToLocal(worldPosition.clone());
+            console.log('Local position:', localPosition);
+
+            // Set the box's position using the local coordinates
+            box.object3D.position.copy(localPosition);
+            // box.object3D.lookAt(camera.getWorldPosition(new THREE.Vector3()));
+        }
+
 </script>

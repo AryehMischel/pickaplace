@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>A-Frame Scene</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script>
+        AFRAME.registerComponent('set-scene', {
+            init: function () {
+                cameraEL = document.querySelector('a-camera')
+                camera = cameraEL.components.camera.camera
+                // camera.fov = 75
+                // camera.far = 1000
+                // camera.near = 0.5
+                // camera.position.z = 5
+
+
+                function onWindowResize() {
+                    if (!camera) {
+                        console.error('Camera not found');
+                        return;
+                    }
+
+                    if (typeof setEntityPositionWithScreenSpace == 'undefined') {
+                        console.error('setEntityPositionWithScreenSpace');
+                        return;
+                    }
+                    // if (typeof centerScrollbar == 'undefined') {
+                    //     console.error('centerScrollbar not found');
+                    //     return;
+                    // }
+
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+
+                    setEntityPositionWithScreenSpace(-0.5, -0.6, 5)
+
+                    // updateCubePosition();
+                    // centerScrollbar()
+                }
+
+                window.addEventListener('resize', onWindowResize, false);
+
+                if (typeof updateCubePosition !== 'undefined') {
+                    setEntityPositionWithScreenSpace(-0.8, -0.8, 5)
+
+                }
+
+
+            }
+        });
+    </script>
+
+    <style>
+        body {
+            font-family: 'Exo 2', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            background-color: #f0f0f000;
+        }
+
+        #dom-overlay {
+            position: absolute;
+            bottom: 0;
+            width: 80vw;
+            height: 29vh;
+            background-color: rgba(255, 255, 255, 0);
+            -webkit-overflow-scrolling: touch;
+            overflow-x: auto;
+            /* Enable horizontal scrolling */
+            overflow-y: hidden;
+            /* Prevent vertical scrolling */
+            white-space: nowrap;
+            /* Prevent wrapping of child elements */
+        }
+
+        /* #my-interface {
+            
+        } */
+
+        #buttonContainer {
+            display: flex;
+            flex-wrap: nowrap;
+            /* Prevent buttons from wrapping */
+             /* align-items: left;  */
+            /* justify-content: left;  */
+            /* justify-content: space-around; */
+            /* gap: 0px; */
+            /* Center align items vertically */
+            width: 10vw;
+            height: 20vh;
+            white-space: nowrap;
+            /* width: 100%; */
+            /* Match the height of the container */
+            padding: 10px;
+            /* Optional: Add padding for spacing */
+            box-sizing: border-box;
+            pointer-events: none;
+            /* Ignore pointer events */
+            opacity: 0.4;
+            /* Include padding and border in the element's total width and height */
+        }
+
+        #buttonContainer button {
+            flex: 0 0 auto;
+            flex-wrap: nowrap;
+            /* Prevent buttons from stretching or shrinking */
+            height: 20vh;
+            /* Ensure buttons maintain their natural height */
+            width: 220px;
+            max-width: 400px;
+            /* Ensure buttons maintain their natural width */
+            margin: 5vh;
+            /* Optional: Add margin for spacing between buttons */
+            color: #f0f0f000
+        }
+
+        #buttonContainer,
+        #buttonContainer button {
+            box-sizing: border-box;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        #dom-overlay::-webkit-scrollbar {
+            width: 8px;
+            /* Width of the scrollbar */
+        }
+
+        #dom-overlay::-webkit-scrollbar-thumb {
+            background-color: #888;
+            /* Color of the scrollbar */
+            border-radius: 10px;
+            /* Rounded edges */
+        }
+
+        #dom-overlay::-webkit-scrollbar-thumb:hover {
+            background-color: #555;
+            /* Darker on hover */
+        }
+
+        #dom-overlay::-webkit-scrollbar-track {
+            background: #f0f0f0;
+            /* Background of the scrollbar track */
+        }
+    </style>
+</head>
+
+<body>
+    <a-scene set-scene="" webxr="overlayElement:#dom-overlay">
+        <a-camera id="camera" position="0 1.6 0">
+            <a-box id="box" position="0 1.5 -5" rotation="0 0 0" color="#4CC3D9">
+                <a-box position="0 0 0" color="#4CC3D9" onclick=""></a-box>
+                <a-box position="2 0 0" color="#4CC3D9" onclick=""></a-box>
+                <a-box position="4 0 0" color="#4CC3D9" onclick=""></a-box>
+                <a-box position="6 0 0" color="#4CC3D9" onclick=""></a-box>
+                <a-box position="8 0 0" color="#4CC3D9" onclick=""></a-box>
+            </a-box>
+
+
+        </a-camera>
+    </a-scene>
+    <div id="dom-overlay">
+
+        <!-- <section id="my-interface"> -->
+
+            <div id="buttonContainer" class="scrollingButtonContainer">
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+                <button></button>
+            </div>
+        <!-- </section> -->
+    </div>
+
+</body>
+<script>
+    let boxesXOffset = 0;
+    const box = document.querySelector('#box');
+    const cameraEl = document.querySelector('#camera');
+    scene = document.querySelector('a-scene')
+    renderer = scene.renderer
+
+
+    function setEntityPositionWithScreenSpace(mouseX, mouseY, distance) {
+
+        var mouse = new THREE.Vector2();
+        var raycaster = new THREE.Raycaster();
+        var camera = cameraEl.getObject3D('camera');
+        // mouse.x = (mouseX / window.innerWidth) * 2 - 1;
+        // mouse.y = - (mouseY / window.innerHeight) * 2 + 1;
+        mouse.x = mouseX;
+        mouse.y = mouseY;
+        console.log(`Normalized mouse position: X=${mouse.x}, Y=${mouse.y}`);
+
+        raycaster.setFromCamera(mouse, camera);
+        var direction = raycaster.ray.direction.clone().normalize();
+        // var distance = 5; // Fixed distance in meters
+
+        // Calculate the world position of the box
+        var worldPosition = raycaster.ray.origin.clone().add(direction.multiplyScalar(distance));
+        boxesXOffset = worldPosition.x;
+        console.log(`World position: X=${worldPosition.x}, Y=${worldPosition.y}, Z=${worldPosition.z}`);
+
+        // console.log(`World position: X=${worldPosition.x}, Y=${worldPosition.y}, Z=${worldPosition.z}`);
+      
+        // Convert the world coordinates to the camera's local coordinates
+        var localPosition = camera.worldToLocal(worldPosition.clone());
+        // console.log('Local position:', localPosition);
+
+        // Set the box's position using the local coordinates
+        box.object3D.position.copy(localPosition);
+        // box.object3D.lookAt(camera.getWorldPosition(new THREE.Vector3()));
+    }
+
+    function scroll3D() {
+        console.log("scrolling cubes")
+        const scrollTop = event.target.scrollTop;
+        const scrollLeft = event.target.scrollLeft;
+        console.log('Scroll Top:', scrollTop);
+        console.log('Scroll Left:', scrollLeft);
+        console.log("box offset", boxesXOffset) 
+        console.log("new x", -scrollLeft * 0.01)
+        box.object3D.position.x = boxesXOffset + (-scrollLeft * 0.0055);
+    }
+
+    const scrollContainer = document.getElementById('dom-overlay');
+    scrollContainer.addEventListener('scroll', scroll3D);
+
+    // document.addEventListener('click', setBox);
+</script>
+
+</html>
