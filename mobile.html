@@ -49,7 +49,7 @@
                 window.addEventListener('resize', onWindowResize, false);
 
                 if (typeof updateCubePosition !== 'undefined') {
-                    setEntityPositionWithScreenSpace(-0.8, -0.8, 5)
+                    setEntityPositionWithScreenSpace(-0.8, -0.8, 10)
 
                 }
 
@@ -185,11 +185,11 @@
                     <a-box position="6 0 0" color="#4CC3D9" opacity="0.5" onclick="console.log('clicked')"></a-box>
                     <a-box position="8 0 0" color="#4CC3D9" opacity="0.5" onclick="console.log('clicked')"></a-box> -->
 
-                <a-box id="mountainCube" position="0 0 0" onclick="setSceneBackgroundTexture('mountain')"> </a-box>
-                <a-box id="forestCube" position="2 0 0" onclick="setSceneBackgroundTexture('forest')"></a-box>
-                <a-box id="skyCube" position="4 0 0" onclick="setSceneBackgroundTexture('sky')"></a-box>
-                <a-box id="desertCube" position="6 0 0" onclick="setSceneBackgroundTexture('desert')"></a-box>
-                <a-box id="snowCube" position="8 0 0" onclick="setSceneBackgroundTexture('snow')"></a-box>
+                <a-box scale ="1 1 0.5"  id="mountainCube" position="0 0 0" onclick="setSceneBackgroundTexture('mountain')"> </a-box>
+                <a-box id="forestCube" rotation="45 0 0"   position="2 0 0" onclick="setSceneBackgroundTexture('forest')"></a-box>
+                <a-box id="skyCube"     rotation="45 0 0"  position="4 0 0" onclick="setSceneBackgroundTexture('sky')"></a-box>
+                <a-box id="desertCube"  rotation="45 0 0"  position="6 0 0" onclick="setSceneBackgroundTexture('desert')"></a-box>
+                <a-box id="snowCube"   rotation="45 0 0"   position="8 0 0" onclick="setSceneBackgroundTexture('snow')"></a-box>
 
 
             </a-entity>
