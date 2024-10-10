@@ -48,16 +48,73 @@
 
                 window.addEventListener('resize', onWindowResize, false);
 
-                if (typeof updateCubePosition !== 'undefined') {
-                    setEntityPositionWithScreenSpace(-0.8, -0.8, 10)
+                if (typeof setEntityPositionWithScreenSpace !== 'undefined') {
+                    console.log('setting initial position');
+                    setTimeout(() => {
+                        setEntityPositionWithScreenSpace(-0.5, -0.6, 5);
+                        box.setAttribute('visible', true);
+                    }, 10);
+                    //setEntityPositionWithScreenSpace(-0.5, -0.6, 5)
 
                 }
 
 
             }
         });
-    </script>
 
+        
+    </script>
+<script>
+    //this component is attached to layer objects. Each will load up the next layer and then remove this component. 
+    AFRAME.registerComponent("landing-animation", {
+        init: function () {
+
+            //make a single landing page animation script that will trigger our icons to animate.
+            // let transitionSphere = document.getElementById("transitionSphere");
+            let text = document.getElementById("text")
+            let text2 = document.getElementById("text2")
+            let transitionSphere = document.getElementById("transitionSphere");
+            scene.addEventListener("loaded", () => setscene())
+            async function setscene() {
+                setEntityPositionWithScreenSpaceCoordinates(0, 0.5, 5, text)
+                setEntityPositionWithScreenSpaceCoordinates(0, 0.25, 5, text2)
+
+                text.setAttribute("text", "value:pick a place")
+                await sleep(600)
+                transitionSphere.emit("fadeinscene");
+                text.setAttribute("text", "value:...anyplace.")
+                await sleep(1200)
+                text.setAttribute("text", "value: Pick-A-Place 360-Gallery")
+                // text2.setAttribute("visible", "true")
+                await sleep(1000)
+                text.setAttribute("visible", "false")
+   
+
+            }
+
+
+
+
+
+
+
+
+        },
+    });
+
+
+
+
+
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms))
+    }
+
+
+
+
+</script>
     <style>
         body {
             font-family: 'Exo 2', sans-serif;
@@ -124,7 +181,10 @@
             /* Ensure buttons maintain their natural width */
             margin: 6vh;
             /* Optional: Add margin for spacing between buttons */
-            color: #f0f0f000
+            color: #f0f0f000;
+            background-color: transparent;
+            /* Make background color transparent */
+            border: none;
         }
 
         #buttonContainer,
@@ -167,7 +227,9 @@
     highRefreshRate: true;
     anisotropy: 1;
     foveationLevel: 0;"
-        gltf-model="basisTranscoderPath:https://cdn.jsdelivr.net/npm/three@0.154.0/examples/jsm/libs/basis/">
+        gltf-model="basisTranscoderPath:https://cdn.jsdelivr.net/npm/three@0.154.0/examples/jsm/libs/basis/"
+        
+        landing-animation>
 
 
 
@@ -178,24 +240,47 @@
 
 
         <a-camera id="camera" position="0 1.6 0">
-            <a-entity id="box" position="0 1.5 -5" rotation="0 0 0">
-                <!-- <a-box position="0 0 0" color="#4CC3D9" opacity="0.5" onclick="console.log('clicked')"></a-box>
-                    <a-box position="2 0 0" color="#4CC3D9" opacity="0.5" onclick="console.log('clicked')"></a-box>
-                    <a-box position="4 0 0" color="#4CC3D9" opacity="0.5" onclick="console.log('clicked')"></a-box>
-                    <a-box position="6 0 0" color="#4CC3D9" opacity="0.5" onclick="console.log('clicked')"></a-box>
-                    <a-box position="8 0 0" color="#4CC3D9" opacity="0.5" onclick="console.log('clicked')"></a-box> -->
+            <a-entity id="box" visible="false" position="0 1.5 -5" rotation="0 0 0">
 
-                <a-box scale ="1 1 0.5"  id="mountainCube" position="0 0 0" onclick="setSceneBackgroundTexture('mountain')"> </a-box>
-                <a-box id="forestCube"  rotation="-150 90 225"   position="2 0 0" onclick="setSceneBackgroundTexture('forest')"></a-box>
-                <a-box id="skyCube"     rotation="-150 90 225"  position="4 0 0" onclick="setSceneBackgroundTexture('sky')"></a-box>
-                <a-box id="desertCube"  rotation="-150 90 225"  position="6 0 0" onclick="setSceneBackgroundTexture('desert')"></a-box>
-                <a-box id="snowCube"    rotation="45 0 45"   position="8 0 0" onclick="setSceneBackgroundTexture('snow')"></a-box>
+                <a-box id="mountainCube" position="0 0 0" rotation="-150 90 225"
+                    onclick="setSceneBackgroundTexture('mountain')"> </a-box>
+                <a-box id="forestCube" position="2 0 0" rotation="-150 90 225"
+                    onclick="setSceneBackgroundTexture('forest')"></a-box>
+                <a-box id="skyCube" position="4 0 0" rotation="-150 90 225"
+                    onclick="setSceneBackgroundTexture('sky')"></a-box>
+                <a-box id="desertCube" position="6 0 0" rotation="-150 90 225"
+                    onclick="setSceneBackgroundTexture('desert')"></a-box>
+                <a-box id="snowCube" position="8 0 0" rotation="-150 90 225"
+                    onclick="setSceneBackgroundTexture('snow')"></a-box>
 
 
             </a-entity>
 
 
         </a-camera>
+
+
+        <a-entity id="landingPage" visible="true">
+
+            <a-entity id="text"
+                text="value:; color: #d64161; shader: msdf; font: https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/exo2/Exo2-Light.json; align: center"
+                position="0 0 0" scale="8 8 8"
+   >
+            </a-entity>
+
+            <a-entity id="text2" visible="false"
+                text="value: Interactive 360 Gallery; color: #d64161; shader: msdf; font: https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/exo2/Exo2-Light.json; align: center"
+                position="0 0 0 " scale="8 8 8">
+            </a-entity>
+
+        </a-entity>
+
+        <a-sky id="transitionSphere" radius="10" material="opacity: 1; transparent: true" color="#f4f4f4"
+        position="0 1.690 0" rotation="0 90 -2"
+        animation__fadein="property: components.material.material.opacity; type: isRawProperty; from: 0; to: 1; dur: 350; startEvents: transition"
+        animation__fadeback="property: components.material.material.opacity; type: isRawProperty; from: 1; to: 0;delay:100; dur: 350; startEvents: animationcomplete__fadein"
+        animation__landingpagefadein="property: components.material.material.opacity; type: isRawProperty; from: 1; to: 0.0; dur: 1000; startEvents: fadeinscene"></a-sky>
+
     </a-scene>
     <div id="dom-overlay">
 
@@ -283,7 +368,7 @@
     const skyCubeMaterials = skyMapURLS.map(url => new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(url) }));
     const desertCubeMaterials = desertMapURLS.map(url => new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(url) }));
     const forestCubeMaterials = forestMapURLS.map(url => new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(url) }));
-    
+
     scene.addEventListener('loaded', async function () {
 
         mountainCube.object3D.children[0].material = mountainCubeMaterials;
@@ -303,7 +388,7 @@
 <!-- load in images and create textures-->
 <script>
     let ktx2Loader;
-    
+
     let cubemapTextures = new Object()
 
     let compressedCubeTextureURLs = [
@@ -315,6 +400,18 @@
 
     ];
 
+    //load in landing page background 360 image
+    const textureLoader = new THREE.TextureLoader();
+    textureLoader.load(`${cdnPath}/first.jpg`, (texture) => {
+        texture.mapping = THREE.EquirectangularReflectionMapping;
+        scene.object3D.background = texture;
+        // set scene rotation
+        scene.setAttribute("rotation", "0 90 0")
+
+    });
+
+
+
     scene.addEventListener('loaded', async function () {
         const loadPromises = compressedCubeTextureURLs.map((textureInfo, index) => {
             return ktx2Loader.loadAsync(textureInfo.url)
@@ -325,7 +422,7 @@
                     //Giving each texture a global variable so we can access it in our cubemap component. I do not know the best way to pass a texture to an A-Frame component so this was a quick and dirty solution.
                     window[textureInfo.name] = texture;
                     console.log("texture", texture)
-                    
+
                     const material = new THREE.MeshBasicMaterial({
                         envMap: texture,
                         // side: THREE.BackSide // Ensure the texture is visible from inside the cube
@@ -350,7 +447,12 @@
     });
 
 
+    let firstCallofSetScene = true;
     function setSceneBackgroundTexture(name) {
+        if(firstCallofSetScene){
+            scene.setAttribute("rotation", "0 0 0");
+            firstCallofSetScene = false;
+        }
         scene.object3D.background = cubemapTextures[name];
     }
 
@@ -396,6 +498,29 @@
         box.object3D.position.copy(localPosition);
         // box.object3D.lookAt(camera.getWorldPosition(new THREE.Vector3()));
     }
+
+
+    function setEntityPositionWithScreenSpaceCoordinates(mouseX, mouseY, distance, entity){
+    
+        var mouse = new THREE.Vector2();
+        var raycaster = new THREE.Raycaster();
+        var camera = cameraEl.getObject3D('camera');
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        mouse.x = mouseX;
+        mouse.y = mouseY;
+        console.log(`Normalized mouse position: X=${mouse.x}, Y=${mouse.y}`);
+
+        raycaster.setFromCamera(mouse, camera);
+        var direction = raycaster.ray.direction.clone().normalize();
+        var worldPosition = raycaster.ray.origin.clone().add(direction.multiplyScalar(distance));
+        entity.object3D.position.copy(worldPosition);
+        
+    }
+
+
+
+
 
     function scroll3D() {
         console.log("scrolling cubes")
@@ -474,5 +599,8 @@
 
     // document.addEventListener('click', setBox);
 </script>
+
+
+
 
 </html>
