@@ -14,7 +14,6 @@
                 // camera.near = 0.5
                 // camera.position.z = 5
 
-
                 function onWindowResize() {
                     if (!camera) {
                         console.error('Camera not found');
@@ -25,16 +24,17 @@
                         console.error('setEntityPositionWithScreenSpace');
                         return;
                     }
-                    // if (typeof centerScrollbar == 'undefined') {
-                    //     console.error('centerScrollbar not found');
-                    //     return;
-                    // }
+                    if (typeof centerScrollbar == 'undefined') {
+                        console.error('centerScrollbar not found');
+                        return;
+                    }
 
                     renderer.setSize(window.innerWidth, window.innerHeight);
                     camera.aspect = window.innerWidth / window.innerHeight;
                     camera.updateProjectionMatrix();
 
                     setEntityPositionWithScreenSpace(-0.5, -0.6, 5)
+                    centerScrollbar();
 
                     // updateCubePosition();
                     // centerScrollbar()
@@ -90,7 +90,7 @@
              /* align-items: left;  */
             /* justify-content: left;  */
             /* justify-content: space-around; */
-            /* gap: 0px; */
+             gap: 13vh; 
             /* Center align items vertically */
             width: 10vw;
             height: 20vh;
@@ -112,10 +112,11 @@
             /* Prevent buttons from stretching or shrinking */
             height: 20vh;
             /* Ensure buttons maintain their natural height */
-            width: 220px;
-            max-width: 400px;
+            width: 124px;
+            
+            max-width: 220px;
             /* Ensure buttons maintain their natural width */
-            margin: 5vh;
+            margin: 6vh;
             /* Optional: Add margin for spacing between buttons */
             color: #f0f0f000
         }
@@ -156,12 +157,12 @@
 <body>
     <a-scene set-scene="" webxr="overlayElement:#dom-overlay">
         <a-camera id="camera" position="0 1.6 0">
-            <a-box id="box" position="0 1.5 -5" rotation="0 0 0" color="#4CC3D9">
-                <a-box position="0 0 0" color="#4CC3D9" onclick=""></a-box>
-                <a-box position="2 0 0" color="#4CC3D9" onclick=""></a-box>
-                <a-box position="4 0 0" color="#4CC3D9" onclick=""></a-box>
-                <a-box position="6 0 0" color="#4CC3D9" onclick=""></a-box>
-                <a-box position="8 0 0" color="#4CC3D9" onclick=""></a-box>
+            <a-box id="box" position="0 1.5 -5" rotation="0 0 0" color="#4CC3D9"  onclick="console.log('clicked')"> 
+                <a-box position="0 0 0" color="#4CC3D9"  onclick="console.log('clicked')"></a-box>
+                <a-box position="2 0 0" color="#4CC3D9"  onclick="console.log('clicked')"></a-box>
+                <a-box position="4 0 0" color="#4CC3D9"  onclick="console.log('clicked')"></a-box>
+                <a-box position="6 0 0" color="#4CC3D9"  onclick="console.log('clicked')"></a-box>
+                <a-box position="8 0 0" color="#4CC3D9"  onclick="console.log('clicked')"></a-box>
             </a-box>
 
 
@@ -191,7 +192,7 @@
 
 
     function setEntityPositionWithScreenSpace(mouseX, mouseY, distance) {
-
+        // centerScrollbar()
         var mouse = new THREE.Vector2();
         var raycaster = new THREE.Raycaster();
         var camera = cameraEl.getObject3D('camera');
@@ -207,14 +208,15 @@
 
         // Calculate the world position of the box
         var worldPosition = raycaster.ray.origin.clone().add(direction.multiplyScalar(distance));
-        boxesXOffset = worldPosition.x;
-        console.log(`World position: X=${worldPosition.x}, Y=${worldPosition.y}, Z=${worldPosition.z}`);
+       
+        // console.log(`World position: X=${worldPosition.x}, Y=${worldPosition.y}, Z=${worldPosition.z}`);
 
         // console.log(`World position: X=${worldPosition.x}, Y=${worldPosition.y}, Z=${worldPosition.z}`);
       
         // Convert the world coordinates to the camera's local coordinates
         var localPosition = camera.worldToLocal(worldPosition.clone());
-        // console.log('Local position:', localPosition);
+
+        boxesXOffset = localPosition.x;
 
         // Set the box's position using the local coordinates
         box.object3D.position.copy(localPosition);
@@ -232,8 +234,69 @@
         box.object3D.position.x = boxesXOffset + (-scrollLeft * 0.0055);
     }
 
+    function centerScrollbar() {
+        console.log("centering")
+        // scrollContainer.removeEventListener('scroll', scroll3D);
+
+        // console.log("centering")
+        const container = document.getElementById('dom-overlay');
+        // console.log(container)
+        const contentWidth = container.scrollWidth;
+        const containerWidth = container.clientWidth;
+
+        // Calculate the scroll position to center the content
+        const scrollPosition = (contentWidth - containerWidth) / 2;
+        // Set the scroll position
+        container.scrollLeft = scrollPosition;
+        // scrollContainer.addEventListener('scroll', scroll3D);
+
+
+
+    }
+
+
     const scrollContainer = document.getElementById('dom-overlay');
     scrollContainer.addEventListener('scroll', scroll3D);
+
+
+
+    document.addEventListener('click', function (event) {
+        // console.log('Mouse X:', event.clientX, 'Mouse Y:', event.clientY);
+        const scene = document.querySelector('a-scene');
+        const camera = document.querySelector('a-camera');
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+        // Convert the mouse position to normalized device coordinates (-1 to +1)
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        // Update the raycaster with the camera and mouse position
+        raycaster.setFromCamera(mouse, camera.getObject3D('camera'));
+
+        // Get the list of objects to test for intersections
+        const objects = Array.from(scene.querySelectorAll('a-box')).map(box => box.object3D);
+        // console.log('Objects:', objects);
+
+        // Check if objects are correctly selected
+        if (objects.length === 0) {
+            // console.error('No objects found');
+            return;
+        }
+
+        // Perform the intersection test
+        const intersects = raycaster.intersectObjects(objects, true);
+
+        if (intersects.length > 0) {
+            console.log('Hit:', intersects[0].object.el);
+            // Change the color of the intersected object
+            // intersects[0].object.el.setAttribute('color', getRandomColor());
+            intersects[0].object.el.click();
+
+        } else {
+            // console.log('No hits');
+        }
+    });
 
     // document.addEventListener('click', setBox);
 </script>
