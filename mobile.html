@@ -87,7 +87,7 @@
 
 
 
-        
+
         AFRAME.registerComponent('highlight-cube-on-click', {
             init: function () {
                 //set ktx2 loader
@@ -123,8 +123,11 @@
 
                 scene.addEventListener("loaded", () => setscene())
                 async function setscene() {
-                    setEntityPositionWithScreenSpaceCoordinates(0, 0.5, 5, text)
-                    setEntityPositionWithScreenSpaceCoordinates(0, 0.25, 5, text2)
+
+                    // await sleep(600)
+                    // setEntityPositionWithScreenSpaceCoordinates(0, 0, 5, text)
+                    // placeCenterScreen(text)
+                    // setEntityPositionWithScreenSpaceCoordinates(0, 0.25, 5, text2)
 
                     text.setAttribute("text", "value:pick a place")
                     await sleep(600)
@@ -136,11 +139,12 @@
                     await sleep(1000)
                     text.setAttribute("visible", "false")
                     sceneAnimationFinished = true;
-
+                    // setEntityPositionWithScreenSpaceCoordinates(0, 0.5, 5, text)
+                    // setEntityPositionWithScreenSpaceCoordinates(0, 0.25, 5, text2)
                     if (portrait) {
 
                         await sleep(1000)
-                        
+
                         if (portrait) {
                             playAnimationTwice()
                             displayedScrollingIndicator = true
@@ -197,6 +201,7 @@
         }
 
         #animationContainer {
+            pointer-events: none;
             position: absolute;
             width: 125%;
             height: auto;
@@ -311,35 +316,30 @@
                     onclick="setSceneBackgroundTexture('mountain')" highlight-cube-on-click> </a-box>
                 <a-box id="forestCube" position="2 0 0" rotation="-150 90 225"
                     onclick="setSceneBackgroundTexture('forest')" highlight-cube-on-click></a-box>
-                <a-box id="skyCube" position="4 0 0" rotation="-150 90 225"
-                    onclick="setSceneBackgroundTexture('sky')" highlight-cube-on-click></a-box>
+                <a-box id="skyCube" position="4 0 0" rotation="-150 90 225" onclick="setSceneBackgroundTexture('sky')"
+                    highlight-cube-on-click></a-box>
                 <a-box id="desertCube" position="6 0 0" rotation="-150 90 225"
                     onclick="setSceneBackgroundTexture('desert')" highlight-cube-on-click></a-box>
-                <a-box id="snowCube" position="8 0 0" rotation="-150 90 225"
-                    onclick="setSceneBackgroundTexture('snow')" highlight-cube-on-click></a-box>
+                <a-box id="snowCube" position="8 0 0" rotation="-150 90 225" onclick="setSceneBackgroundTexture('snow')"
+                    highlight-cube-on-click></a-box>
 
-                    <a-box id="highlightCube" visible="false" scale="1.05 1.05 1.05"
-                    position="0 0 0" rotation="-150 90 225"></a-box>
+                <a-box id="highlightCube" visible="false" scale="1.05 1.05 1.05" position="0 0 0"
+                    rotation="-150 90 225"></a-box>
 
             </a-entity>
 
 
         </a-camera>
 
-
-        <a-entity id="landingPage" visible="true">
-
-            <a-entity id="text"
-                text="value:; color: #d64161; shader: msdf; font: https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/exo2/Exo2-Light.json; align: center"
-                position="0 0 0" scale="8 8 8">
-            </a-entity>
-
-            <a-entity id="text2" visible="false"
-                text="value: Interactive 360 Gallery; color: #d64161; shader: msdf; font: https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/exo2/Exo2-Light.json; align: center"
-                position="0 0 0 " scale="8 8 8">
-            </a-entity>
-
+        <a-entity id="text"
+            text="value:; color: #d64161; shader: msdf; font: https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/exo2/Exo2-Light.json; align: center"
+            scale="8 8 8" position="0 1.6 -6">
         </a-entity>
+        <a-entity id="text2" visible="false"
+            text="value: Interactive 360 Gallery; color: #d64161; shader: msdf; font: https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/exo2/Exo2-Light.json; align: center"
+            position="0 0 0 " scale="8 8 8">
+        </a-entity>
+
 
         <a-sky id="transitionSphere" radius="10" material="opacity: 1; transparent: true" color="#f4f4f4"
             position="0 1.690 0" rotation="0 90 -2"
@@ -597,22 +597,11 @@
     }
 
 
+
+
     function setEntityPositionWithScreenSpaceCoordinates(mouseX, mouseY, distance, entity) {
 
-        var mouse = new THREE.Vector2();
-        var raycaster = new THREE.Raycaster();
-        var camera = cameraEl.getObject3D('camera');
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        mouse.x = mouseX;
-        mouse.y = mouseY;
-        console.log(`Normalized mouse position: X=${mouse.x}, Y=${mouse.y}`);
-
-        raycaster.setFromCamera(mouse, camera);
-        var direction = raycaster.ray.direction.clone().normalize();
-        var worldPosition = raycaster.ray.origin.clone().add(direction.multiplyScalar(distance));
-        entity.object3D.position.copy(worldPosition);
-
+      //to do
     }
 
 
@@ -703,8 +692,8 @@
     var animation = lottie.loadAnimation({
         container: animationContainer,
         renderer: 'svg',
-        loop: true,
-        autoplay: true,
+        loop: false,
+        autoplay: false,
         path: `${cdnPath}/pickaplace/animations/scrollingCubesAnimation.json` // Replace with the path to your JSON file
     });
 
