@@ -1,10 +1,11 @@
 // Detect user platform and serve the corresponding web page
 AFRAME.registerComponent('device-check', {
     init: function () {
-
+        console.log("checkin device...")
         let el = this.el;
         let mobile = AFRAME.utils.device.isMobile();
         let vr = AFRAME.utils.device.isMobileVR();
+        
         window.mobileCheck();
 
         if(window.mobileCheck() == true){
