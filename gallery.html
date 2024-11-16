@@ -32,7 +32,7 @@
             },
             loadClips: function () {
                 const clips = this.data.clips.split(' ');
-                console.log("clips", clips);
+                // console.log("clips", clips);
                 for (let i = 0; i < clips.length; i++) {
                     const clipId = clips[i];
                     const clipElement = document.getElementById(clipId);
@@ -40,7 +40,7 @@
                         this.clips[clipId] = clipElement;
                     }
                 }
-                console.log("loaded clips", this.clips);
+                // console.log("loaded clips", this.clips);
             },
             playClip: function (clipId) {
                 const clip = this.clips[clipId];
@@ -452,7 +452,7 @@
             <a-box id="shelf5" mixin="shelf-mix" position="0.5 1.02 -1.42"></a-box> <!--  vr position="0.6 1.1 -0.2" -->
         </a-entity>
 
-        <a-entity id="i" onclick="()=>{console.log('clicked')}"></a-entity>
+        <a-entity id="i" ></a-entity>
 
         <a-box id="cameraCollider" visible="false" static-body physics-collider on-collision
             collision-filter="group: head; collidesWith: box" follow-camera position="0 0 0"
@@ -528,15 +528,11 @@
                     //store our textures in an object
                     scene.renderer.initTexture(texture)
                     cubemapTextures[textureInfo.name] = texture;
-                    // if(textureInfo.name == "first"){
-                    //     console.log("ajasdkjhasd")
-                    //     setSceneBackgroundTexture("first")
-                    // }
-
+              
                     //Giving each texture a global variable so we can access it in our cubemap component. I do not know the best way to pass a texture to an A-Frame component so this was a quick and dirty solution.
                     window[textureInfo.name] = texture;
 
-                    console.log("Texture loaded: ", textureInfo.name, index);
+                    // console.log("Texture loaded: ", textureInfo.name, index);
                     //add the cubemap component to our interactive skybox ui
                     skyboxes[textureInfo.name].setAttribute("cubemap", "edgeLength: 5; textureGlobalVariable: " + textureInfo.name);
                     //give it a rigidbody
@@ -585,9 +581,9 @@
     }
 
     const textureLoader = new THREE.TextureLoader();
-    console.log("loading texture", textureLoader)
+    // console.log("loading texture", textureLoader)
     textureLoader.load(`${cdnPath}/first.jpg`, (texture) => {
-        console.log("360 texture loaded", texture)
+        // console.log("360 texture loaded", texture)
         texture.mapping = THREE.EquirectangularReflectionMapping;
 
         scene.object3D.background = texture;
@@ -679,11 +675,9 @@
             widgets[i].object3D.el.object3D.children[1].material = material
             widgets[i].addEventListener('mouseenter', function () {
                 showHighlight(widgets[i])
-                console.log("asdasdasd")
             })
             widgets[i].addEventListener('mouseleave', function () {
                 hideHighlight(widgets[i])
-                console.log("asdasdasd")
 
             })
         }
@@ -696,12 +690,12 @@
 
     function showHighlight(obj) {
 
-        console.log(obj.object3D.el.object3D.children[1].material.uniforms.u_highlight.value = true)
+        // console.log(obj.object3D.el.object3D.children[1].material.uniforms.u_highlight.value = true)
 
     }
 
     function hideHighlight(obj) {
-        console.log(obj.object3D.el.object3D.children[1].material.uniforms.u_highlight.value = false)
+        // console.log(obj.object3D.el.object3D.children[1].material.uniforms.u_highlight.value = false)
     }
 
 
