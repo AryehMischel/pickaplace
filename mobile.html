@@ -610,13 +610,8 @@
 
 
     function scroll3D() {
-        console.log("scrolling cubes")
         const scrollTop = event.target.scrollTop;
         const scrollLeft = event.target.scrollLeft;
-        console.log('Scroll Top:', scrollTop);
-        console.log('Scroll Left:', scrollLeft);
-        console.log("box offset", boxesXOffset)
-        console.log("new x", -scrollLeft * 0.01)
         box.object3D.position.x = boxesXOffset + (-scrollLeft * 0.01);
     }
 
@@ -624,9 +619,7 @@
         console.log("centering")
         // scrollContainer.removeEventListener('scroll', scroll3D);
 
-        // console.log("centering")
         const container = document.getElementById('dom-overlay');
-        // console.log(container)
         const contentWidth = container.scrollWidth;
         const containerWidth = container.clientWidth;
 
@@ -662,7 +655,6 @@
 
         // Get the list of objects to test for intersections
         const objects = Array.from(scene.querySelectorAll('a-box')).map(box => box.object3D);
-        // console.log('Objects:', objects);
 
         // Check if objects are correctly selected
         if (objects.length === 0) {
@@ -674,13 +666,10 @@
         const intersects = raycaster.intersectObjects(objects, true);
 
         if (intersects.length > 0) {
-            console.log('Hit:', intersects[0].object.el);
             // Change the color of the intersected object
-            // intersects[0].object.el.setAttribute('color', getRandomColor());
             intersects[0].object.el.click();
 
         } else {
-            // console.log('No hits');
         }
     });
 
