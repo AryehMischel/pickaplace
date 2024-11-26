@@ -19,7 +19,6 @@ AFRAME.registerComponent("observe", {
         
          async function onchange(){
              el.removeEventListener("componentchanged", onchange); 
-             console.log(el.id)
              await sleep(100);
           /*  loadNext();  */
              scene.emit("next", true);

@@ -9,7 +9,6 @@ AFRAME.registerComponent("on-collision", {
 
 
         el.addEventListener('collisions',  (e)=> {
-            console.log("collision detected");
             e.detail.els[0].emit("set", true);
           
             // console.log(box);
@@ -26,7 +25,6 @@ AFRAME.registerComponent("out-of-bounds-collision", {
         let el = this.el;
 
         el.addEventListener('collisions',  (e)=> {
-            console.log("out of bounds");
             e.detail.els[0].emit("reset");
 
         });

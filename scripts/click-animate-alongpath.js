@@ -21,7 +21,6 @@ AFRAME.registerComponent('click-animate-alongpath', {
             audioplayer.components.sound.stopSound();
             audioplayer.setAttribute("sound", "src: #clip" + data);
             audioplayer.emit("play");
-            console.log(data)
 
         });
 

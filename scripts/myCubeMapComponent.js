@@ -38,19 +38,6 @@ AFRAME.registerComponent("cubemap", {
     this.cubeTexture.encoding = THREE.sRGBEncoding;
     this.cubeTexture.minFilter = THREE.LinearMipmapLinearFilter;
     this.cubeTexture.magFilter = THREE.LinearFilter;
-    // Check if the texture is loaded correctly
-    // if (!this.cubeTexture) {
-    //   console.error("Cube texture is undefined.");
-    //   return;
-    // }
-
-    // // Check the type of the texture
-    // console.log("Texture type:", this.cubeTexture.constructor.name);
-
-    // // Ensure the texture is a CubeTexture
-    // if (!(this.cubeTexture instanceof THREE.CubeTexture)) {
-    //   console.error("The provided texture is not a CubeTexture.");
-    //   // return;
 
     // entity data
     const el = this.el;
@@ -91,7 +78,6 @@ AFRAME.registerComponent("cubemap", {
     }
 
     // Log the uniforms to see what properties are available
-    // console.log("Uniforms after cloning:", this.material.uniforms);
     // Directly set the envMap uniform if it exists
     if (this.material.uniforms.envMap) {
       this.material.uniforms.envMap.value = this.cubeTexture;
@@ -114,10 +100,7 @@ AFRAME.registerComponent("cubemap", {
     } 
 
     // Log the material to check if envMap is defined
-    // console.log("Material after defining envMap:", this.material);
-
     // Assume a valid cube texture is provided as `cubeTexture`
-    // console.log(this.material.uniforms["tCube"]); // This should not be undefined
 
   
 
