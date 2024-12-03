@@ -21,20 +21,15 @@
                 // camera.near = 0.5
                 // camera.position.z = 5
 
+
                 function onWindowResize() {
-                    portrait = window.innerHeight > window.innerWidth ? true : false;
-
-                    // console.log(displayedScrollingIndicator, "displayedScrollingIndicator")
-                    // console.log(portrait, "portrait")
-                    // console.log(sceneAnimationFinished, "sceneAnimationFinished")
-
-
+                    const portrait = window.innerHeight > window.innerWidth;
 
                     if (!displayedScrollingIndicator && portrait && sceneAnimationFinished) {
-                        playAnimationTwice()
-                        displayedScrollingIndicator = true
-                    } else if (!portrait && !animation.isPaused) {
-                        animation.stop()
+                        playAnimationTwice();
+                        displayedScrollingIndicator = true;
+                    } else if (!portrait && animation && !animation.isPaused) {
+                        animation.stop();
                     }
 
                     if (!camera) {
@@ -42,43 +37,32 @@
                         return;
                     }
 
-                    if (typeof setEntityPositionWithScreenSpace == 'undefined') {
-                        console.error('setEntityPositionWithScreenSpace');
+                    if (typeof setEntityPositionWithScreenSpace === 'undefined') {
+                        console.error('setEntityPositionWithScreenSpace not found');
                         return;
                     }
-                    if (typeof centerScrollbar == 'undefined') {
+
+                    if (typeof centerScrollbar === 'undefined') {
                         console.error('centerScrollbar not found');
                         return;
                     }
 
-                    // renderer.setSize(window.innerWidth, window.innerHeight);
                     camera.aspect = window.innerWidth / window.innerHeight;
                     camera.updateProjectionMatrix();
 
-                    setEntityPositionWithScreenSpace(-0.5, -0.6, 5)
+                    setEntityPositionWithScreenSpace(-0.5, -0.6, 5);
                     centerScrollbar();
-
-                    // updateCubePosition();
-                    // centerScrollbar()
                 }
 
-                window.addEventListener('resize', onWindowResize, false);
+                window.addEventListener('resize', onWindowResize);
 
                 if (typeof setEntityPositionWithScreenSpace !== 'undefined') {
-
-
-
                     console.log('setting initial position');
 
                     setTimeout(() => {
                         setEntityPositionWithScreenSpace(-0.5, -0.6, 5);
                         box.setAttribute('visible', true);
                     }, 10);
-
-
-
-                    //setEntityPositionWithScreenSpace(-0.5, -0.6, 5)
-
                 }
 
 
@@ -172,9 +156,10 @@
 
 
     <style>
-        html{
-  scroll-behavior: smooth;
-}
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Exo 2', sans-serif;
             display: flex;
@@ -602,7 +587,7 @@
 
     function setEntityPositionWithScreenSpaceCoordinates(mouseX, mouseY, distance, entity) {
 
-      //to do
+        //to do
     }
 
 
