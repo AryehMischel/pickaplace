@@ -72,7 +72,7 @@
 
                     setTimeout(() => {
                         setEntityPositionWithScreenSpace(-0.5, -0.6, 5);
-                        box.setAttribute('visible', true);
+                        //box.setAttribute('visible', true);
                     }, 10);
 
 
@@ -139,6 +139,8 @@
                     await sleep(1000)
                     text.setAttribute("visible", "false")
                     sceneAnimationFinished = true;
+                    box.object3D.visible = true;
+                    createEnvironmentMaps()
                     // setEntityPositionWithScreenSpaceCoordinates(0, 0.5, 5, text)
                     // setEntityPositionWithScreenSpaceCoordinates(0, 0.25, 5, text2)
                     if (portrait) {
@@ -172,9 +174,10 @@
 
 
     <style>
-        html{
-  scroll-behavior: smooth;
-}
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Exo 2', sans-serif;
             display: flex;
@@ -434,13 +437,133 @@
         `${cdnPath}/forestMap/nz.webp`
     ];
 
-    const mountainCubeMaterials = mountainMapURLS.map(url => new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(url) }));
-    const snowCubeMaterials = snowMapURLS.map(url => new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(url) }));
-    const skyCubeMaterials = skyMapURLS.map(url => new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(url) }));
-    const desertCubeMaterials = desertMapURLS.map(url => new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(url) }));
-    const forestCubeMaterials = forestMapURLS.map(url => new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(url) }));
+
+    const mountainMapURLS_MediumQuality = [
+        `${cdnPath}/mountainMaps/MQ/px.webp`,
+        `${cdnPath}/mountainMaps/MQ/nx.webp`,
+        `${cdnPath}/mountainMaps/MQ/py.webp`,
+        `${cdnPath}/mountainMaps/MQ/ny.webp`,
+        `${cdnPath}/mountainMaps/MQ/pz.webp`,
+        `${cdnPath}/mountainMaps/MQ/nz.webp`
+    ];
+
+    const snowMapURLS_MediumQuality = [
+        `${cdnPath}/snowyMap/MQ/px.webp`,
+        `${cdnPath}/snowyMap/MQ/nx.webp`,
+        `${cdnPath}/snowyMap/MQ/py.webp`,
+        `${cdnPath}/snowyMap/MQ/ny.webp`,
+        `${cdnPath}/snowyMap/MQ/pz.webp`,
+        `${cdnPath}/snowyMap/MQ/nz.webp`
+    ];
+
+    const skyMapURLS_MediumQuality = [
+        `${cdnPath}/skyMaps/MQ/px.webp`,
+        `${cdnPath}/skyMaps/MQ/nx.webp`,
+        `${cdnPath}/skyMaps/MQ/py.webp`,
+        `${cdnPath}/skyMaps/MQ/ny.webp`,
+        `${cdnPath}/skyMaps/MQ/pz.webp`,
+        `${cdnPath}/skyMaps/MQ/nz.webp`
+    ];
+
+    const desertMapURLS_MediumQuality = [
+        `${cdnPath}/desertMap/MQ/px.webp`,
+        `${cdnPath}/desertMap/MQ/nx.webp`,
+        `${cdnPath}/desertMap/MQ/py.webp`,
+        `${cdnPath}/desertMap/MQ/ny.webp`,
+        `${cdnPath}/desertMap/MQ/pz.webp`,
+        `${cdnPath}/desertMap/MQ/nz.webp`
+    ];
+
+    const forestMapURLS_MediumQuality = [
+        `${cdnPath}/forestMap/MQ/px.webp`,
+        `${cdnPath}/forestMap/MQ/nx.webp`,
+        `${cdnPath}/forestMap/MQ/py.webp`,
+        `${cdnPath}/forestMap/MQ/ny.webp`,
+        `${cdnPath}/forestMap/MQ/pz.webp`,
+        `${cdnPath}/forestMap/MQ/nz.webp`
+    ];
+
+
+    const mountainMapURLS_HighQuality = [
+        `${cdnPath}/mountainMaps/HQ/px.webp`,
+        `${cdnPath}/mountainMaps/HQ/nx.webp`,
+        `${cdnPath}/mountainMaps/HQ/py.webp`,
+        `${cdnPath}/mountainMaps/HQ/ny.webp`,
+        `${cdnPath}/mountainMaps/HQ/pz.webp`,
+        `${cdnPath}/mountainMaps/HQ/nz.webp`
+    ];
+
+    const snowMapURLS_HighQuality = [
+        `${cdnPath}/snowyMap/HQ/px.webp`,
+        `${cdnPath}/snowyMap/HQ/nx.webp`,
+        `${cdnPath}/snowyMap/HQ/py.webp`,
+        `${cdnPath}/snowyMap/HQ/ny.webp`,
+        `${cdnPath}/snowyMap/HQ/pz.webp`,
+        `${cdnPath}/snowyMap/HQ/nz.webp`
+    ];
+
+    const skyMapURLS_HighQuality = [
+        `${cdnPath}/skyMaps/HQ/px.webp`,
+        `${cdnPath}/skyMaps/HQ/nx.webp`,
+        `${cdnPath}/skyMaps/HQ/py.webp`,
+        `${cdnPath}/skyMaps/HQ/ny.webp`,
+        `${cdnPath}/skyMaps/HQ/pz.webp`,
+        `${cdnPath}/skyMaps/HQ/nz.webp`
+    ];
+
+    const desertMapURLS_HighQuality = [
+        `${cdnPath}/desertMap/HQ/px.webp`,
+        `${cdnPath}/desertMap/HQ/nx.webp`,
+        `${cdnPath}/desertMap/HQ/py.webp`,
+        `${cdnPath}/desertMap/HQ/ny.webp`,
+        `${cdnPath}/desertMap/HQ/pz.webp`,
+        `${cdnPath}/desertMap/HQ/nz.webp`
+    ];
+
+    const forestMapURLS_HighQuality = [
+        `${cdnPath}/forestMap/HQ/px.webp`,
+        `${cdnPath}/forestMap/HQ/nx.webp`,
+        `${cdnPath}/forestMap/HQ/py.webp`,
+        `${cdnPath}/forestMap/HQ/ny.webp`,
+        `${cdnPath}/forestMap/HQ/pz.webp`,
+        `${cdnPath}/forestMap/HQ/nz.webp`
+    ];
+
+
+
+
+
+    var mountainCubeMaterials;
+    var snowCubeMaterials;
+    var skyCubeMaterials;
+    var desertCubeMaterials;
+    var forestCubeMaterials;
+
+    var mountainCubeTextures;
+    var snowCubeTextures;
+    var skyCubeTextures;
+    var desertCubeTextures;
+    var forestCubeTextures;
 
     scene.addEventListener('loaded', async function () {
+        const loadTexture = (url) => {
+            return new Promise((resolve, reject) => {
+                new THREE.TextureLoader().load(url, resolve, undefined, reject);
+            });
+        };
+
+        const loadMaterials = async (urls, textureParent) => {
+            const textures = await Promise.all(urls.map(loadTexture));
+            textureParent = textures;
+            return textures.map(texture => new THREE.MeshBasicMaterial({ map: texture }));
+        };
+
+
+        mountainCubeMaterials = await loadMaterials(mountainMapURLS, mountainCubeTextures);
+        snowCubeMaterials = await loadMaterials(snowMapURLS, snowCubeTextures);
+        skyCubeMaterials = await loadMaterials(skyMapURLS, skyCubeTextures);
+        desertCubeMaterials = await loadMaterials(desertMapURLS, desertCubeTextures);
+        forestCubeMaterials = await loadMaterials(forestMapURLS, forestCubeTextures);
 
         mountainCube.object3D.children[0].material = mountainCubeMaterials;
         skyCube.object3D.children[0].material = skyCubeMaterials;
@@ -482,64 +605,105 @@
 
 <!-- load in images and create textures-->
 <script>
-    let ktx2Loader;
+    // let ktx2Loader;
 
     let cubemapTextures = new Object()
+    // cubemapTextures['mountain'] = mountainCubeMaterials
+    // cubemapTextures['desert'] = desertCubeMaterials
+    // cubemapTextures['snow'] = snowCubeMaterials
+    // cubemapTextures['forest'] = forestCubeMaterials
+    // cubemapTextures['sky'] = skyCubeMaterials
 
-    let compressedCubeTextureURLs = [
-        { name: "mountain", url: `${cdnPath}/mountain-cubemap.ktx2` },
-        { name: "desert", url: `${cdnPath}/desert-cubemap.ktx2` },
-        { name: "snow", url: `${cdnPath}/snow-cubemap.ktx2` },
-        { name: "forest", url: `${cdnPath}/first-cubemap.ktx2` },
-        { name: "sky", url: `${cdnPath}/sky-cubemap.ktx2` },
-
-    ];
-
-    //load in landing page background 360 image
-    const textureLoader = new THREE.TextureLoader();
-    textureLoader.load(`${cdnPath}/first.jpg`, (texture) => {
-        texture.mapping = THREE.EquirectangularReflectionMapping;
-        scene.object3D.background = texture;
-        // set scene rotation
-        scene.setAttribute("rotation", "0 90 0")
-
-    });
+    function createEnvironmentMaps(){
+        const loader = new THREE.CubeTextureLoader();
 
 
 
-    scene.addEventListener('loaded', async function () {
-        const loadPromises = compressedCubeTextureURLs.map((textureInfo, index) => {
-            return ktx2Loader.loadAsync(textureInfo.url)
-                .then((texture) => {
-                    //store our textures in an object
-                    scene.renderer.initTexture(texture)
-                    cubemapTextures[textureInfo.name] = texture;
-                    //Giving each texture a global variable so we can access it in our cubemap component. I do not know the best way to pass a texture to an A-Frame component so this was a quick and dirty solution.
-                    window[textureInfo.name] = texture;
-                    console.log("texture", texture)
+        // Load the cube textures
+        // cubemapTextures['mountain'] = loader.load(skyMapURLS_HighQuality);
+        // cubemapTextures['desert'] = loader.load(desertMapURLS_HighQuality);
+        // cubemapTextures['snow'] = loader.load(snowMapURLS_HighQuality);
+        cubemapTextures['forest'] = loader.load(forestMapURLS_MediumQuality);
+        // cubemapTextures['sky'] = loader.load(skyMapURLS_HighQuality);
+        cubemapTextures['forest'].encoding = THREE.sRGBEncoding; // or THREE.LinearEncoding
+        // Assuming you have a reference to your scene
+        const scene = AFRAME.scenes[0].object3D;
+        scene.background = cubemapTextures['forest'];
+    }
 
-                    const material = new THREE.MeshBasicMaterial({
-                        envMap: texture,
-                        // side: THREE.BackSide // Ensure the texture is visible from inside the cube
-                    });
+    // const createEnvironmentMap = (urls) => {
+    //     const loader = new THREE.TextureLoader();
+    //     const materials = urls.map(url => new THREE.MeshBasicMaterial({ map: loader.load(url), side: THREE.BackSide }));
+    //     return new THREE.Mesh(new THREE.BoxGeometry(100, 100, 100), materials);
+    // };
 
-                    //add the cubemap component to our interactive skybox ui
-                    // skyboxes[textureInfo.name].getObject3D('mesh').material = material;
-                    //skyboxes[textureInfo.name].setAttribute("cubemap", "edgeLength: 5; textureGlobalVariable: " + textureInfo.name);
+    // const environmentMap = createEnvironmentMap([
+    //     `${cdnPath}/environmentMaps/px.webp`,
+    //     `${cdnPath}/environmentMaps/nx.webp`,
+    //     `${cdnPath}/environmentMaps/py.webp`,
+    //     `${cdnPath}/environmentMaps/ny.webp`,
+    //     `${cdnPath}/environmentMaps/pz.webp`,
+    //     `${cdnPath}/environmentMaps/nz.webp`
+    // ]);
+
+    // scene.object3D.add(environmentMap);
 
 
 
-                })
-                .catch((error) => {
-                    console.error('An error happened', error);
-                });
-        });
+    // let compressedCubeTextureURLs = [
+    //     { name: "mountain", url: `${cdnPath}/mountain-cubemap.ktx2` },
+    //     { name: "desert", url: `${cdnPath}/desert-cubemap.ktx2` },
+    //     { name: "snow", url: `${cdnPath}/snow-cubemap.ktx2` },
+    //     { name: "forest", url: `${cdnPath}/first-cubemap.ktx2` },
+    //     { name: "sky", url: `${cdnPath}/sky-cubemap.ktx2` },
 
-        await Promise.all(loadPromises);
-        console.log("All images loaded");
-        scene.setAttribute("xr-mode-ui", "enabled: true");
-        console.log(performance.now());
-    });
+    // ];
+
+    // //load in landing page background 360 image
+    // const textureLoader = new THREE.TextureLoader();
+    // textureLoader.load(`${cdnPath}/first.jpg`, (texture) => {
+    //     texture.mapping = THREE.EquirectangularReflectionMapping;
+    //     scene.object3D.background = texture;
+    //     // set scene rotation
+    //     scene.setAttribute("rotation", "0 90 0")
+
+    // });
+
+
+
+    // scene.addEventListener('loaded', async function () {
+    //     const loadPromises = compressedCubeTextureURLs.map((textureInfo, index) => {
+    //         return ktx2Loader.loadAsync(textureInfo.url)
+    //             .then((texture) => {
+    //                 //store our textures in an object
+    //                 scene.renderer.initTexture(texture)
+    //                 cubemapTextures[textureInfo.name] = texture;
+    //                 //Giving each texture a global variable so we can access it in our cubemap component. I do not know the best way to pass a texture to an A-Frame component so this was a quick and dirty solution.
+    //                 window[textureInfo.name] = texture;
+    //                 console.log("texture", texture)
+
+    //                 const material = new THREE.MeshBasicMaterial({
+    //                     envMap: texture,
+    //                     // side: THREE.BackSide // Ensure the texture is visible from inside the cube
+    //                 });
+
+    //                 //add the cubemap component to our interactive skybox ui
+    //                 // skyboxes[textureInfo.name].getObject3D('mesh').material = material;
+    //                 //skyboxes[textureInfo.name].setAttribute("cubemap", "edgeLength: 5; textureGlobalVariable: " + textureInfo.name);
+
+
+
+    //             })
+    //             .catch((error) => {
+    //                 console.error('An error happened', error);
+    //             });
+    //     });
+
+    //     await Promise.all(loadPromises);
+    //     console.log("All images loaded");
+    //     scene.setAttribute("xr-mode-ui", "enabled: true");
+    //     console.log(performance.now());
+    // });
 
 
     let firstCallofSetScene = true;
@@ -602,7 +766,7 @@
 
     function setEntityPositionWithScreenSpaceCoordinates(mouseX, mouseY, distance, entity) {
 
-      //to do
+        //to do
     }
 
 
