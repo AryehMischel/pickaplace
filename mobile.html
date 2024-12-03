@@ -296,7 +296,7 @@
 
 <body>
     <a-scene webxr="optionalFeatures: dom-overlay; overlayElement: #overlay" set-scene="" renderer="
-    colorManagement: false;
+    colorManagement: true;
     antialias: true;
     highRefreshRate: true;
     anisotropy: 1;
@@ -554,7 +554,13 @@
 
         const loadMaterials = async (urls, textureParent) => {
             const textures = await Promise.all(urls.map(loadTexture));
-            textureParent = textures;
+            textures.forEach(texture => {
+                console.log("fixing textures")
+            texture.colorSpace = THREE.SRGBColorSpace; // Apply gamma correction
+        });
+   
+            
+
             return textures.map(texture => new THREE.MeshBasicMaterial({ map: texture }));
         };
 
@@ -621,8 +627,8 @@
         cubemapTextures['mountain'] = loader.load(mountainMapURLS_MediumQuality);
         cubemapTextures['sky'] = loader.load(skyMapURLS_MediumQuality);
 
-        cubemapTextures['forest'].encoding = THREE.sRGBEncoding; // or THREE.LinearEncoding
-        cubemapTextures['mountain'].encoding = THREE.LinearEncoding; // or THREE.LinearEncoding
+        cubemapTextures['forest'].encoding = THREE.LinearEncoding; // or THREE.LinearEncoding
+        cubemapTextures['mountain'].encoding = THREE.LinearEncoding;
         cubemapTextures['sky'].encoding = THREE.sRGBEncoding; // or THREE.LinearEncoding
 
 
