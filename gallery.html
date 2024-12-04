@@ -4,6 +4,13 @@
 <head>
     <title> Pick-a-place 360 Gallery </title>
     <meta name="description" content="Hello, WebVR! - A-Frame">
+
+
+    <!-- if mobile switch to /mobile interface-->
+
+
+
+
     <!-- <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script> -->
     <script src="./scripts/AFrameComponents/aframe-master.min.js"></script>
     <script>
@@ -32,7 +39,6 @@
             },
             loadClips: function () {
                 const clips = this.data.clips.split(' ');
-                // console.log("clips", clips);
                 for (let i = 0; i < clips.length; i++) {
                     const clipId = clips[i];
                     const clipElement = document.getElementById(clipId);
@@ -40,7 +46,6 @@
                         this.clips[clipId] = clipElement;
                     }
                 }
-                // console.log("loaded clips", this.clips);
             },
             playClip: function (clipId) {
                 const clip = this.clips[clipId];
@@ -70,8 +75,7 @@
         });
     </script>
 
-    
-<script> console.log("loading", performance.now())</script>
+
 
 
 </head>
@@ -423,7 +427,7 @@
             <a-box id="shelf5" mixin="shelf-mix" position="0.5 1.02 -1.42"></a-box> <!--  vr position="0.6 1.1 -0.2" -->
         </a-entity>
 
-        <a-entity id="i" ></a-entity>
+        <a-entity id="i"></a-entity>
 
         <a-box id="cameraCollider" visible="false" static-body physics-collider on-collision
             collision-filter="group: head; collidesWith: box" follow-camera position="0 0 0"
@@ -492,18 +496,16 @@
 
 
     scene.addEventListener('loaded', async function () {
-        console.log(performance.now());
         const loadPromises = compressedCubeTextureURLs.map((textureInfo, index) => {
             return ktx2Loader.loadAsync(textureInfo.url)
                 .then((texture) => {
                     //store our textures in an object
                     scene.renderer.initTexture(texture)
                     cubemapTextures[textureInfo.name] = texture;
-              
+
                     //Giving each texture a global variable so we can access it in our cubemap component. I do not know the best way to pass a texture to an A-Frame component so this was a quick and dirty solution.
                     window[textureInfo.name] = texture;
 
-                    // console.log("Texture loaded: ", textureInfo.name, index);
                     //add the cubemap component to our interactive skybox ui
                     skyboxes[textureInfo.name].setAttribute("cubemap", "edgeLength: 5; textureGlobalVariable: " + textureInfo.name);
                     //give it a rigidbody
@@ -526,9 +528,8 @@
         });
 
         await Promise.all(loadPromises);
-        console.log("All images loaded");
+        console.log("All images loaded", performance.now());
         scene.setAttribute("xr-mode-ui", "enabled: true");
-        console.log(performance.now());
     });
 
 
@@ -552,9 +553,7 @@
     }
 
     const textureLoader = new THREE.TextureLoader();
-    // console.log("loading texture", textureLoader)
     textureLoader.load(`${cdnPath}/first.jpg`, (texture) => {
-        // console.log("360 texture loaded", texture)
         texture.mapping = THREE.EquirectangularReflectionMapping;
 
         scene.object3D.background = texture;
@@ -661,12 +660,10 @@
 
     function showHighlight(obj) {
 
-        // console.log(obj.object3D.el.object3D.children[1].material.uniforms.u_highlight.value = true)
 
     }
 
     function hideHighlight(obj) {
-        // console.log(obj.object3D.el.object3D.children[1].material.uniforms.u_highlight.value = false)
     }
 
 
@@ -684,15 +681,16 @@
 <script src="https://unpkg.com/aframe-event-set-component@^4.1.1/dist/aframe-event-set-component.min.js"></script>
 <script src="./scripts/AFrameComponents/super-hands.min.js"></script>
 <script src="https://unpkg.com/aframe-physics-extras@0.1.2/dist/aframe-physics-extras.min.js"></script>
-<script src="https://unpkg.com/aframe-aabb-collider-component@3.1.0/dist/aframe-aabb-collider-component.min.js"></script>
+<script
+    src="https://unpkg.com/aframe-aabb-collider-component@3.1.0/dist/aframe-aabb-collider-component.min.js"></script>
 <script src="./scripts/landing-animation.js" defer></script>
 <script src="./scripts/observer.js" defer></script>
 <script src="./scripts/toggle-visible.js" defer></script>
 <script src="./scripts/icon-toggle.js" defer></script>
 <script src="./scripts/scene-controller.js" defer></script>
 <script src="./scripts/respawn-cube.js" defer></script>
-<script src="./scripts/on-collision.js"defer></script>
-<script src="./scripts/oncollision-setlayer.js"defer></script>
-<script src="./scripts/follow-camera.js"defer></script>
-<script src="./scripts/audio.js"defer></script>
-<script src="./scripts/click-animate-alongpath.js"defer></script>
+<script src="./scripts/on-collision.js" defer></script>
+<script src="./scripts/oncollision-setlayer.js" defer></script>
+<script src="./scripts/follow-camera.js" defer></script>
+<script src="./scripts/audio.js" defer></script>
+<script src="./scripts/click-animate-alongpath.js" defer></script>
